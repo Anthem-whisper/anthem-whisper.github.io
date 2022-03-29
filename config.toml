@@ -955,7 +955,7 @@ uglyURLs = false
     fontFamilyBody = "'Open Sans', 'Noto Sans SC', sans-serif"
 
     # 网络字体链接
-    fontsLink = "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&family=Nunito:ital,wght@0,300;0,400;1,300;1,400&family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&family=Source+Code+Pro:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+    fontsLink = "https://fonts.font.im/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&family=Nunito:ital,wght@0,300;0,400;1,300;1,400&family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&family=Source+Code+Pro:ital,wght@0,400;0,500;1,400;1,500&display=swap"
     # 说明：要想读者一定体验到你设置的字体，最好
     #      采用网络字体。MemE 主题目前仅支持
     #      Google Fonts 的链接，请前往
