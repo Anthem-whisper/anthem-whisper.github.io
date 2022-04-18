@@ -2,7 +2,7 @@
 # 站点配置
 
 baseURL = "https://anthem-whisper.github.io/"
-title = "wh1sper's Blog"
+title = "wh1sper"
 languageCode = "zh-CN"
 hasCJKLanguage = true
 # 版权信息（支持 Markdown）
@@ -419,7 +419,7 @@ uglyURLs = false
     # 列表页面
 
     # 宽度
-    listWidth = 45
+    listWidth = 46
     # 说明：如果留空（""），则用 42 作为默认值
     #      单位：em
 
@@ -934,7 +934,7 @@ uglyURLs = false
     #      SVG，则可留空（""）品牌栏字体。
 
     # 品牌栏
-    fontFamilySiteBrand = "'Nunito', sans-serif"
+    fontFamilySiteBrand = "'Satisfy', sans-serif"
     # 菜单栏
     fontFamilyMenu = "'Nunito', sans-serif"
     # 文章标题、文章副标题、列表标题、列表的年份和月份标题、相关文章标题、文章上下篇标题、表格的表头、定义列表中的术语
@@ -955,7 +955,7 @@ uglyURLs = false
     fontFamilyBody = "'Open Sans', 'Noto Sans SC', sans-serif"
 
     # 网络字体链接
-    fontsLink = "https://fonts.font.im/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&family=Nunito:ital,wght@0,300;0,400;1,300;1,400&family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&family=Source+Code+Pro:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+    fontsLink = "https://fonts.font.im/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&family=Nunito:ital,wght@0,300;0,400;1,300;1,400&family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&family=Source+Code+Pro:ital,wght@0,400;0,500;1,400;1,500&family=Pacifico&family=Satisfy&display=swap"
     # 说明：要想读者一定体验到你设置的字体，最好
     #      采用网络字体。MemE 主题目前仅支持
     #      Google Fonts 的链接，请前往

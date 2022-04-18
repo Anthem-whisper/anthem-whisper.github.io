@@ -7,7 +7,7 @@
 
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>wh1sper&#39;s Blog</title>
+        <title>wh1sper</title>
         <link>https://anthem-whisper.github.io/</link>
         <description>wh1sper的个人博客。web安全的学习笔记，web安全研究，CTF的writeup。</description>
         <generator>Hugo 0.90.1 https://gohugo.io/</generator>
@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Tue, 29 Mar 2022 11:26:11 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 18 Apr 2022 14:28:48 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://anthem-whisper.github.io/rss.xml" />
         
