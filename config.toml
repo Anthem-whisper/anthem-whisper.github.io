@@ -1,7 +1,7 @@
 ##########################################
 # 站点配置
 
-baseURL = "https://anthem-whisper.github.io/"
+baseURL = "https://blog.wh1sper.com/"
 title = "wh1sper"
 languageCode = "zh-CN"
 hasCJKLanguage = true
