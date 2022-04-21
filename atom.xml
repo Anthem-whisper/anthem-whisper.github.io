@@ -4,13 +4,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">wh1sper</title>
     <subtitle type="html">wh1sper的个人博客。web安全的学习笔记，web安全研究，CTF的writeup。</subtitle>
-    <updated>2022-04-18T14:28:48&#43;08:00</updated>
-    <id>https://anthem-whisper.github.io/</id>
-    <link rel="alternate" type="text/html" href="https://anthem-whisper.github.io/" />
-    <link rel="self" type="application/atom&#43;xml" href="https://anthem-whisper.github.io/atom.xml" />
+    <updated>2022-04-21T15:28:49&#43;08:00</updated>
+    <id>https://blog.wh1sper.com/</id>
+    <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/" />
+    <link rel="self" type="application/atom&#43;xml" href="https://blog.wh1sper.com/atom.xml" />
     <author>
             <name>wh1sper</name>
-            <uri>https://anthem-whisper.github.io/</uri>
+            <uri>https://blog.wh1sper.com/</uri>
             
                 <email>pwned@qq.com</email>
             </author>
@@ -18,13 +18,13 @@
     <generator uri="https://gohugo.io/" version="0.90.1">Hugo</generator>
         <entry>
             <title type="text">Jolokia读写文件新姿势</title>
-            <link rel="alternate" type="text/html" href="https://anthem-whisper.github.io/posts/jolokia%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E6%96%B0%E5%A7%BF%E5%8A%BF/" />
-            <id>https://anthem-whisper.github.io/posts/jolokia%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E6%96%B0%E5%A7%BF%E5%8A%BF/</id>
+            <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/jolokia%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E6%96%B0%E5%A7%BF%E5%8A%BF/" />
+            <id>https://blog.wh1sper.com/posts/jolokia%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E6%96%B0%E5%A7%BF%E5%8A%BF/</id>
             <updated>2022-03-29T10:50:56&#43;08:00</updated>
             <published>2021-12-01T13:11:00&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
-                    <uri>https://anthem-whisper.github.io/</uri>
+                    <uri>https://blog.wh1sper.com/</uri>
                     <email>pwned@qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">之前看到一个Jolokia新的利用姿势： SSRF to RCE with Jolokia and MBeans 这篇文章介绍了在SSRF只能GET请求的场景下，Jolokia一些读写文件，加载.so文件的利用方法 我参考这篇文章，结合了之前APISandbox……</summary>
@@ -78,7 +78,7 @@
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/categories/note/" term="note" label="note" />
+                                <category scheme="https://blog.wh1sper.com/categories/note/" term="note" label="note" />
                             
                         
                     
@@ -88,13 +88,13 @@
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/java/" term="Java" label="Java" />
+                                <category scheme="https://blog.wh1sper.com/tags/java/" term="Java" label="Java" />
                             
                         
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/jolokia/" term="Jolokia" label="Jolokia" />
+                                <category scheme="https://blog.wh1sper.com/tags/jolokia/" term="Jolokia" label="Jolokia" />
                             
                         
                     
@@ -104,13 +104,13 @@
     
         <entry>
             <title type="text">Shiro反序列化的终点cbu和no Cc利用链</title>
-            <link rel="alternate" type="text/html" href="https://anthem-whisper.github.io/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%BB%88%E7%82%B9cbu%E5%92%8Cno-cc%E5%88%A9%E7%94%A8%E9%93%BE/" />
-            <id>https://anthem-whisper.github.io/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%BB%88%E7%82%B9cbu%E5%92%8Cno-cc%E5%88%A9%E7%94%A8%E9%93%BE/</id>
+            <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%BB%88%E7%82%B9cbu%E5%92%8Cno-cc%E5%88%A9%E7%94%A8%E9%93%BE/" />
+            <id>https://blog.wh1sper.com/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E7%BB%88%E7%82%B9cbu%E5%92%8Cno-cc%E5%88%A9%E7%94%A8%E9%93%BE/</id>
             <updated>2022-03-29T10:50:56&#43;08:00</updated>
             <published>2021-10-04T23:24:42&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
-                    <uri>https://anthem-whisper.github.io/</uri>
+                    <uri>https://blog.wh1sper.com/</uri>
                     <email>pwned@qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前置知识 学习CommonsBeanutils之前应该知道 javaBean，可以看《Java简单特性》也可以看这里 有关BeanComparator的介绍 TemplatesImpl gadget，前两个方法是public TemplatesImpl#getOutputProperties() -&amp;gt; TemplatesImpl#newTransformer() -&amp;gt; TemplatesImpl#getTransletInstance()……</summary>
@@ -407,7 +407,7 @@
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/categories/note/" term="note" label="note" />
+                                <category scheme="https://blog.wh1sper.com/categories/note/" term="note" label="note" />
                             
                         
                     
@@ -417,19 +417,19 @@
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/shiro/" term="Shiro" label="Shiro" />
+                                <category scheme="https://blog.wh1sper.com/tags/shiro/" term="Shiro" label="Shiro" />
                             
                         
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/java/" term="Java" label="Java" />
+                                <category scheme="https://blog.wh1sper.com/tags/java/" term="Java" label="Java" />
                             
                         
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" term="反序列化" label="反序列化" />
+                                <category scheme="https://blog.wh1sper.com/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" term="反序列化" label="反序列化" />
                             
                         
                     
@@ -439,13 +439,13 @@
     
         <entry>
             <title type="text">攻击Shiro思路和构造poc</title>
-            <link rel="alternate" type="text/html" href="https://anthem-whisper.github.io/posts/%E6%94%BB%E5%87%BBshiro%E6%80%9D%E8%B7%AF%E5%92%8C%E6%9E%84%E9%80%A0poc/" />
-            <id>https://anthem-whisper.github.io/posts/%E6%94%BB%E5%87%BBshiro%E6%80%9D%E8%B7%AF%E5%92%8C%E6%9E%84%E9%80%A0poc/</id>
+            <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/%E6%94%BB%E5%87%BBshiro%E6%80%9D%E8%B7%AF%E5%92%8C%E6%9E%84%E9%80%A0poc/" />
+            <id>https://blog.wh1sper.com/posts/%E6%94%BB%E5%87%BBshiro%E6%80%9D%E8%B7%AF%E5%92%8C%E6%9E%84%E9%80%A0poc/</id>
             <updated>2022-03-29T10:50:56&#43;08:00</updated>
             <published>2021-10-04T23:22:29&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
-                    <uri>https://anthem-whisper.github.io/</uri>
+                    <uri>https://blog.wh1sper.com/</uri>
                     <email>pwned@qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">攻击shiro思路 伪造加密过程 shiro在容器初始化的时候会实例化CookieRememberMeManager对象，并且设置加密解密方式 实例化时调用父类构造方法，设置加密方式为AES，并且设置key……</summary>
@@ -1075,7 +1075,7 @@ TrAXFilter#TrAXFilter()-&amp;gt;
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/categories/note/" term="note" label="note" />
+                                <category scheme="https://blog.wh1sper.com/categories/note/" term="note" label="note" />
                             
                         
                     
@@ -1085,19 +1085,19 @@ TrAXFilter#TrAXFilter()-&amp;gt;
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/shiro/" term="Shiro" label="Shiro" />
+                                <category scheme="https://blog.wh1sper.com/tags/shiro/" term="Shiro" label="Shiro" />
                             
                         
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/java/" term="Java" label="Java" />
+                                <category scheme="https://blog.wh1sper.com/tags/java/" term="Java" label="Java" />
                             
                         
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" term="反序列化" label="反序列化" />
+                                <category scheme="https://blog.wh1sper.com/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" term="反序列化" label="反序列化" />
                             
                         
                     
@@ -1107,13 +1107,13 @@ TrAXFilter#TrAXFilter()-&amp;gt;
     
         <entry>
             <title type="text">Shiro反序列化漏洞成因分析</title>
-            <link rel="alternate" type="text/html" href="https://anthem-whisper.github.io/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%E5%88%86%E6%9E%90/" />
-            <id>https://anthem-whisper.github.io/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%E5%88%86%E6%9E%90/</id>
+            <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%E5%88%86%E6%9E%90/" />
+            <id>https://blog.wh1sper.com/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%E5%88%86%E6%9E%90/</id>
             <updated>2022-03-29T10:50:56&#43;08:00</updated>
             <published>2021-10-04T23:19:01&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
-                    <uri>https://anthem-whisper.github.io/</uri>
+                    <uri>https://blog.wh1sper.com/</uri>
                     <email>pwned@qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">概述 Apache Shiro是一个强大且易用的Java安全框架,执行身份验证、授权、密码和会话管理。使用Shiro的易于理解的API,您可以快速、轻松地获得任何应用程序,从最小的移动应用程序到最大的网络和企业应用……</summary>
@@ -1262,7 +1262,7 @@ spring-shiro.xml
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/categories/note/" term="note" label="note" />
+                                <category scheme="https://blog.wh1sper.com/categories/note/" term="note" label="note" />
                             
                         
                     
@@ -1272,19 +1272,19 @@ spring-shiro.xml
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/shiro/" term="Shiro" label="Shiro" />
+                                <category scheme="https://blog.wh1sper.com/tags/shiro/" term="Shiro" label="Shiro" />
                             
                         
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/java/" term="Java" label="Java" />
+                                <category scheme="https://blog.wh1sper.com/tags/java/" term="Java" label="Java" />
                             
                         
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" term="反序列化" label="反序列化" />
+                                <category scheme="https://blog.wh1sper.com/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" term="反序列化" label="反序列化" />
                             
                         
                     
@@ -1294,13 +1294,13 @@ spring-shiro.xml
     
         <entry>
             <title type="text">ApacheCommonsCollections利用链乱记</title>
-            <link rel="alternate" type="text/html" href="https://anthem-whisper.github.io/posts/apachecommonscollections%E5%88%A9%E7%94%A8%E9%93%BE%E4%B9%B1%E8%AE%B0/" />
-            <id>https://anthem-whisper.github.io/posts/apachecommonscollections%E5%88%A9%E7%94%A8%E9%93%BE%E4%B9%B1%E8%AE%B0/</id>
+            <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/apachecommonscollections%E5%88%A9%E7%94%A8%E9%93%BE%E4%B9%B1%E8%AE%B0/" />
+            <id>https://blog.wh1sper.com/posts/apachecommonscollections%E5%88%A9%E7%94%A8%E9%93%BE%E4%B9%B1%E8%AE%B0/</id>
             <updated>2022-03-29T10:50:56&#43;08:00</updated>
             <published>2021-10-04T23:16:46&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
-                    <uri>https://anthem-whisper.github.io/</uri>
+                    <uri>https://blog.wh1sper.com/</uri>
                     <email>pwned@qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">这是一篇流水账，主要是记录下调试过程 cc链的gadget： URLDNS利用链 URLDNS利用链特点： 使用Java内置的类构造，对第三方库没有依赖 在目标没有回显的时候，能够通过DNS请求得知是否存在反序……</summary>
@@ -2883,7 +2883,7 @@ spring-shiro.xml
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/categories/note/" term="note" label="note" />
+                                <category scheme="https://blog.wh1sper.com/categories/note/" term="note" label="note" />
                             
                         
                     
@@ -2893,13 +2893,13 @@ spring-shiro.xml
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/java/" term="Java" label="Java" />
+                                <category scheme="https://blog.wh1sper.com/tags/java/" term="Java" label="Java" />
                             
                         
                             
                             
                             
-                                <category scheme="https://anthem-whisper.github.io/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" term="反序列化" label="反序列化" />
+                                <category scheme="https://blog.wh1sper.com/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" term="反序列化" label="反序列化" />
                             
                         
                     
