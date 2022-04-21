@@ -19,7 +19,7 @@ badge: false
          clear: both;
          }
          .card {
-         width: 45%;
+         width: 40%;
          font-size: 1rem;
          padding: 10px 20px;
          border-radius: 4px;
@@ -73,14 +73,63 @@ badge: false
       </style>
       <div class="links-content">
          <div class="link-navigation">
-            <!-- 饼干の博客 -->
+            <!-- tyskill-->
+            <div class="card">
+               <img class="ava" src="https://s.p.qq.com/pub/get_face?img_type=5&uin=2448552437" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://tyskill.github.io/">tyskillのBlog</a>
+                  </div>
+                  <div class="info">CTFer in X1cT34m</div>
+               </div>
+            </div>
+            <!-- leon-->
+            <div class="card">
+               <img class="ava" src="https://blog.h4ck.fun/logo_.jpg" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://blog.h4ck.fun/">Leon</a>
+                  </div>
+                  <div class="info">security research and penetration</div>
+               </div>
+            </div> 
+            <!-- byc_404-->
+            <div class="card">
+               <img class="ava" src="https://avatars.githubusercontent.com/baiyecha404" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://bycsec.top/">byc_404</a>
+                  </div>
+                  <div class="info">Code Auditing / Security Research</div>
+               </div>
+            </div> 
+            <!-- 影二つ-->
+            <div class="card">
+               <img class="ava" src="https://kagehutatsu.com/wp-content/uploads/2021/11/head-1.jpg" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://kagehutatsu.com/">影二つ</a>
+                  </div>
+                  <div class="info">Pwner@x1ct34m@SU</div>
+               </div>
+            </div> 
+            <!-- xjzsq-->
+            <div class="card">
+               <img class="ava" src="https://s.p.qq.com/pub/get_face?img_type=5&uin=1341833085" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://xjzsq.ren/">xjzsq</a>
+                  </div>
+                  <div class="info">ACMer</div>
+               </div>
+            </div> 
+            <!-- 饼干 -->
             <div class="card">
                <img class="ava" src="https://cdn.bingbingzi.cn/touxiang.jpeg" />
                <div class="card-header">
                   <div>
-                     <a href="https://bingbingzi.cn/">饼干の博客</a>
+                     <a href="https://bingbingzi.cn/">饼干</a>
                   </div>
                   <div class="info">Web安全/CTF</div>
                </div>
             </div>
-            <!-- 2-->
