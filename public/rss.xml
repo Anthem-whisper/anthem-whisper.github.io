@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Tue, 14 Jun 2022 12:58:44 &#43;0800</lastBuildDate>
+        <lastBuildDate>Tue, 14 Jun 2022 13:06:01 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://blog.wh1sper.com/rss.xml" />
         
@@ -538,7 +538,35 @@ misc::skeleton`
                 
                     
                         
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/categories/note/">note</category>
+                                
+                            
+                        
                     
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/tags/%E6%B8%97%E9%80%8F/">渗透</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/tags/%E5%86%85%E7%BD%91/">内网</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/">域渗透</category>
+                                
+                            
                         
                     
                 
