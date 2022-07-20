@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Tue, 14 Jun 2022 13:06:01 &#43;0800</lastBuildDate>
+        <lastBuildDate>Wed, 20 Jul 2022 14:04:40 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://blog.wh1sper.com/rss.xml" />
         
@@ -378,7 +378,7 @@ sekurlsa::pth /user:xxx /domain:xxx /aes256:xxxxxxxx&lt;span class=&#34;s2&#34;&
 &lt;/blockquote&gt;
 &lt;p&gt;kerberos协议原理参考&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41874930/article/details/108124366&#34;&gt;NTML认证与kerberos认证与PAC相关知识&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202206141128058.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202206141128058.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;域中每个用户的 Ticket 都是由 krbtgt 的密码 Hash 来计算生成的，因此只要获取到了 krbtgt 用户的密码 Hash ，就可以随意伪造 Ticket ，进而使用 Ticket 登陆域控制器，使用 krbtgt 用户 hash 生成的票据被称为 Golden Ticket，此类攻击方法被称为票据传递攻击。&lt;/p&gt;
 &lt;p&gt;首先获取krbtgt的用户hash:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -419,7 +419,7 @@ kerberos::ptt test.kiribi #导入刚才生成的票据
 &lt;p&gt;4.伪造的用户名，可以是任意用户名.&lt;/p&gt;
 &lt;p&gt;5.目标服务器上面需要访问的kerberos服务&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202206141131526.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202206141131526.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;可以伪造的服务&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -599,25 +599,25 @@ misc::skeleton`
 &lt;li&gt;使用&lt;code&gt;vmLog&lt;/code&gt;写入日志文件&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;作者通过&lt;code&gt;vmlog&lt;/code&gt;往Tomcat ROOT路径写jsp webshell来实现从SSRF到RCE的转变。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202112011307334.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011307334.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;当时正在构思NCTF校赛出什么题目，看到这几种利用手法，就想着结合之前APISandbox的一些东西，出一道actuator的综合利用，题目设计大概是这样的：&lt;/p&gt;
 &lt;p&gt;一个正常的Springboot应用，&lt;code&gt;/actuator&lt;/code&gt;配置里面暴露了一些本来不应该暴露的端点，其中就有jolokia，env等&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202112011307472.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011307472.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;直接访问&lt;code&gt;/actuator/jolokia/&lt;/code&gt;会403，是因为我使用SpringSecurity限制了本地IP访问&lt;/p&gt;
 &lt;p&gt;用APIKit扫描，或者访问&lt;code&gt;/actuator/mappings&lt;/code&gt;可以看到有一个隐藏的API&lt;code&gt;/user/list&lt;/code&gt;：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202112011308743.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308743.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这个API返回XML数据，可以自然想到XXE。&lt;/p&gt;
 &lt;p&gt;为了不让XXE直接读文件，我加了waf过滤了除http协议之外的协议，预期是利用XXE来SSRF打&lt;code&gt;/actuator/jolokia/&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;这儿有俩坑点，docker端口是开在58082的，SSRF的时候请求端口需要访问&lt;code&gt;/actuator/env&lt;/code&gt;来获得，是8080&lt;/p&gt;
 &lt;p&gt;构造SSRF之后，访问&lt;code&gt;/actuator/jolokia/list&lt;/code&gt;会发现报错：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202112011308716.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308716.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这是因为&lt;code&gt;/jolokia/list&lt;/code&gt;返回的数据太长了，而且里面有一些特殊符号会报&lt;code&gt;XML document structures must start and end within the same entity.&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;于是后面给了附件pom.xml，可以本地起起来看一下有什么Mbean。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202112011308295.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308295.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后可以判断远程环境是否存在这个Mbean：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202112011308676.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308676.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;如果不存在返回的是上图，如果存在返回的是下图两种情况&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202112011308232.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308232.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;那么便可以直接用&lt;code&gt;com.sun.management:type=DiagnosticCommand/compilerDirectivesAdd/!/flag&lt;/code&gt;来读取flag了。&lt;/p&gt;
 </description>
                 
@@ -675,7 +675,7 @@ misc::skeleton`
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;TemplatesImpl#getOutputProperties() -&amp;gt; TemplatesImpl#newTransformer() -&amp;gt; TemplatesImpl#getTransletInstance() -&amp;gt; TemplatesImpl#defineTransletClasses()
 -&amp;gt; TransletClassLoader#defineClass()
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;cbu链原理&#34;&gt;cbu链原理&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042205931.png&#34; alt=&#34;04929d8497ebfec60f0d8d28198c6441.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205931.png&#34; alt=&#34;04929d8497ebfec60f0d8d28198c6441.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;BeanComparator()用于比较两个Java Bean，当property不存在的时候会调用&lt;code&gt;PropertyUtils.getProperty&lt;/code&gt;去获取JavaBean的属性，也就是执行getter&lt;/p&gt;
 &lt;p&gt;恰巧TemplatesImpl#getOutputProperties符合getter的命名规则&lt;/p&gt;
 &lt;h3 id=&#34;gadget&#34;&gt;Gadget&lt;/h3&gt;
@@ -811,24 +811,24 @@ misc::skeleton`
 &lt;ul&gt;
 &lt;li&gt;本地生成payload的包和远程依赖的包版本不一导致&lt;code&gt;serialVersionID&lt;/code&gt;不一致，反序列化失败&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042205813.png&#34; alt=&#34;a3432f8042ba68a1019e095a05996591.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205813.png&#34; alt=&#34;a3432f8042ba68a1019e095a05996591.png&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Shiro自带CommonsBeanutils，不依赖cc。但是Shiro反序列化需要cc
 虽然cbu本身依赖cc，但是Shiro中自带的cbu中的类不全，反序列化会失败&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042205467.png&#34; alt=&#34;d1ee0502174e6c86a4bd4e5565403ad0.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205467.png&#34; alt=&#34;d1ee0502174e6c86a4bd4e5565403ad0.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;no-cc的gadge&#34;&gt;no CC的Gadge&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;org.apache.commons.collections.comparators.ComparableComparator&lt;/code&gt;在BeanComparator类的构造方法里面被用到，要解决没有cc的时候ClassNotFound的问题就需要替换这个ComparableComparator。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042205374.png&#34; alt=&#34;0339fe432f76bdb9ffcf2154cd1d3fcb.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205374.png&#34; alt=&#34;0339fe432f76bdb9ffcf2154cd1d3fcb.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;因为ComparableComparator实现了Comparator接口，替换候选类需要满足：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;实现了&lt;code&gt;java.util.Comparator&lt;/code&gt;，&lt;code&gt;java.io.Serializable&lt;/code&gt;接口&lt;/li&gt;
 &lt;li&gt;Java，shiro，cbu里面自带&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;我们去看Comparator接口，看下哪些类实现了他：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042205172.png&#34; alt=&#34;93a8f812e8cdcb588553768cb69dfd32.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205172.png&#34; alt=&#34;93a8f812e8cdcb588553768cb69dfd32.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;java.lang.String.CaseInsensitiveComparator：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042205046.png&#34; alt=&#34;542fe3f0911cea2dbae01c3adeeeec14.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205046.png&#34; alt=&#34;542fe3f0911cea2dbae01c3adeeeec14.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;直接通过String.CASE_INSENSITIVE_ORDER就可以获得一个对象&lt;/p&gt;
 &lt;h3 id=&#34;poc-1&#34;&gt;poc&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -998,12 +998,12 @@ misc::skeleton`
                 <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
                 
                     <description>&lt;h2 id=&#34;攻击shiro思路&#34;&gt;攻击shiro思路&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042159119.png&#34; alt=&#34;75cb74a9191b4a0034d1b8c860740eb6.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159119.png&#34; alt=&#34;75cb74a9191b4a0034d1b8c860740eb6.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;伪造加密过程&#34;&gt;伪造加密过程&lt;/h2&gt;
 &lt;p&gt;shiro在容器初始化的时候会实例化CookieRememberMeManager对象，并且设置加密解密方式&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042159712.png&#34; alt=&#34;2a73a2116a7ebd6f3ae96cb634795011.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159712.png&#34; alt=&#34;2a73a2116a7ebd6f3ae96cb634795011.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;实例化时调用父类构造方法，设置加密方式为AES，并且设置key&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042159685.png&#34; alt=&#34;0fc39f2201b6a8f630c715bb1afff0c6.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159685.png&#34; alt=&#34;0fc39f2201b6a8f630c715bb1afff0c6.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;看下调用 栈&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1024,7 +1024,7 @@ misc::skeleton`
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;然后在之前也说过，加密的时候先序列化再用encrypt()方法加密&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042159298.png&#34; alt=&#34;993fa60071dabd0240454635d6b9fada.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159298.png&#34; alt=&#34;993fa60071dabd0240454635d6b9fada.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;所以我们构造poc伪造加密的时候，直接这样就行了：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1120,9 +1120,9 @@ misc::skeleton`
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;key正确时：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042200654.png&#34; alt=&#34;a36dfe63f20b4427194f50055fea11b0.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042200654.png&#34; alt=&#34;a36dfe63f20b4427194f50055fea11b0.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;key错误时：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042200806.png&#34; alt=&#34;9300020b5bf9c4eff3d7fd5cfda917ab.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042200806.png&#34; alt=&#34;9300020b5bf9c4eff3d7fd5cfda917ab.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;基于此枚举key&lt;/p&gt;
 &lt;h2 id=&#34;使用cc链打shiro&#34;&gt;使用CC链打shiro&lt;/h2&gt;
 &lt;p&gt;直接拿cc3开梭：&lt;/p&gt;
@@ -1315,7 +1315,7 @@ misc::skeleton`
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;得到数据之后替换为rememberMe之后并没有执行命令，而是重定向到了首页，开启debug去看，得到一个报错&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042159266.png&#34; alt=&#34;f91ddc1b27dbbe4bdca9e4e6165dd392.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159266.png&#34; alt=&#34;f91ddc1b27dbbe4bdca9e4e6165dd392.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;原因是&lt;code&gt;org.apache.shiro.io.ClassResolvingObjectInputStream&lt;/code&gt;这个类，他是个ObjectInputStream的子类，并且重写了resolveClass方法，这个方法是用于反序列化中寻找Class对象的方法。&lt;/p&gt;
 &lt;p&gt;ObjectInputStream使用的是&lt;code&gt;org.apache.shiro.util.ClassUtils#forName&lt;/code&gt;来加载，而shiro的ClassResolvingObjectInputStream使用的是Java原生&lt;code&gt;Class.forName&lt;/code&gt;，后者会导致ClassNotFoundException&lt;/p&gt;
 &lt;p&gt;参考p神《Java安全漫谈 - 15.TemplatesImpl在Shiro中的利用》一文：&lt;/p&gt;
@@ -1609,7 +1609,7 @@ TrAXFilter#TrAXFilter()-&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;小手一抖，计算器到手&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042159423.png&#34; alt=&#34;56925b5f3ee5e3645eb544b3969ff793.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159423.png&#34; alt=&#34;56925b5f3ee5e3645eb544b3969ff793.png&#34;&gt;&lt;/p&gt;
 </description>
                 
                 
@@ -1667,7 +1667,7 @@ TrAXFilter#TrAXFilter()-&amp;gt;
 &lt;p&gt;Apache Shiro是一个强大且易用的Java安全框架,执行身份验证、授权、密码和会话管理。使用Shiro的易于理解的API,您可以快速、轻松地获得任何应用程序,从最小的移动应用程序到最大的网络和企业应用程序。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;它的原理比较简单：&lt;strong&gt;为了让浏览器或服务器重启后用户不丢失登录状态，Shiro支持将持久化信息序列化并加密后保存在Cookie的rememberMe字段中，下次读取时进行解密再反序列化。但是在Shiro 1.2.4版本之前内置了一个默认且固定的加密Key,导致攻击者可以伪造任意的rememberMe Cookie,进而触发反序列化漏洞。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042151507.png&#34; alt=&#34;243e118990160b756a782b94162e1cfb.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042151507.png&#34; alt=&#34;243e118990160b756a782b94162e1cfb.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Shiro反序列化漏洞目前为止有两个，Shiro-550(Apache Shiro &amp;lt; 1.2.5)和Shiro-721( Apache Shiro &amp;lt; 1.4.2 )。这两个漏洞主要区别在于Shiro550使用已知密钥撞，后者Shiro721是使用登录后rememberMe={value}去爆破正确的key值进而反序列化，对比Shiro550条件只要有足够密钥库（条件比较低）、Shiro721需要登录（要求比较高鸡肋）。&lt;/p&gt;
 &lt;p&gt;Apache Shiro &amp;lt; 1.4.2默认使用AES/CBC/PKCS5Padding模式
 Apache Shiro &amp;gt;= 1.4.2默认使用AES/GCM/PKCS5Padding模式&lt;/p&gt;
@@ -1678,13 +1678,13 @@ Apache Shiro &amp;gt;= 1.4.2默认使用AES/GCM/PKCS5Padding模式&lt;/p&gt;
 &lt;h3 id=&#34;cookie加密过程&#34;&gt;Cookie加密过程&lt;/h3&gt;
 &lt;p&gt;直接来看shiro的CookieRememberMeManager&lt;/p&gt;
 &lt;p&gt;在&lt;code&gt;org.apache.shiro.web.mgt.CookieRememberMeManager#rememberSerializedIdentity&lt;/code&gt;里面，存在一个将serialized数据Base64加密然后作为Cookie返回的行为&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152812.png&#34; alt=&#34;68c05ff91ce4b5d0bda4e3ef5a5294c7.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152812.png&#34; alt=&#34;68c05ff91ce4b5d0bda4e3ef5a5294c7.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;我们看下哪些地方调用了这个方法，狂摁Ctrl+B:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;org.apache.shiro.web.mgt.CookieRememberMeManager#rememberSerializedIdentity&amp;lt;-
 org.apache.shiro.mgt.AbstractRememberMeManager#rememberIdentity&amp;lt;-
 org.apache.shiro.mgt.AbstractRememberMeManager#rememberIdentity(重载)&amp;lt;-
 org.apache.shiro.mgt.AbstractRememberMeManager#onSuccessfulLogin
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152203.png&#34; alt=&#34;d1355b042c9bb75aa20cc794ef024c0f.png&#34;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152203.png&#34; alt=&#34;d1355b042c9bb75aa20cc794ef024c0f.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;看到这个函数名都知道是登陆成功调用的，如果继续跟下去的话，会有：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;org.apache.shiro.mgt.DefaultSecurityManager#rememberMeSuccessfulLogin &amp;lt;-
 org.apache.shiro.mgt.DefaultSecurityManager#onSuccessfulLogin&amp;lt;-
@@ -1693,42 +1693,42 @@ org.apache.shiro.mgt.DefaultSecurityManager#login&amp;lt;-
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;会追溯到Filter之类的，大概就是：&lt;/p&gt;
 &lt;p&gt;登陆-&amp;gt;登陆成功-&amp;gt;设置Base64编码后的AES加密的Cookie&lt;/p&gt;
 &lt;p&gt;在onSuccessfulLogin方法这里下个断点&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152804.png&#34; alt=&#34;631811c25930cc1b6d1ed4c9530d524d.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152804.png&#34; alt=&#34;631811c25930cc1b6d1ed4c9530d524d.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在调用rememberIdentity之前先调用isRememberMe判断了用户是否选择了RememberMe选项，如果选了进入rememberIdentity方法&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152864.png&#34; alt=&#34;9a1b38eb40908ae63306d4eaed1ec1be.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152864.png&#34; alt=&#34;9a1b38eb40908ae63306d4eaed1ec1be.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这个方法先创建一个PrincipalCollection对象，包含了登录信息。&lt;/p&gt;
 &lt;p&gt;随后进入rememberIdentity方法&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152701.png&#34; alt=&#34;26d9f73c5c423aaa187501040d10c476.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152701.png&#34; alt=&#34;26d9f73c5c423aaa187501040d10c476.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这个方法调用convertPrincipalsToBytes把序列化后的PrincipalCollection对象加密，然后返回&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152777.png&#34; alt=&#34;993fa60071dabd0240454635d6b9fada.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152777.png&#34; alt=&#34;993fa60071dabd0240454635d6b9fada.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;而这个seriallize方法，调用org.apache.shiro.mgt.AbstractRememberMeManager#getEncryptionCipherKey去获取加密的key&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152321.png&#34; alt=&#34;5f3a1d1b9ed86f045752a2cdd9268da2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152321.png&#34; alt=&#34;5f3a1d1b9ed86f045752a2cdd9268da2.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;跟进，发现直接返回了一个属性&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152086.png&#34; alt=&#34;c39d6952fa91d3d667017cb00a89d783.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152086.png&#34; alt=&#34;c39d6952fa91d3d667017cb00a89d783.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;转到定义，这个属性貌似是预先定义好的，&lt;del&gt;虽然没看出究竟是哪里定义的&lt;/del&gt;（其实是可以看到的，详见《构造shiro poc》)&lt;/p&gt;
 &lt;p&gt;不过我们可以看到一个叫做DEFAULT_CIPHER_KEY_BYTES的东西，这个就是传说中的硬编码的shirokey&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152168.png&#34; alt=&#34;2743873090f3be29943976ce4647b9bf.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152168.png&#34; alt=&#34;2743873090f3be29943976ce4647b9bf.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;之后就是调用rememberSerializedIdentity返回base64加密的cookie了。&lt;/p&gt;
 &lt;p&gt;接下来康康解密过程：&lt;/p&gt;
 &lt;h3 id=&#34;cookie解密过程&#34;&gt;Cookie解密过程&lt;/h3&gt;
 &lt;p&gt;我们其实可以猜测，加密解密的功能实际上都是由这个&lt;code&gt;org.apache.shiro.web.mgt.CookieRememberMeManager&lt;/code&gt;类来实现的，在这个类里面四处找一找，可以找到getRememberedSerializedIdentity方法里面有一行：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042152497.png&#34; alt=&#34;ad7dbe2df716477c2c27e20ea47c3a7a.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152497.png&#34; alt=&#34;ad7dbe2df716477c2c27e20ea47c3a7a.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这个很像获取Cookie然后去读取值的操作，在这里下个断点，带着Cookie访问服务，果然就断下来了&lt;/p&gt;
 &lt;p&gt;单步跟进，发现他获取到了我们的Cookie：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042153771.png&#34; alt=&#34;0ab70e6f2d839e52f31de004ef9f28b7.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153771.png&#34; alt=&#34;0ab70e6f2d839e52f31de004ef9f28b7.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;随后判断了一下我们Cookie的值是不是等于DELETED_COOKIE_VALUE (deleteMe)，如果不是则进行decode并且返回：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042153075.png&#34; alt=&#34;c161dcb1ad4ded67b72cbc65a73b835a.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153075.png&#34; alt=&#34;c161dcb1ad4ded67b72cbc65a73b835a.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;返回到了这里：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042153249.png&#34; alt=&#34;9cb23a32e0b8dcbd3d9030b77e63a9b7.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153249.png&#34; alt=&#34;9cb23a32e0b8dcbd3d9030b77e63a9b7.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;并且调用convertBytesToPrincipals（这个函数名字是不是很熟悉？），将Cookie的结果转化为凭据（PrincipalCollection对象）&lt;/p&gt;
 &lt;p&gt;因为之前加密过程调用convertPrincipalsToBytes，是一个序列化过程，那这里显然就是一个反序列化过程，跟进：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042153938.png&#34; alt=&#34;f91f710ef425284287b1f10d913c6f1a.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153938.png&#34; alt=&#34;f91f710ef425284287b1f10d913c6f1a.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;解密，而后反序列化；&lt;/p&gt;
 &lt;p&gt;跟进，触发点在&lt;code&gt;org.apache.shiro.io.DefaultSerializer#deserialize&lt;/code&gt;：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042153943.png&#34; alt=&#34;7a68bd2f3f5669d0c682bce50d995e31.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153943.png&#34; alt=&#34;7a68bd2f3f5669d0c682bce50d995e31.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;125-版本修复&#34;&gt;1.2.5 版本修复&lt;/h3&gt;
 &lt;p&gt;修改了org.apache.shiro.mgt.AbstractRememberMeManager的硬编码方式，并且去掉了默认key，采用随机生成的shiro AES key&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042153982.png&#34; alt=&#34;fb226eec7a9aaf44b840044e8d433cd5.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153982.png&#34; alt=&#34;fb226eec7a9aaf44b840044e8d433cd5.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;但是这个key是可以自定义的：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1755,18 +1755,18 @@ org.apache.shiro.mgt.DefaultSecurityManager#login&amp;lt;-
 &lt;/div&gt;&lt;p&gt;或者如果你使用了诸如Spring的框架：
 spring-shiro.xml
 在安全管理器SecurityManager中加入rememberMeManager；&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042153200.png&#34; alt=&#34;278339ec403dae1ff5618e3d7e8154d1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153200.png&#34; alt=&#34;278339ec403dae1ff5618e3d7e8154d1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;添加rememberMeManager，调用getCipherKey()随机生成密钥。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042154259.png&#34; alt=&#34;b779730b16239139bd286cab88dcc9d6.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154259.png&#34; alt=&#34;b779730b16239139bd286cab88dcc9d6.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;理论上只要AES加密钥泄露，都会导致反序列化漏洞&lt;/strong&gt;，也就是说，只要你硬编码，就有可能有爆破的风险&lt;/p&gt;
 &lt;h2 id=&#34;shiro-721padding-oracle-attack-shiro-aes-key-shiro550&#34;&gt;Shiro-721：Padding Oracle Attack-&amp;gt;Shiro AES key-&amp;gt;shiro550&lt;/h2&gt;
 &lt;p&gt;这个就不是重点了，shiro721本来利用需要先登陆获得有效的rememberMe={value}去爆破正确的key值进而反序列化，利用十分鸡肋。&lt;/p&gt;
 &lt;p&gt;关于Padding Oracle Attack看这篇：&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://skysec.top/2017/12/13/padding-oracle%E5%92%8Ccbc%E7%BF%BB%E8%BD%AC%E6%94%BB%E5%87%BB/&#34;&gt;padding oracle和cbc翻转攻击&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;CBC加密模式：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042154180.png&#34; alt=&#34;063308495a36da7002ebb344a31eafe3.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154180.png&#34; alt=&#34;063308495a36da7002ebb344a31eafe3.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;CBC解密模式：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042154970.png&#34; alt=&#34;f36fa75edd5315a3a26c3383fe8b8cbf.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154970.png&#34; alt=&#34;f36fa75edd5315a3a26c3383fe8b8cbf.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;大概过程是这样：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;比如我们的明文为admin
@@ -1781,9 +1781,9 @@ spring-shiro.xml
 所以这时，我们可以根据服务器的反应来判断我们输入的iv&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;如果发送的rememberMe可以正确解析&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042154063.png&#34; alt=&#34;9b6bb4f1012c1b4db623535cf3c94986.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154063.png&#34; alt=&#34;9b6bb4f1012c1b4db623535cf3c94986.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;否则会抛出异常，返回deleteMe&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202110042154714.png&#34; alt=&#34;bfc213fa9f8693a6e6f5c9e922ceec02.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154714.png&#34; alt=&#34;bfc213fa9f8693a6e6f5c9e922ceec02.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;通过这一点的不同，我们可以向服务发出一个oracle：“我这个iv解密出的padding对不对？”&lt;/p&gt;
 &lt;p&gt;如果是对的，正确解析，如果是错的返回deleteMe，基于此反复发出Oracle来爆破iv，再控制iv来控制解密后的明文（也就是不需要key了）&lt;/p&gt;
 &lt;p&gt;这里还有一点，为什么需要一个合法用户的rememberMe，因为Shiro会获取用户信息，如果不是合法用户也会返回异常从而抛出deleteMe，这样Oracle就没办法实现了。&lt;/p&gt;
