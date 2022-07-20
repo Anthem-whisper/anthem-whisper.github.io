@@ -1,7 +1,7 @@
 ---
 title: python面向对象基础学习
 date: 2020-07-09
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210228095632.jpeg
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210228095632.jpeg
 description: 重学面向对象
 categories: 
 - note
@@ -16,7 +16,7 @@ tags:
 
 ### 面向过程
 
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171712.png)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171712.png)
 
 假如你拥有了一个做饭洗碗的任务，你准备用面向过程的思想来解决它
 
@@ -26,7 +26,7 @@ tags:
 
 ### 面向对象
 
-![https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171728.png](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171728.png)
+![https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171728.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171728.png)
 
 假如你现在有个对象，她拥有两个技能：
 
@@ -35,7 +35,7 @@ tags:
 
 那么你只需要面向你的对象，然后你的对象去处理其他所有过程
 
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171745.png)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171745.png)
 
 那如果你的对象再拥有两个对象：
 
@@ -121,7 +121,7 @@ Person
 
 下面是这段程序在内存中的状态：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171758.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171758.png)
 
 其实在python中，万物皆为对象，包括int，float，str这些数据类型也都来自对象。
 
@@ -202,11 +202,11 @@ man
 
 不管是类方法还是实例方法，都必须在类里面进行声明，然后方法名称储存在类里面，指向这个方法本身的内存地址
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171808.jpeg)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171808.jpeg)
 
 2.实例方法接受的第一个参数必须是一个实例，但是通过实例调用的时候不必填写第一个参数
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171820.gif)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171820.gif)
 
 我们在创建一个实例方法的时候编辑器自动给我们补全了第一个参数self
 
@@ -216,7 +216,7 @@ man
 
 如上同理，形式参数为cls，不过在声明的时候需要在方法前面加上@classmethod装饰器
 
-<img src="https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171830.gif" alt="img" style="zoom:80%;" />
+<img src="https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171830.gif" alt="img" style="zoom:80%;" />
 
 4.静态方法没有必须接受的参数
 
@@ -228,13 +228,13 @@ man
 
 调用的时候不必我们传入第一个参数，python自动把p对象传给了第一个参数
 
-<img src="https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171842.gif" alt="img" style="zoom:80%;" />
+<img src="https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171842.gif" alt="img" style="zoom:80%;" />
 
 - 通过类调用
 
 我们需要手动传递第一个参数，不然就会报错，本质上是直接找到内存中这个方法的地址进行调用
 
-<img src="https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171854.gif" alt="img" style="zoom:80%;" />
+<img src="https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171854.gif" alt="img" style="zoom:80%;" />
 
 6.类方法或者实例方法，都可以通过实例或者类调用而不必手动传入第一个参数，而直接调用的时候需要手动传入第一个参数
 
@@ -257,14 +257,14 @@ python不像其他语言可以通过private、protect这些关键词来修饰属
 
 单下划线开头变量：
 
-<img src="https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171904.png" alt="img" style="zoom:80%;" />
+<img src="https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171904.png" alt="img" style="zoom:80%;" />
 
 双下划线开头变量：
 
-<img src="https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171916.png" alt="img" style="zoom:80%;" />
+<img src="https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171916.png" alt="img" style="zoom:80%;" />
 
 感叹号表示会发出警告，×表示不能访问
 
 但是我们还是可以通过 `_类名__属性名` 来访问这个属性：
 
-<img src="https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171926.gif" alt="img" style="zoom:80%;" />
+<img src="https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171926.gif" alt="img" style="zoom:80%;" />

@@ -27,7 +27,7 @@ SSTIbypass姿势>>https://p0sec.net/index.php/archives/120/
 
 尝试输入{{2*2}}，返回“Parse error: syntax error, unexpected T_STRING, expecting '{' in \var\WWW\html\test.php on line 13 ”
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170318.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170318.png)
 
 不管怎么改，返回的结果都是一样的，说明可能{{}}被过滤了；
 
@@ -82,7 +82,7 @@ flag{a2bc941d-a38d-42bb-97be-fe2440442cdf}
 
 打开题目，叫你猜数据，并且给了前10位：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170333.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170333.png)
 
 随便输一个提交，随即给出源码：
 
@@ -228,7 +228,7 @@ make
 
 可以得到他的随机数种子
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170347.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170347.png)
 
 然后我们直接把他原来的代码拷贝过来，种子替换为我们爆破出来的：
 

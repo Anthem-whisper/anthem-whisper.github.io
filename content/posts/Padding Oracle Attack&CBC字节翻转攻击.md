@@ -30,7 +30,7 @@ CBC翻转攻击：
 
 先来讲一讲CBC模式加密原理：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170001.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170001.png)
 
  
 
@@ -45,7 +45,7 @@ CBC翻转攻击：
 
 解密过程：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170010.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170010.png)
 
 1. 先从密文中取出IV，然后对剩下的密文分组（16或8字节为一组）
 2. 使用秘钥解密第一组密文，将解密结果与IV做异或运算，得到明文1
@@ -68,7 +68,7 @@ CBC翻转攻击：
 因为加密是按照16位一组分组进行的
 而如果不足16位，就需要进行填充
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170017.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170017.png)
 
 有几个空，就要填充几个“几”
 
@@ -124,7 +124,7 @@ T E S T 0x04 0x04 0x04 0x04
 
 现在这个解密结果是不对的
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170100.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170100.png)
 
  
 
@@ -140,13 +140,13 @@ T E S T 0x04 0x04 0x04 0x04
 
  
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170112.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170112.png)
 
 那么最后一位中间密文就是： `0x01^0x3C=0x3D` （这个一定成立，看图）,原来的明文就是 `0x3D^0x0F=0x32`（中间密文^原来的iv）
 
 知道了最后一位的中间密文，就可以遍历倒数第二位iv了，这个时候应该为 `0x02` 而非 `0x01` 了。看图就懂：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170121.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170121.png)
 
 以此类推，我们可以就能推算所有中间密文，再用 `中间密文^原来的iv` 就能算出明文了
 
@@ -154,7 +154,7 @@ T E S T 0x04 0x04 0x04 0x04
 
 有了上面的CBC加密解密过程的基础，这个手段其实很容易理解；
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170128.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170128.png)
 
 由解密算法可知：
 
@@ -366,7 +366,7 @@ print(base64.b64encode(iv))
 
 得到数组，就是flag的ASCII码
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170140.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170140.png)
 
 ```
 q = [102, 108, 97, 103, 123, 119, 101, 54, 95, 52, 111, 103, 

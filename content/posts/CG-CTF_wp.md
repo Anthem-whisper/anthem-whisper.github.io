@@ -8,7 +8,7 @@ categories:
 tags:
 - PHP特性
 ---
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164539.jpeg)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164539.jpeg)
 
 cgctf不得不说是一个很棒的学习平台，这里有我写的部分wp：
 
@@ -425,11 +425,11 @@ nctf{union_select_is_wtf}
 
 当传入的单引号会被反斜杠转义的时候，一般情况下是不存在sql注入漏洞的，但是有一个特例，那就是数据库的编码为GBK时，可以使用宽字节注入，宽字节的格式是在地址后面先加一个%df，再加单引号，因为**反斜杠的编码为%5c**，然而再GBK编码中，**%df%5c是繁体字“謰”**，所以这个时候，单引号就不会被反斜杠转义，造成注入。
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164611.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164611.png)
 
 输入%df之后：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164617.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164617.png)
 
 此时已经造成了注入；
 
@@ -562,7 +562,7 @@ nctf{0b021b88527c69e5}
 
 打开题目是一串的JSFuck：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164630.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164630.png)
 
 直接复制到F12里面的控制台运行，得到：
 
@@ -572,13 +572,13 @@ nctf{0b021b88527c69e5}
 
 直接访问这个页面：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164641.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164641.png)
 
 这里是一个脑洞，
 
 其实他说TIP在他脑袋里，其实就是“head”，暗示了**HTTP头**：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164649.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164649.png)
 
 ```
 tip: history of bash
@@ -594,7 +594,7 @@ tip: history of bash
 
 于是我们访问.bash_history这个文件：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164701.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164701.png)
 
 我们继续访问flagbak.zip，就能直接下载这个文件，解压打开就是flag：
 
@@ -610,7 +610,7 @@ nctf{bash_history_means_what}
 
 考点：Linux下vi编辑器退出后留下的备份文件、弱类型比较
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164708.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164708.png)
 
 查看源码中可以找到admin的邮箱，随意舔一个token后提交得到一个提示fail的页面；
 
@@ -649,7 +649,7 @@ if(!empty($token)&&!empty($emailAddress)){
 
 第2、3行弱类型比较，我们只需要输入token=0000000000（10个）：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164715.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164715.png)
 
 nctf{thanks_to_cumt_bxs}
 

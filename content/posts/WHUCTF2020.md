@@ -1,7 +1,7 @@
 ---
 title: WHUCTF2020
 date: 2020-05-24
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170745.jpeg
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170745.jpeg
 description: 
 categories: 
 - ctf_writeup
@@ -128,7 +128,7 @@ if(unserialize($r)[1] == "123456"){
 
 第三关，反序列化字符逃逸，参考[miniLCTF](http://wh1sper.com/minil2020_web_wp/)、[安恒4月赛](http://wh1sper.com/fakephp反序列化字符逃逸/)
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170758.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170758.png)
 
  
 

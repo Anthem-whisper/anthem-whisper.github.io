@@ -47,7 +47,7 @@ Xdebug是PHP的扩展，用于协助调试和开发。
 在web服务器中放入phpinfo，（注意最好是使用web服务，如果是本地php脚本的话`php.ini`可能会不一样）
 
 访问之后将整个页面源码`Ctrl+A  Ctrl+C`复制到框里面：
-![image-20210219110753403](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219110804.png)
+![image-20210219110753403](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219110804.png)
 
 分析之后会自动给你最合适的版本，并且告诉你后续安装步骤。
 
@@ -121,7 +121,7 @@ xdebug.remote_host = 127.0.0.1
 
 之后再次访问`phpinfo`，按`Ctrl+F`搜索`Xdebug`，成功的话你会看到和下面差不多的情况
 
-![image-20210219114506481](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219114515.png)
+![image-20210219114506481](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219114515.png)
 
 
 
@@ -131,29 +131,29 @@ xdebug.remote_host = 127.0.0.1
 
 在`File->Languages & Frameworks->PHP`下，选择`CLI interpreter`为你刚才配置的PHP版本
 
-![image-20210219114827373](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219114829.png)
+![image-20210219114827373](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219114829.png)
 
 成功的话会出现Xdebug的字样
 
-![image-20210219114935735](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219114938.png)
+![image-20210219114935735](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219114938.png)
 
 没有的话重新打开`php.ini`配置
 
 选择Debug分支，保证`port`和`php.ini`中的一致
 
-![image-20210219115215244](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219115308.png)
+![image-20210219115215244](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219115308.png)
 
 配置DBGp Proxy，一样。
 
-![image-20210219115420206](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219115423.png)
+![image-20210219115420206](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219115423.png)
 
 配置Server
 
-![image-20210219115540815](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219115553.png)
+![image-20210219115540815](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219115553.png)
 
 点击右上角，编辑配置
 
-![image-20210219115806714](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219115808.png)
+![image-20210219115806714](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219115808.png)
 
 在Server下拉框中，选择我们在第4步设置的Server服务名称（之前配置的Server），Browser选择你要使用的浏览器
 
@@ -167,7 +167,7 @@ FireFox访问https://addons.mozilla.org/en-US/firefox/addon/xdebug-helper-for-fi
 
 安装完成之后，开启插件，给程序下个断点，访问，如果成功PhpStorm会自动跳出来：
 
-![image-20210219120207661](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210219120209.png)
+![image-20210219120207661](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210219120209.png)
 
 好了，到这里我们就配置完成了。
 

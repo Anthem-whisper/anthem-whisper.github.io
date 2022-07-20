@@ -1,7 +1,7 @@
 ---
 title: MiniL2020_web_wp
 date: 2020-05-10
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170521.png
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170521.png
 description: 西电校赛
 categories: 
 - ctf_writeup
@@ -161,7 +161,7 @@ if(isset($payload)) {
 
 我们的 `php` 关键字被替换为 `hack!!!!` 之后，从3个字符变成了5个字符，但是反序列化的时候由于 `s:3` 的存在，这个值仍然会被当作三个字符来处理，我们可以看到下图替换之后由于左边选中部分不一致，造成了反序列化后出现 `bool(false)` 的结果
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170547.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170547.png)
 
 直接看payload就懂：
 
@@ -169,7 +169,7 @@ if(isset($payload)) {
 ?payload=phpphpphpphpphpphpphp";s:3:"V0n";s:14:"has_girlfriend";}
 ```
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170556.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170556.png)
 
 我们输入了56了字符， `phpphpphpphpphpphpphp` 被替换之后正好是56个字符，我们后面的字符就逃逸了，这个时候给他一闭和，flag就来了
 

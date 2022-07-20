@@ -1,7 +1,7 @@
 ---
 title: BUUOJ刷题记录
 date: 2020-04-04
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170627.png
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170627.png
 description: 
 categories: 
 - ctf_writeup
@@ -71,7 +71,7 @@ flag{05c299f9-2a8b-440e-98d1-d528859be168}
 是一组mysql支持的基本语法及校验规则
 查询当前系统sql_mode的设置:
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165655.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165655.png)
 
 其中：
 
@@ -92,7 +92,7 @@ PIPES_AS_CONCAT：
 
 相比于这个比赛的其他sqli，这道题多了`id=`的查询页面，并且提示了是MySQL盲注
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165702.jpeg)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165702.jpeg)
 
 起初发现了username位置可以用反斜杠逃逸，不过因为所有的注释方法都被过滤了，就没有什么用
 

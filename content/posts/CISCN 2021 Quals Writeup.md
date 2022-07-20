@@ -1,7 +1,7 @@
 ---
 title: CISCN 2021 Quals Writeup web
 date: 2021-05-16
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210516174112.jpg
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210516174112.jpg
 description: CISCN 2021 线上初赛
 math: true
 categories: 
@@ -32,7 +32,7 @@ https://r0yanx.com/2020/10/28/fslh-writeup/
 
 爆破rb的值a-z，在q得到flag：
 
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210522220457.png)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210522220457.png)
 
 CISCN{fvsgF-5rRwf-p8KZP-vOndu-SIQoM-}
 
@@ -40,11 +40,11 @@ CISCN{fvsgF-5rRwf-p8KZP-vOndu-SIQoM-}
 
 fuzz：
 
-![image-bansdasdsads](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210522220503.png)
+![image-bansdasdsads](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210522220503.png)
 
 sqlmap得到表名flag和一个列名id：报错加无列名注入
 
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210522220520.png)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210522220520.png)
 
 一开始用按位比较：
 
@@ -71,9 +71,9 @@ for i in range(1,200):
 
 到最后卡住了，换了无列名注入报错爆列名，然后直接报错注入：
 
-![image-20210517175932809](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210517175941.png)
+![image-20210517175932809](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210517175941.png)
 
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210522220543.png)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210522220543.png)
 
 ```sql
 admin')||extractvalue(1,concat(0x7e,(select * from (select * from flag as a join (select * from flag)b using(id,no))c)))#
@@ -104,7 +104,7 @@ CISCN{JgHhs-jpd52-iJk4O-MGPDz-duFWI-}
 
 在`/etc/acfffacfch/iabhcgedde/facafcfjgf/adeejdbegg/fdceiadhce/fl444444g`发现flag
 
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210522220552.png)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210522220552.png)
 
 exp：
 
@@ -152,7 +152,7 @@ threading.Thread(target=READ,args=()).start()
 threading.Thread(target=READ,args=()).start()
 ```
 
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210522220603.png)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210522220603.png)
 
 CISCN{yo19m-ZqNC1-URusV-u83jg-zxqpZ-}
 
@@ -258,11 +258,11 @@ if($ctf=="poc") {
 #define height 1
 ```
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210516174250.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210516174250.png)
 
 经过一番调试，可以用一个txt文件和一个php文件打包一个压缩包上传，也可以直接抓包在POST数据流最后手动加上这两行
 
-![image-20210516174519255](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210516174522.png)
+![image-20210516174519255](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210516174522.png)
 
 #### bypass zip
 
@@ -279,7 +279,7 @@ https://www.compart.com/en/unicode/U+1D5A8
 
 然后就是`imagecreatefrompng`，这个函数只要你确确实实是一张图片(也就是Windows下改后缀为png，能正常打开)就可以过，之后他使用`imagepng`函数把这个文件输出到web路径，不过遗憾的是，经过这个两个函数一读一输出，图片内容会变
 
-![image-20210516175636078](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210516175639.png)
+![image-20210516175636078](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210516175639.png)
 
 也就是说，通过Windows cmd的copy命令生成的图片马，不顶用，得换高级得马儿
 
@@ -381,7 +381,7 @@ png 定义了两种类型的数据块，一种是称为关键数据块(critical 
 
    但是经过题目`imagecrop`这种裁剪，会被有规律的吞掉
 
-   ![image-20210522224138197](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210522224140.png)
+   ![image-20210522224138197](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210522224140.png)
 
    解决方案是可以硬调：
 

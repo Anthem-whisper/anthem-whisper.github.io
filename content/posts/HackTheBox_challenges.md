@@ -1,7 +1,7 @@
 ---
 title: HackTheBox_challenges
 date: 2020-07-25
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120181059.jpeg
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181059.jpeg
 description: 
 categories: 
 - ctf_writeup
@@ -15,7 +15,7 @@ tags:
 
 打开页面，给你一个字符串，md5加密后提交，太慢或者错了就会Too slow：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120181105.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181105.png)
 
 ```
 <html>
@@ -74,7 +74,7 @@ while 1:
 
 打开页面，有一个表单
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120181111.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181111.png)
 
  
 

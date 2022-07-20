@@ -1,7 +1,7 @@
 ---
 title: De1CTF2020_check in
 date: 2020-05-04
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170416.png
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170416.png
 description: 
 categories: 
 - ctf_writeup
@@ -49,11 +49,11 @@ AddType application/x-httpd-p\
 hp .jpg
 ```
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170428.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170428.png)
 
 那么我们通过\来拼接绕过了ph关键字之后，我们可以发现我们上传的jpg文件不再是无法查看的情况：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170439.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170439.png)
 
 第二个点，PHPecho短标签。
 
@@ -80,6 +80,6 @@ hp .jpg
 
 那就直接ojbk：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170456.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170456.png)
 
 De1ctf{cG1_cG1_cg1_857_857_cgll111ll11lll}

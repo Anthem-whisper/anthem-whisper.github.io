@@ -1,7 +1,7 @@
 ---
 title: BUUOJ刷题记录(2)
 date: 2020-04-14
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170627.png
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170627.png
 description: 
 categories: 
 - ctf_writeup
@@ -13,7 +13,7 @@ tags:
 
 考点：简单python脚本、逻辑漏洞、JWT破解与伪造、python反序列化
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165729.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165729.png)
 
 页面源码里面提示脑洞比较大，给了提示，如上图
 
@@ -42,7 +42,7 @@ for i in range(1,500):
 http://7d1e7948-30d9-42b8-b6e6-f74e7fc4a5eb.node3.buuoj.cn/shop?page=181
 ```
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165739.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165739.png)
 
 不出预料的买不起。。。
 
@@ -70,7 +70,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.40on__HQ8B2-wM1
 
 刷新之后我们就是admin啦~
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165817.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165817.png)
 
 ctrl+U查看源码，提示了`/static/asd1f654e683wq/www.zip`网站源码，
 

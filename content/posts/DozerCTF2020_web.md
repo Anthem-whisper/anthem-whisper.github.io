@@ -173,7 +173,7 @@ flag{j4nc920fm8b2z0r2mc7dsf87s6785a675sa776vd}
 
 打开题目，叫我们给一个URL，然后check这个URL指向的file是不是svg图片
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171235.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171235.png)
 
 #### 什么是SVG？
 
@@ -206,7 +206,7 @@ flag{j4nc920fm8b2z0r2mc7dsf87s6785a675sa776vd}
 
 提交地址，我们发现我们的实体已经起作用了（这里只是因为挡住了，但是F12可以看到）
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171246.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171246.png)
 
 那么大致就能实锤是XXE；
 
@@ -257,7 +257,7 @@ flag{j4nc920fm8b2z0r2mc7dsf87s6785a675sa776vd}
 
 我们可以看到dtd文件实际上已经被加载了，但是却没有收到读取文件之后的请求
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171303.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171303.png)
 
 判断问题出在读文件那一步，但是倘若我们读取的文件是一个不存在的文件，比如file:///xxx/xx.x，那么我们发送svg文件地址之后，页面是没有回显内容的；
 但是如果我们读取的是一个存在的文件，页面会有回显内容。
@@ -286,7 +286,7 @@ flag{j4nc920fm8b2z0r2mc7dsf87s6785a675sa776vd}
 </svg>
 ```
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171320.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171320.png)
 
 读到了.bash_history：
 

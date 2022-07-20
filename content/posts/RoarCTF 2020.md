@@ -49,7 +49,7 @@ admin'/**/and/**/ascii(substr(password,1,1))>32#
 4. z > flag{bbbbb}
 
 库名已知，我们需要的就是表名，根据写的很黑的waf，我们其实只有一条路：`information_schema.tables`，这张表结构大概是这样：
-![](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210116013103.png)
+![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116013103.png)
 
 第一列`TABLE_CATALOG`基本都是`def`，少数是`NULL`，第二列是库名，第三列是表名，我们就只需要知道这些，另外的太多了不方便贴。
 

@@ -1,7 +1,7 @@
 ---
 title: W&MCTF2020
 date: 2020-08-03
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210228100849.jpeg
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210228100849.jpeg
 description: W&M战队主板，0day大战
 categories: 
 - ctf_writeup

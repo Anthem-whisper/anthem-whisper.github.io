@@ -110,13 +110,13 @@ O:8:"HelloPhp":2:{s:1:"a";s:24:"eval($_POST['wh1sper']);";s:1:"b";s:6:"assert";}
 
 蚁剑访问 `?data=O:8:"HelloPhp":2:{s:1:"a";s:24:"eval($_POST['wh1sper']);";s:1:"b";s:6:"assert";}` 密码wh1sper就能拿到shell，不过在phpinfo里面可以看到禁用了很多函数，这里可以使用蚁剑的插件绕过：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170223.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170223.png)
 
 直接美滋滋；
 
 不过根目录是假flag，flag就在phpinfo页面。。。。。
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170231.png)flag{6b8ca41f-d409-4d39-b62f-5243d2f0d64b}
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170231.png)flag{6b8ca41f-d409-4d39-b62f-5243d2f0d64b}
 
 我还去探测内网，真的搞心态。。。
 
@@ -347,7 +347,7 @@ flag{7683e76d-e61e-4b5a-bca0-3ad38bfa27a0}
 
 打开题目，源代码里面有提示：`<!--md5($secret.$name)===$pass -->` 疑似[MD5哈希长度拓展攻击](https://xz.aliyun.com/t/2563)，不过在响应包里面给出啦pass的值，可能是出题出翻车了
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120170244.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170244.png)
 
 得到了 `flflflflag.php` ，访问重定向到了其他页面，抓包抓回来，页面提示 `include($_GET["file"])` ，扫目录可以得到 `dir.php` ,包含他可以看到这个页面列出了 `/tmp` 下的所有文件
 

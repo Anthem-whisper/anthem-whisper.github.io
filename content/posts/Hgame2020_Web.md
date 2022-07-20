@@ -1,7 +1,7 @@
 ---
 title: HGAME 2020_Web
 date:  2020-01-17
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/20210228093852.png
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210228093852.png
 description: Vidar team主办的比赛
 categories: 
 - ctf_writeup
@@ -22,15 +22,15 @@ byc_404师傅的wp：https://www.jianshu.com/p/5bb6ecd67293
 
 这道题起初没有明白接头霸王是什么意思，后来做完之后才发现这个“头”指的是HTTP请求头；（灰兔子脸
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120164937.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164937.png)
 
 走流程，抓包：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165020.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165020.png)
 
 "You need to come from https://vidar.club"，也就是修改http头里面的referer：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165048.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165048.png)
 
 继续看："You need to visit it locally",显然是XFF头：
 
@@ -38,7 +38,7 @@ byc_404师傅的wp：https://www.jianshu.com/p/5bb6ecd67293
 x-forwarded-for: 127.0.0.1
 ```
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165108.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165108.png)
 
 "the flag will be update after 2077,please wait for patiently",显然不可能等到2077年，于是修改：
 
@@ -50,7 +50,7 @@ if-unmodified-since: Wed, 21 Oct 2077 07:28:00 GMT
 
 - HTTP协议中的 **If-Unmodified-Since** 消息头用于请求之中，使得当前请求成为条件式请求：只有当资源在指定的时间之后没有进行过修改的情况下，服务器才会返回请求的资源，或是接受 [POST](https://links.jianshu.com/go?to=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FHTTP%2FMethods%2FPOST) 或其他 non-[safe](https://links.jianshu.com/go?to=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FGlossary%2Fsafe) 方法的请求。如果所请求的资源在指定的时间之后发生了修改，那么会返回 [412](https://links.jianshu.com/go?to=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FHTTP%2FStatus%2F412) (Precondition Failed) 错误。
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165116.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165116.png)
 
 拿到flag；
 
@@ -64,7 +64,7 @@ This new site is building....But our stupid developer Cosmos did 302 jump to thi
 
 应该是302跳转；
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165139.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165139.png)
 
 - 当我们用浏览器去访问时，浏览器会自动重定向到指定的页面，而此页面并不是我们想要的含有flag的页面，通过抓包可以看到页面被重定向。因此，我们应该想办法让页面不重定向，这样就可以拿到flag了
 
@@ -74,25 +74,25 @@ Windows下curl的安装以及解决中文乱码：https://segmentfault.com/a/119
 
 iconv是另一个工具，iconv -f utf-8 -t gbk是解决乱码：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165149.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165149.png)
 
 继续试：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165154.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165154.png)
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165200.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165200.png)
 
 看到显示的人鸡验证，知道肯定有东西（滑稽，然后这里卡了一下午，知道第二天看到题目描述才懂：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165206.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165206.png)
 
 然后是明白url里面+号需要编码：+  ——>  %2b  ；直接用+号表示空格；
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165211.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165211.png)
 
 使用burp suite同样可以做，只不过要抓跳转之前的包：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165305.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165305.png)
 
 拿到flag；
 
@@ -102,25 +102,25 @@ iconv是另一个工具，iconv -f utf-8 -t gbk是解决乱码：
 
 本题没有发现什么正常思路（可能是我太菜了）点进去一个页面，叫你玩游戏：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165345.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165345.png)
 
 游戏不难，通关之后，没有任何反应，所以重开故意死一次：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165400.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165400.png)
 
 3w分是不可能的，因为就算不死，每一关分数清零；然后就去burp里面看，找到一个比较可疑的history（因为是POST）：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165410.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165410.png)
 
 点进去，http请求体里面有个键名叫score，恍然大悟：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165420.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165420.png)
 
 flag入手；
 
 week1题目结束；
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165427.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165427.png)
 
 
 
@@ -136,7 +136,7 @@ week1题目结束；
 
 点开题目：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165432.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165432.png)
 
 在burpsuite里面可以看到两个包，一个是从index.php重定向过来的，一个是login.php；
 
@@ -144,7 +144,7 @@ week1题目结束；
 
 这里附上几个协议的用法：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165442.jpeg)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165442.jpeg)
 
 playload：
 
@@ -256,11 +256,11 @@ elseif(!isset($_GET['action']) || empty($_GET['action'])) {
 
 过滤了flag关键字，看来不能直接文件包含读flag
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165457.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165457.png)
 
 继续看，login.php里面的debug：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165502.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165502.png)
 
 （PHP中的魔术变量）意思是GET过去的debug等于什么名字就输出什么名字的变量
 
@@ -287,7 +287,7 @@ QNKCDZO
 
 登录成功：
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165508.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165508.png)
 
 看样子只有插入图片的地方能搞事；
 
@@ -375,7 +375,7 @@ function insert_img() {
 
 看到有一个过滤:
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165525.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165525.png)
 
 于是：
 
@@ -383,7 +383,7 @@ function insert_img() {
 file://localhost/flag
 ```
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165535.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165535.png)
 
 ```
 aGdhbWV7cEhwXzFzX1RoM19CM3NUX0w0bkd1NGdFIUAhfQo=
@@ -399,7 +399,7 @@ hgame{pHp_1s_Th3_B3sT_L4nGu4gE!@!}
 
 #### Cosmos的留言板
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120165546.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165546.png)
 
 最开始没有发现什么思路，后来是用kali下的sqlmap扫了出来，这里要用到sqlmap的tamper
 

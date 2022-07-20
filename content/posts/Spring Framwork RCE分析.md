@@ -2,7 +2,7 @@
 title: "Spring Framwork RCE分析"
 date: 2022-04-15T10:56:52+08:00
 draft: true
-image: https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151059216.png
+image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151059216.png
 description: 
 comments: true
 license: false
@@ -60,23 +60,23 @@ public String objectType(User user) {
 
 `DispatcherServlet`是 SpringMVC 工作流程的中心，用户请求经过`Filter`和`Interceptor`之后会被`DispatcherServlet`分配到具体的`Controller`，具体是在dodispatch方法里：
 
-![image-20220414175620272](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151046343.png)
+![image-20220414175620272](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151046343.png)
 
 在doDispatch方法里面，获取处理器适配器再调用后端处理器中的方法：
 
-![image-20220414180105645](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151046460.png)
+![image-20220414180105645](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151046460.png)
 
 适配器调用后端处理器时候会调用`ModelAttributeMethodProcessor#resolveArgument`来处理请求参数，`resolveArgument`具体是调用`this.bindRequestParameters`：
 
-![image-20220414180227761](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151046388.png)
+![image-20220414180227761](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151046388.png)
 
 `bindRequestParameters`调用`ServletRequestDataBinder#bind`：
 
-![image-20220414203347627](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151046198.png)
+![image-20220414203347627](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151046198.png)
 
 下边会走到`DataBinder#doBind`，这里调用`DataBinder#applyPropertyValues`，断点处的`this.getPropertyAccessor()`获得的是一个`BeanWrapperlmpl`对象，接下来就会走到`org.springframework.beans`里面：
 
-![image-20220414175006099](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151046172.png)
+![image-20220414175006099](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151046172.png)
 
 `BeanWrapperlmpl`继承了`org.springframework.beans.AbstractPropertyAccessor`
 
@@ -85,7 +85,7 @@ public String objectType(User user) {
 
 这里调用了`setPropertyValues`方法遍历`propertyValue`，并循环调用`setPropertyValue`方法设置属性值：
 
-![image-20220414175129097](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151046195.png)
+![image-20220414175129097](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151046195.png)
 
 
 
@@ -93,7 +93,7 @@ public String objectType(User user) {
 
 这里先去获取目标bean的setter，再反射调用：
 
-![image-20220414194956957](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151046291.png)
+![image-20220414194956957](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151046291.png)
 
 这样就实现了Request参数和bean属性的绑定
 
@@ -103,19 +103,19 @@ public String objectType(User user) {
 
 在上一部分遍历`propertyValue`并循环调用`setPropertyValue`方法设置属性值的时候，在设置之前有一个获得对应的类中参数操作`tokens=xxx`，具体是在`getPropertyAccessorForPropertyPath`里面获取的：
 
-![image-20220414203807497](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151046284.png)
+![image-20220414203807497](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151046284.png)
 
 这个方法会递归获取参数值，循环查看参数中是否包含`[`、`]`、`.`若存在则按分割赋值给`nestedProperty`，再调用`getNestedPropertyAccessor`方法：
 
-![image-20220414205520668](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151047675.png)
+![image-20220414205520668](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151047675.png)
 
 在`getNestedPropertyAccessor`方法里面会去获取缓存内省的结果`cachedIntrospectionResults`：
 
-![image-20220414211225039](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151047987.png)
+![image-20220414211225039](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151047987.png)
 
 这个方法会调用`getBeanInfo`进而调用`java.beans.Introspector#getBeanInfo`去获取Bean的信息：（即Java内省）
 
-![image-20220414213621130](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed/img/202204151047880.png)
+![image-20220414213621130](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202204151047880.png)
 
 这里就不得不说内省了：
 

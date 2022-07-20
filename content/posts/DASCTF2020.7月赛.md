@@ -14,7 +14,7 @@ tags:
 
 开局一张图，发现源码 `image.php?t=1595664783&f=Z3F5LmpwZw==`
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120181135.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181135.png)
 
 访问之，回显：`What's your time?` 仔细看t参数是一个unix时间戳，然后f是base64后的文件名；
 

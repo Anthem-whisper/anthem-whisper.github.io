@@ -124,7 +124,7 @@ money=&restart=1
 
 开两个intruder，线程20，爆破出flag
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171516.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171516.png)
 
  
 
@@ -173,6 +173,6 @@ abc"||updatexml(2,concat(0x7e,(select(flag)from(flag))),0)#
 //flag{We11D0Ne_hOhO}
 ```
 
-![img](https://cdn.jsdelivr.net/gh/Anthem-whisper/imgbed@main/img/20210120171534.png)
+![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171534.png)
 
 其实主要就是这个二次注入比较难想到，学到许多
