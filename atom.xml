@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">wh1sper</title>
     <subtitle type="html">wh1sper的个人博客。web安全的学习笔记，web安全研究，CTF的writeup。</subtitle>
-    <updated>2022-07-27T18:54:24&#43;08:00</updated>
+    <updated>2022-07-27T19:10:41&#43;08:00</updated>
     <id>https://blog.wh1sper.com/</id>
     <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/" />
     <link rel="self" type="application/atom&#43;xml" href="https://blog.wh1sper.com/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">Tomcat WebSocket内存马原理浅析</title>
             <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/tomcat-websocket%E5%86%85%E5%AD%98%E9%A9%AC%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" />
             <id>https://blog.wh1sper.com/posts/tomcat-websocket%E5%86%85%E5%AD%98%E9%A9%AC%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/</id>
-            <updated>2022-07-27T18:54:18&#43;08:00</updated>
+            <updated>2022-07-27T19:10:28&#43;08:00</updated>
             <published>2022-07-19T00:58:30&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
@@ -346,7 +346,7 @@
                             
                             
                             
-                                <category scheme="https://blog.wh1sper.com/categories/notes/" term="notes" label="notes" />
+                                <category scheme="https://blog.wh1sper.com/categories/note/" term="note" label="note" />
                             
                         
                     
