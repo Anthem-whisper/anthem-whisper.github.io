@@ -1,7 +1,7 @@
 ---
 title: "Tomcat WebSocket内存马原理浅析"
 date: 2022-07-19T00:58:30+08:00
-draft: true
+draft: false
 image: 
 description: 
 comments: true
@@ -14,11 +14,13 @@ tags:
 - Tomcat
 ---
 
+本文首发跳跳糖：[《Tomcat WebSocket内存马原理浅析》](https://tttang.com/archive/1673/)
+
 周末和N1k0la师傅看到了这个repo：[wsMemShell](https://github.com/veo/wsMemShell)，决定来研究一番。
 
 正好某大行动要开始了，希望此文能抛砖引玉，给师傅们带来一些启发。文章写的不好，疏漏之处细节欢迎师傅们指正。
 
-## Tomcat的WebSocket实现 
+## Tomcat WebSocket的实现 
 
 Tomcat自7.0.2版本开始支持WebSocket，采用自定义API，即WebSocketServlet。
 
