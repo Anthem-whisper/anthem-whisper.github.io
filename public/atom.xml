@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">wh1sper</title>
     <subtitle type="html">wh1sper的个人博客。web安全的学习笔记，web安全研究，CTF的writeup。</subtitle>
-    <updated>2022-08-15T15:46:38&#43;08:00</updated>
+    <updated>2022-08-15T15:56:47&#43;08:00</updated>
     <id>https://blog.wh1sper.com/</id>
     <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/" />
     <link rel="self" type="application/atom&#43;xml" href="https://blog.wh1sper.com/atom.xml" />
@@ -12,7 +12,7 @@
             <name>wh1sper</name>
             <uri>https://blog.wh1sper.com/</uri>
             
-                <email>pwned@qq.com</email>
+                <email>pwned[&lt;at&gt;]qq.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.90.1">Hugo</generator>
@@ -25,7 +25,7 @@
             <author>
                     <name>wh1sper</name>
                     <uri>https://blog.wh1sper.com/</uri>
-                    <email>pwned@qq.com</email>
+                    <email>pwned[&lt;at&gt;]qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大行动后应急响应狗的随手记</summary>
             
@@ -238,7 +238,7 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
             <author>
                     <name>wh1sper</name>
                     <uri>https://blog.wh1sper.com/</uri>
-                    <email>pwned@qq.com</email>
+                    <email>pwned[&lt;at&gt;]qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">本文首发跳跳糖：《Tomcat WebSocket内存马原理浅析》 周末和N1k0la师傅看到了这个repo：wsMemShell，决定来研究一番。 正好某大行动要开始了，希望此文能抛砖引玉，给师傅们带来一……</summary>
             
@@ -592,7 +592,7 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
             <author>
                     <name>wh1sper</name>
                     <uri>https://blog.wh1sper.com/</uri>
-                    <email>pwned@qq.com</email>
+                    <email>pwned[&lt;at&gt;]qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">IPC连接 条件： 1、目标机开启了139和445端口； 2、目标主机管理员开启了ipc$默认共享； 3、知道目标机的（权限足够的）账户密码。 4、NT或以上操作系统 IPC$(Internet Process Connection)是共享”命名管道”……</summary>
             
@@ -1139,7 +1139,7 @@ misc::skeleton`
             <author>
                     <name>wh1sper</name>
                     <uri>https://blog.wh1sper.com/</uri>
-                    <email>pwned@qq.com</email>
+                    <email>pwned[&lt;at&gt;]qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">之前看到一个Jolokia新的利用姿势： SSRF to RCE with Jolokia and MBeans 这篇文章介绍了在SSRF只能GET请求的场景下，Jolokia一些读写文件，加载.so文件的利用方法 我参考这篇文章，结合了之前APISandbox……</summary>
             
@@ -1225,7 +1225,7 @@ misc::skeleton`
             <author>
                     <name>wh1sper</name>
                     <uri>https://blog.wh1sper.com/</uri>
-                    <email>pwned@qq.com</email>
+                    <email>pwned[&lt;at&gt;]qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">前置知识 学习CommonsBeanutils之前应该知道 javaBean，可以看《Java简单特性》也可以看这里 有关BeanComparator的介绍 TemplatesImpl gadget，前两个方法是public TemplatesImpl#getOutputProperties() -&amp;gt; TemplatesImpl#newTransformer() -&amp;gt; TemplatesImpl#getTransletInstance()……</summary>
             

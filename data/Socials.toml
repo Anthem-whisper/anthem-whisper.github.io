@@ -14,7 +14,7 @@
 
 [[socials]]
     id = "email"
-    url = "mailto:pwned@qq.com"
+    url = "mailto:pwned[<at>]qq.com"
     icon = "envelope"
     title = "Email"
     weight = 2

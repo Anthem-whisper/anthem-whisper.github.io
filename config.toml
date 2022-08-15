@@ -98,7 +98,7 @@ uglyURLs = false
     # 名字
     name = "wh1sper"
     # 邮箱
-    email = "pwned@qq.com"
+    email = "pwned[<at>]qq.com"
     # 座右铭或简介
     motto = "The quieter you become, the more you are able to hear."
     # 头像
