@@ -345,7 +345,7 @@ uglyURLs = false
     # 说明：用于 JSON-LD、Open Graph
 
     # 站点的描述
-    siteDescription = "wh1sper的个人博客。web安全的学习笔记，web安全研究，CTF的writeup。"
+    siteDescription = "wh1sper的个人博客. web安全, 安全研究, CTF, writeup。"
     # 说明：用于 HTML 的头部元数据、JSON-LD、
     #      Open Graph、Atom、RSS
 
