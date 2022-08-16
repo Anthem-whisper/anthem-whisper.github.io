@@ -1,5 +1,5 @@
 ---
-stitle: DASCTF2020.7月赛
+title: DASCTF2020.7月赛
 date: 2020-07-25
 image: 
 description: 
