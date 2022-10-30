@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Sat, 20 Aug 2022 01:33:42 &#43;0800</lastBuildDate>
+        <lastBuildDate>Sun, 30 Oct 2022 10:49:22 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://blog.wh1sper.com/rss.xml" />
         
@@ -45,7 +45,7 @@
 &lt;li&gt;网络攻击：DDOS攻击、DNS劫持、ARP欺骗&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;具体情况具体分析，如果是一台失陷的公网Web主机，那么着重从Web服务层面去排查，如果是内网一台Windows，那么着重从系统层面去排查，原则上能用工具则用工具&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202208151430782.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202208151430782.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;linux&#34;&gt;Linux&lt;/h2&gt;
 &lt;h3 id=&#34;敏感目录&#34;&gt;敏感目录&lt;/h3&gt;
 &lt;ul&gt;
@@ -154,7 +154,7 @@ wmic process get name,executablepath,processid|findstr 2860
 &lt;p&gt;正常情况下，上述路径的SAM权限仅system用户可查看，需要给administrator用户授权才能打开完整路径。对SAM右键、给administator用户添加完全控制权限，记得改回去&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;下图 &lt;code&gt;admin$&lt;/code&gt; 即为后门账号&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202208151526676.png&#34; alt=&#34;ec15199cfe61cb1135dd4e9ea9a82b93.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202208151526676.png&#34; alt=&#34;ec15199cfe61cb1135dd4e9ea9a82b93.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;计算机管理&lt;/strong&gt;&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;compmgmt.msc # 查看用户和用户组
 lusrmgr.msc #  查看用户和用户组
@@ -473,9 +473,9 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;效果：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202207191826978.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202207191826978.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;websocket内存马的检测方法&#34;&gt;WebSocket内存马的检测方法&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202207200104113.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202207200104113.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;addEndpoint之后，可以在wsServerContainer里面有个configExactMatchMap属性里面找到Endpoint&lt;/p&gt;
 &lt;p&gt;只需要想办法拿到这个configExactMatchMap里面的config，然后就可以调用getPath等方法就可以拿到endpoint的各种属性，以此来判别是否为内存马&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -939,7 +939,7 @@ sekurlsa::pth /user:xxx /domain:xxx /aes256:xxxxxxxx&lt;span class=&#34;s2&#34;&
 &lt;/blockquote&gt;
 &lt;p&gt;kerberos协议原理参考&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41874930/article/details/108124366&#34;&gt;NTML认证与kerberos认证与PAC相关知识&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202206141128058.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202206141128058.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;域中每个用户的 Ticket 都是由 krbtgt 的密码 Hash 来计算生成的，因此只要获取到了 krbtgt 用户的密码 Hash ，就可以随意伪造 Ticket ，进而使用 Ticket 登陆域控制器，使用 krbtgt 用户 hash 生成的票据被称为 Golden Ticket，此类攻击方法被称为票据传递攻击。&lt;/p&gt;
 &lt;p&gt;首先获取krbtgt的用户hash:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -980,7 +980,7 @@ kerberos::ptt test.kiribi #导入刚才生成的票据
 &lt;p&gt;4.伪造的用户名，可以是任意用户名.&lt;/p&gt;
 &lt;p&gt;5.目标服务器上面需要访问的kerberos服务&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202206141131526.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202206141131526.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;可以伪造的服务&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -1160,25 +1160,25 @@ misc::skeleton`
 &lt;li&gt;使用&lt;code&gt;vmLog&lt;/code&gt;写入日志文件&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;作者通过&lt;code&gt;vmlog&lt;/code&gt;往Tomcat ROOT路径写jsp webshell来实现从SSRF到RCE的转变。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011307334.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011307334.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;当时正在构思NCTF校赛出什么题目，看到这几种利用手法，就想着结合之前APISandbox的一些东西，出一道actuator的综合利用，题目设计大概是这样的：&lt;/p&gt;
 &lt;p&gt;一个正常的Springboot应用，&lt;code&gt;/actuator&lt;/code&gt;配置里面暴露了一些本来不应该暴露的端点，其中就有jolokia，env等&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011307472.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011307472.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;直接访问&lt;code&gt;/actuator/jolokia/&lt;/code&gt;会403，是因为我使用SpringSecurity限制了本地IP访问&lt;/p&gt;
 &lt;p&gt;用APIKit扫描，或者访问&lt;code&gt;/actuator/mappings&lt;/code&gt;可以看到有一个隐藏的API&lt;code&gt;/user/list&lt;/code&gt;：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308743.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308743.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这个API返回XML数据，可以自然想到XXE。&lt;/p&gt;
 &lt;p&gt;为了不让XXE直接读文件，我加了waf过滤了除http协议之外的协议，预期是利用XXE来SSRF打&lt;code&gt;/actuator/jolokia/&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;这儿有俩坑点，docker端口是开在58082的，SSRF的时候请求端口需要访问&lt;code&gt;/actuator/env&lt;/code&gt;来获得，是8080&lt;/p&gt;
 &lt;p&gt;构造SSRF之后，访问&lt;code&gt;/actuator/jolokia/list&lt;/code&gt;会发现报错：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308716.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308716.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;这是因为&lt;code&gt;/jolokia/list&lt;/code&gt;返回的数据太长了，而且里面有一些特殊符号会报&lt;code&gt;XML document structures must start and end within the same entity.&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;于是后面给了附件pom.xml，可以本地起起来看一下有什么Mbean。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308295.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308295.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后可以判断远程环境是否存在这个Mbean：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308676.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308676.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;如果不存在返回的是上图，如果存在返回的是下图两种情况&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308232.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308232.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;那么便可以直接用&lt;code&gt;com.sun.management:type=DiagnosticCommand/compilerDirectivesAdd/!/flag&lt;/code&gt;来读取flag了。&lt;/p&gt;
 </description>
                 
@@ -1236,7 +1236,7 @@ misc::skeleton`
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;TemplatesImpl#getOutputProperties() -&amp;gt; TemplatesImpl#newTransformer() -&amp;gt; TemplatesImpl#getTransletInstance() -&amp;gt; TemplatesImpl#defineTransletClasses()
 -&amp;gt; TransletClassLoader#defineClass()
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;cbu链原理&#34;&gt;cbu链原理&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205931.png&#34; alt=&#34;04929d8497ebfec60f0d8d28198c6441.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205931.png&#34; alt=&#34;04929d8497ebfec60f0d8d28198c6441.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;BeanComparator()用于比较两个Java Bean，当property不存在的时候会调用&lt;code&gt;PropertyUtils.getProperty&lt;/code&gt;去获取JavaBean的属性，也就是执行getter&lt;/p&gt;
 &lt;p&gt;恰巧TemplatesImpl#getOutputProperties符合getter的命名规则&lt;/p&gt;
 &lt;h3 id=&#34;gadget&#34;&gt;Gadget&lt;/h3&gt;
@@ -1372,24 +1372,24 @@ misc::skeleton`
 &lt;ul&gt;
 &lt;li&gt;本地生成payload的包和远程依赖的包版本不一导致&lt;code&gt;serialVersionID&lt;/code&gt;不一致，反序列化失败&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205813.png&#34; alt=&#34;a3432f8042ba68a1019e095a05996591.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205813.png&#34; alt=&#34;a3432f8042ba68a1019e095a05996591.png&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Shiro自带CommonsBeanutils，不依赖cc。但是Shiro反序列化需要cc
 虽然cbu本身依赖cc，但是Shiro中自带的cbu中的类不全，反序列化会失败&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205467.png&#34; alt=&#34;d1ee0502174e6c86a4bd4e5565403ad0.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205467.png&#34; alt=&#34;d1ee0502174e6c86a4bd4e5565403ad0.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;no-cc的gadge&#34;&gt;no CC的Gadge&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;org.apache.commons.collections.comparators.ComparableComparator&lt;/code&gt;在BeanComparator类的构造方法里面被用到，要解决没有cc的时候ClassNotFound的问题就需要替换这个ComparableComparator。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205374.png&#34; alt=&#34;0339fe432f76bdb9ffcf2154cd1d3fcb.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205374.png&#34; alt=&#34;0339fe432f76bdb9ffcf2154cd1d3fcb.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;因为ComparableComparator实现了Comparator接口，替换候选类需要满足：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;实现了&lt;code&gt;java.util.Comparator&lt;/code&gt;，&lt;code&gt;java.io.Serializable&lt;/code&gt;接口&lt;/li&gt;
 &lt;li&gt;Java，shiro，cbu里面自带&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;我们去看Comparator接口，看下哪些类实现了他：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205172.png&#34; alt=&#34;93a8f812e8cdcb588553768cb69dfd32.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205172.png&#34; alt=&#34;93a8f812e8cdcb588553768cb69dfd32.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;java.lang.String.CaseInsensitiveComparator：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205046.png&#34; alt=&#34;542fe3f0911cea2dbae01c3adeeeec14.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205046.png&#34; alt=&#34;542fe3f0911cea2dbae01c3adeeeec14.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;直接通过String.CASE_INSENSITIVE_ORDER就可以获得一个对象&lt;/p&gt;
 &lt;h3 id=&#34;poc-1&#34;&gt;poc&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
