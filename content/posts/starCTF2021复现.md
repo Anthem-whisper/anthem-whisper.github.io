@@ -1,7 +1,7 @@
 ---
 title: starCTF 2021 复现
 date: 2021-01-19
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210228100314.jpeg
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210228100314.jpeg
 description: 复旦大学******战队举办的比赛
 categories: 
 - ctf_writeup
@@ -17,7 +17,7 @@ tags:
 
 先给了源码：[source.zip](https://github.com/Anthem-whisper/CTFWEB_sourcecode/raw/main/XCTF-starCTF2021/%5BstarCTF2021%5Doh-my-note.zip)
 
-![image-20210118212334753](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210119144005.png)
+![image-20210118212334753](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210119144005.png)
 
 题目是一个留言板，发布留言的时候输入用户名可以选择为公开或者私有
 
@@ -73,11 +73,11 @@ def create_note():
 
 其中，我们`post_at`已经知道
 
-![image-20210119142946848](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210119144023.png)
+![image-20210119142946848](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210119144023.png)
 
 那么在下面这张图里，我们只有`user_id`不知道
 
-![image-20210119142616697](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210119144031.png)
+![image-20210119142616697](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210119144031.png)
 
 而my_note()的else里面只需要`user_id`就可以列出所有私有note
 
@@ -140,7 +140,7 @@ for j in range(0,60):
 
 有一个坑，因为时区原因，从获得的时间反推时间戳的时候需要加8个小时
 
-![image-20210119143535541](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210119144048.png)
+![image-20210119143535541](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210119144048.png)
 
 *ctf{Y0u_Are_t3e_Master_of_3he_Time!}
 
@@ -154,13 +154,13 @@ for j in range(0,60):
 
 题目首先给了源码：[source.zip](https://github.com/Anthem-whisper/CTFWEB_sourcecode/raw/main/XCTF-starCTF2021/%5BstarCTF2021%5Dlottery%20again.zip)
 
-![image-20210118172658033](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210119144055.png)
+![image-20210118172658033](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210119144055.png)
 
 网站的功能是注册，登陆，buy lottery，每一个用户初始只有300，买一次彩票花100，获得金额是1~100，然而flag需要9999。
 
 打开源码，审计，主要功能在Http/Controller/LotteryController.php
 
-![image-20210118184827067](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210119144108.png)
+![image-20210118184827067](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210119144108.png)
 
 同时结合抓到的数据包，我们得知运作方式是：
 
@@ -186,7 +186,7 @@ $enc = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, env('LOTTERY_KEY'), $se
 
 #### EBC加密模式
 
-![http://p3.qhimg.com/t01b53d433f418eb7da.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210119144116.png)
+![http://p3.qhimg.com/t01b53d433f418eb7da.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210119144116.png)
 
 
 
@@ -338,7 +338,7 @@ if __name__ == "__main__":
 
 JrXnm师傅tql，膜
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210119144130.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210119144130.png)
 
 
 

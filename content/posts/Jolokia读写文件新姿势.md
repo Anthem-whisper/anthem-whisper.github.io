@@ -2,7 +2,7 @@
 title: "Jolokia读写文件新姿势"
 date: 2021-12-01T13:11:00+08:00
 draft: false
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011312493.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011312493.png
 description: 
 comments: true
 license: false
@@ -50,7 +50,7 @@ Jolokia是一个JMX-HTTP桥接器，它可以利用JSON通过HTTP实现JMX远程
 
 
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011307334.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011307334.png)
 
 
 
@@ -62,7 +62,7 @@ Jolokia是一个JMX-HTTP桥接器，它可以利用JSON通过HTTP实现JMX远程
 
 
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011307472.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011307472.png)
 
 
 
@@ -74,7 +74,7 @@ Jolokia是一个JMX-HTTP桥接器，它可以利用JSON通过HTTP实现JMX远程
 
 
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308743.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308743.png)
 
 
 
@@ -92,7 +92,7 @@ Jolokia是一个JMX-HTTP桥接器，它可以利用JSON通过HTTP实现JMX远程
 
 
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308716.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308716.png)
 
 
 
@@ -104,7 +104,7 @@ Jolokia是一个JMX-HTTP桥接器，它可以利用JSON通过HTTP实现JMX远程
 
 
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308295.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308295.png)
 
 
 
@@ -112,7 +112,7 @@ Jolokia是一个JMX-HTTP桥接器，它可以利用JSON通过HTTP实现JMX远程
 
 
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308676.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308676.png)
 
 
 
@@ -120,7 +120,7 @@ Jolokia是一个JMX-HTTP桥接器，它可以利用JSON通过HTTP实现JMX远程
 
 
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202112011308232.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308232.png)
 
 
 

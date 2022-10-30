@@ -32,7 +32,7 @@ tags:
 
 问题出在第7行`md5($password,true)`，密码使用了 md5 以二进制形式加密后进行在数据库中进行查询，若查询到了数据，就返回成功。
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120165922.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120165922.png)
 
  
 

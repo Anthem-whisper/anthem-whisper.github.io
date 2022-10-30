@@ -1,7 +1,7 @@
 ---
 title: HackTheBox::Blunder
 date: 2020-07-16
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180606.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180606.png
 description: 
 categories: 
 - 渗透
@@ -15,7 +15,7 @@ tags:
 
 ------
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180614.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180614.png)
 
 打开靶机就一些无关紧要的文字，dirsearch扫一下目录可以扫到登录后台，我们可以发现靶机使用了 `Bludit` cms
 
@@ -48,7 +48,7 @@ Bludit 3.9.2版本中的 `bl-kernel/security.class.php` 一些代码将检查主
 cewl -w wordlist.txt -d 10 -m 1 http://10.10.10.191/
 ```
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180623.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180623.png)
 
 然后我们利用改装过后的CVE-2019-17240的[poc](https://github.com/bludit/bludit/pull/1090)来打：
 
@@ -98,7 +98,7 @@ for password in wordlist:
 
  
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180633.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180633.png)
 
 最后在第一百多位爆破出用户名`fergus`密码`RolandDeschain`
 
@@ -183,7 +183,7 @@ c623c868d292dec9b4e11c104f54c9e3dde971ee
 
 获得shell：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180645.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180645.png)
 
  
 
@@ -191,9 +191,9 @@ c623c868d292dec9b4e11c104f54c9e3dde971ee
 
 我们可以在www目录下看到另外一个版本的bludit，并且再user.php里面可以找到另外一个账户的账号密码
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180653.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180653.png)
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180703.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180703.png)
 
  
 

@@ -18,7 +18,7 @@ tags:
 
 cc链的gadget：
 
-![CC.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191531135.png)
+![CC.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191531135.png)
 
 ## URLDNS利用链
 
@@ -52,11 +52,11 @@ java -jar ysoserial-master-d367e379d9-1.jar URLDNS "http://kopboi.dnslog.cn" > y
 
 在Hashmap类的readObject方法putVal()处下断点：
 
-![image-20210726103357827](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191520228.png)
+![image-20210726103357827](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191520228.png)
 
 最终在这里产生了DNS请求
 
-![image-20210726104033123](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191520567.png)
+![image-20210726104033123](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191520567.png)
 
 Gadget：
 
@@ -68,11 +68,11 @@ HashMap.readObject->HashMap.hash()->URL.hashCode()->URLStreamHandler.hashCode()-
 
 原因是在实例化URL类的时候，在这里handler传入了自定义的handler，这里面重写了`getHostAddress()`所以不会产生DNS请求
 
-![image-20210726094111437](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191520648.png)
+![image-20210726094111437](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191520648.png)
 
 在`getHostAddress`方法的时候就会直接return null
 
-![image-20210726100205964](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191520465.png)
+![image-20210726100205964](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191520465.png)
 
 ### Poc
 
@@ -369,7 +369,7 @@ class CommonCollections1 {
 
 这里的memberValues是经过`var1.defaultReadObject()`得来的，也就是我们构造好的带有恶意攻击链的`TransformedMap`对象
 
-![image-20210728140556468](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191531675.png)
+![image-20210728140556468](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191531675.png)
 
 要进入到setValue，需要让var7不为null，只需要满足以下两个条件：
 
@@ -380,13 +380,13 @@ class CommonCollections1 {
 
 经过多次步入，我们可以跟进到了我们熟悉的ChainedTransformer：
 
-![image-20210728115233758](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191531053.png)
+![image-20210728115233758](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191531053.png)
 
 通过for循环使前一个Transformer返回的object传入下一个Transformer的transform方法
 
 接下来就是熟悉的通过InvokerTransformer反复去反射Runtime的方法最后执行exec
 
-![image-20210728120142154](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191531475.png)
+![image-20210728120142154](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191531475.png)
 
 #### Poc
 
@@ -471,7 +471,7 @@ LazyMap的漏洞触发点和TransformedMap唯一的差别是，TransformedMap是
 
 所以ysoserial找到了另一条路，`AnnotationInvocationHandler类`的`invoke`方法有调用到get：
 
-![image-20210728152028408](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191531558.png)
+![image-20210728152028408](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191531558.png)
 
 但是我们应该如何去调用到invoke方法呢？这里插一个知识点：
 
@@ -532,7 +532,7 @@ class App {
 
 我调用`proxyMap.get("hello")`本来应该得到'world'，但是经过代理，得到"Hacked Object"
 
-![image-20210728160825189](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191532224.png)
+![image-20210728160825189](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191532224.png)
 
 我们回看`sun.reflect.annotation.AnnotationInvocationHandler`，会发现实际上这个类实际就是一个`InvocationHandler`。
 
@@ -743,7 +743,7 @@ class CommonsCollections6 {
 
   因为LazyMap里面get方法触发`可控对象.transform`要求是获取不到这个value，否则就触发不了，所以要删除
 
-  ![image-20210804170742116](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191532839.png)
+  ![image-20210804170742116](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191532839.png)
 
 
 
@@ -784,7 +784,7 @@ class HelloClassLoader {
 
 可以成功加载本地服务的类
 
-![image-20210805140305820](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191532539.png)
+![image-20210805140305820](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191532539.png)
 
 #### 利用ClassLoader#defineClass直接加载字节码
 
@@ -822,7 +822,7 @@ class HelloDefineClass {
 }
 ```
 
-![image-20210805143152300](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191532454.png)
+![image-20210805143152300](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191532454.png)
 
 但是问题就是`ClassLoader#defineClass`被调用的时候，类的对象不会被初始化，必须对象显式调用构造函数，初始化代码才能被执行。而且，即使我们将初始化代码放在类的static块中，在defineClass时也无法被直接调用到。所以，**如果我们要使用defineClass在目标机器上执行任意代码，需要想办法调用构造函数**。
 
@@ -934,7 +934,7 @@ class CommonsCollectionsIntro3 {
 
 `com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter`这个类的构造⽅法中调⽤了`(TransformerImpl) templates.newTransformer()`，免去了我们使⽤ `InvokerTransformer` ⼿⼯调⽤`newTransformer()`⽅法这⼀步：
 
-![image-20210809135002812](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191532991.png)
+![image-20210809135002812](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191532991.png)
 
 当然，缺少了InvokerTransformer, TrAXFilter的构造方法也是无法调用的。这里会用到一个新的Transformer,就是`org.apache.commons.collections.functors.InstantiateTransformer`。
 
@@ -1041,5 +1041,5 @@ class CommonsCollectionsIntro3 {
 
 利用了cc6的`TiedMapEntry`来通杀Java7和8，由于触发的时候会报错退出，使用了`fakeTransformers`来避免构造时触发，最后在生成序列化数据流的时候再把真正的`ChainedTransformer`替换进去
 
-![image-20210809135418059](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202109191532319.png)
+![image-20210809135418059](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202109191532319.png)
 

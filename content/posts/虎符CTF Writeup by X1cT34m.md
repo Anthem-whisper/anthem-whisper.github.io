@@ -1,7 +1,7 @@
 ---
 title: 虎符CTF Writeup by X1cT34m
 date: 2021-04-04
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210404094446.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210404094446.png
 description: 虎符CTF打了个No.8，这波是队友带飞
 categories: 
 - ctf_writeup
@@ -147,7 +147,7 @@ int main()
 
 输入17个字符分成7和10，又输入一个数要满足
 
-![捕获](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210403190710.PNG)
+![捕获](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210403190710.PNG)
 
 爆破就行
 

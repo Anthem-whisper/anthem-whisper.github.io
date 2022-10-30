@@ -54,21 +54,21 @@ tags:
 
 Linux系统中支持用 `\` 字符来分割一个多行命令，在一个文件中即使有无法识别的命令，报错，也不会影响其他正常命令执行
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170817.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170817.png)
 
 #### 用两个字符在Linux下创建文件
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170833.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170833.png)
 
 #### ls的文件排序和ls -t的文件排序
 
 ls
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170844.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170844.png)
 
 ls -t
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170853.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170853.png)
 
 可以看到， `ls` 是按照alphabet来排序的， `ls -t` 是按照创建时间的顺序来排序的
 
@@ -82,7 +82,7 @@ ls -t
 
 并且原作者playload的到数第三行：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170902.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170902.png)
 
 利用了A文件本身就在ls命令回显的特性，我构造到这里，很难受，这个技巧太高。
 
@@ -135,6 +135,6 @@ for i in playload:
 
 其中 `*` 这个命令很有意思
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170912.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170912.png)
 
 所以这个方案明显比原来的利用alphabet的排序来写shell好多了

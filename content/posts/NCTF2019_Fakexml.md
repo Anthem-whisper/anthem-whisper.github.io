@@ -19,15 +19,15 @@ By:0xfxxker_wh1sper
 
 用户名，密码随便试一下：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164837.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120164837.png)
 
 抓包，分析:
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164848.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120164848.png)
 
 于是我构造了如下XML外部实体，大概是这样
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164909.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120164909.png)
 
 注意事项：
 ```
@@ -39,7 +39,7 @@ By:0xfxxker_wh1sper
 ```
 通过POST请求发过去
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120164914.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120164914.png)
 
 服务器说登录失败，并且返回&dy，也就是/flag的内容
 

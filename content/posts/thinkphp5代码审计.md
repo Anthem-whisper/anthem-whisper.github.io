@@ -2,7 +2,7 @@
 title: "thinkphp5代码审计"
 date: 2021-03-12
 draft: false
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312152311.jpeg
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312152311.jpeg
 description: 
 categories: 
 - note
@@ -88,31 +88,31 @@ https://xz.aliyun.com/t/8143
 
 2018年12月9日官方发布的补丁，在library/think/route/dispatch/Module.php获取控制器名处加了个一个正则waf
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150300.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150300.png)
 
 洞其实不在这里
 
 在路由调度的时候：
 
-![image-20210224183737791](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150307.png)
+![image-20210224183737791](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150307.png)
 
 跟进到thinkphp/library/think/route/dispatch/Module.php:
 
-![image-20210224183857202](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150311.png)
+![image-20210224183857202](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150311.png)
 
 跟进controller方法：(thinkphp/library/think/App.php)
 
-![image-20210224193234503](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150328.png)
+![image-20210224193234503](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150328.png)
 
 跟进parseModuleAndClass方法：(thinkphp/library/think/App.php)
 
-![image-20210222221052520](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150405.png)
+![image-20210222221052520](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150405.png)
 
 这个方法先对`$name`(类名)进行判断，当`$name`含有`\`时会直接将其作为类的命名空间路径，导致我们可以任意方法调用，比如：
 
 * thinkphp/library/think/Container.php：
 
-![image-20210223112805010](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150430.png)
+![image-20210223112805010](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150430.png)
 
 ```
 http://127.0.0.1/public/index.php?s=index/think\Container/invokefunction&function=call_user_func_array&vars[0]=phpinfo&vars[1][]=1
@@ -122,13 +122,13 @@ http://127.0.0.1/public/index.php?s=index/think\Container/invokefunction&functio
 
 * thinkphp/library/think/Request.php:
 
-![image-20210223113330871](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150418.png)
+![image-20210223113330871](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150418.png)
 
 因为是private，所以查找同一类里面的用例：
 
 1. Request::input方法：
 
-![image-20210223113649493](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150443.png)
+![image-20210223113649493](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150443.png)
 
 构造poc：
 
@@ -138,7 +138,7 @@ http://127.0.0.1/public/index.php?s=index/think\request/input&data=1&filter=phpi
 
 2. Request::cookie方法：
 
-![image-20210223114040419](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150457.png)
+![image-20210223114040419](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150457.png)
 
 构造poc：
 
@@ -152,7 +152,7 @@ Cookie: cmd=1
 
 * thinkphp/library/think/template/driver/File.php:
 
-![image-20210223130238959](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150511.png)
+![image-20210223130238959](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150511.png)
 
 构造poc：
 
@@ -166,13 +166,13 @@ http://127.0.0.1/public/?s=index/think\template\driver\file/write&cacheFile=/tmp
 
 thinkphp/library/think/Loader.php:
 
-![image-20210224104838156](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150528.png)
+![image-20210224104838156](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150528.png)
 
 原理类似，在`App::run()`方法里面，`Loader::controller`进行调度的时候，当`$name`含有`\`时会直接将其作为类的命名空间路径，导致我们可以任意方法调用。比如：
 
 * thinkphp/library/think/App.php:
 
-![image-20210224111256654](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150543.png)
+![image-20210224111256654](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150543.png)
 
 构造poc:
 
@@ -205,7 +205,7 @@ eval因为不是函数不能直接回调，在特定php版本情况下可以使�
 
 ### 概述
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210416105559.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210416105559.png)
 
 Request核心类**$method** 来自可控的 **$_POST** 数组，而且在获取之后没有进行任何检查，直接把它作为 **Request** 类的方法进行调用，同时，该方法传入的参数是可控数据 **$_POST** 。导致可以随意调用 **Request** 类的部分方法
 
@@ -245,34 +245,34 @@ _method=__construct&filter[]=system&method=get&get[]=whoami
 
 thinkphp/library/think/Request.php:
 
-![image-20210308164140184](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150559.png)
+![image-20210308164140184](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150559.png)
 
 可以看到有一个可以控制的函数名`$_POST[Config::get['var_method']`，而`var_method`的值在application/config.php里面为`_method`:
 
-![image-20210308164849228](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150613.png)
+![image-20210308164849228](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150613.png)
 
 于是可以POST传入`_method`改变`$this->{$this->method}($_POST);`达到任意调用此类中的方法
 
 而如果调用此类中的`__construct`方法：
-![image-20210308165349746](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150623.png)
+![image-20210308165349746](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150623.png)
 
 有一个foreach，可以引起POST数据对Requests对象属性的变量覆盖。
 
 在App::run()方法里面，如果我们开启了debug模式，则会调用Request::param()方法：
 
-![image-20210309112057671](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150633.png)
+![image-20210309112057671](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150633.png)
 
 当然，即使没有开启debug，在App::run()里面的调用的exec方法同样也会调用Request::param()方法
 
-![image-20210309115557269](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150643.png)
+![image-20210309115557269](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150643.png)
 
 因为调用栈太深，就不一个个跟了
 
-![image-20210309115705097](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150651.png)
+![image-20210309115705097](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150651.png)
 
 这个方法我们需要特别关注了，因为 **Request** 类中的 `param、route、get、post、put、delete、patch、request、session、server、env、cookie、input` 方法均调用了 **filterValue** 方法，而该方法中就存在可利用的 **call_user_func** 函数
 
-![image-20210309113026498](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150703.png)
+![image-20210309113026498](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150703.png)
 
 ### 小结
 
@@ -280,7 +280,7 @@ thinkphp/library/think/Request.php:
 
 任意方法调用发生在method()，变量覆盖发生在__construct()，rce发生在filterValue()
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210312150713.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150713.png)
 
 
 
@@ -290,7 +290,7 @@ thinkphp/library/think/Request.php:
 
 反序列化复现首先需要自己构造一个反序列化触发点：
 
-![image-20210417135947010](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210417135956.png)
+![image-20210417135947010](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417135956.png)
 
 	### Windows类-任意文件删除
 
@@ -366,11 +366,11 @@ echo base64_encode(serialize(new Windows()));
 
 在上述Windows类的`removeFiles()`中使用了`file_exists()`函数，这个函数会把`$filename`当作字符串处理
 
-![image-20210417144037447](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210417144045.png)
+![image-20210417144037447](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417144045.png)
 
 利用这一点，我们可以传入一个对象来触发`__toString`方法，于是全局搜索`__toString`
 
-![image-20210417194627181](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210417202754.png)
+![image-20210417194627181](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417202754.png)
 
 可以看到他调用了`toJson`方法，因为`class Model`是一个抽象类，不能直接调用，所以我们目光移到子类里面
 
@@ -435,7 +435,7 @@ class Model
 
 因为最终要触发`__call`，我们需要找到函数调用的地方，在toArray里面有这几处：
 
-![image-20210417202816283](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210417211525.png)
+![image-20210417202816283](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417211525.png)
 
 经过调试过后选择最后一处`$item[$key] = $value ? $value->getAttr($attr) : null`
 
@@ -458,7 +458,7 @@ if (isset($this->data[$key]))
 
 其中`$value`是由这两行确定的：	
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210417212035.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417212035.png)
 
 需要满足`$modelRelation`可控，经过查找，可以将`$relation`设为'getError'，`$modelRelation`就变成了`$this->getError()`的返回值：
 
@@ -471,7 +471,7 @@ public function getError()
 
 跟进getRelationDate:
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210417222219.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417222219.png)
 
 这里又给我们增加了条件：
 
@@ -485,15 +485,15 @@ public function getError()
 
 第二条路全局查找getRelation方法且为Relation子类的类，找到了HasOne（/thinkphp/library/think/model/relation/HasOne.php）
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418113603.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418113603.png)
 
 第一条路，符合if判断之后`$value`可控，得到返回值`$values`之后代码跳出getRelationDate方法，运行至条件3处
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418110614.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418110614.png)
 
 `if (method_exists($modelRelation, 'getBindAttr'))`，发现在HasOne的父类OneToOne里面是可控的：
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210417212650.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417212650.png)
 
 那么条件4也得到了解决。代码执行到了`$item[$key] = $value ? $value->getAttr($attr) : null`
 
@@ -501,43 +501,43 @@ public function getError()
 
 之前我们有提到要RCE需要调用Request类的`__call`方法，但是由于`self::$hook[$method]`不可控,无法成功利用
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418141551.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418141551.png)
 
 于是我们可以寻找其他的方法，比如Output类的`__call`方法
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418143247.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418143247.png)
 
 这里调用了block方法，跟进：
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418143440.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418143440.png)
 
 继续跟进：
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418143521.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418143521.png)
 
 疯狂跟进：
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418143650.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418143650.png)
 
 `$this->handle`是可控的，继续全局搜索write，寻找可控的点，找到了/thinkphp/library/think/session/driver/Memcached.php
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418143918.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418143918.png)
 
 同样`$this->handle`可控，继续全局搜索set，找到thinkphp/library/think/cache/driver/File.php
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418144434.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418144434.png)
 
 可以`file_put_contents`写shell，并且`$filename`在getCacheKey方法当中是可控的，伪协议绕一下exit就可以了
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418145126.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418145126.png)
 
 但是`$data`比较麻烦，他从传入的`$value`取值，`set`方法中的参数来自先前调用的`write`方法，`write`之前在writeln的时候就传入了true，不可控。偷一张图：
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418145636.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418145636.png)
 
 继续跟进后面的setTagItem方法，我们可以看到它再次调用了set方法:
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210418145844.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210418145844.png)
 
 且文件内容`$value`通过`$name`赋值(文件名)，所以我们可以在文件名上面下功夫，比如`php://filter/write=string.rot13/resource=./<?cuc cucvasb();?>`这种
 

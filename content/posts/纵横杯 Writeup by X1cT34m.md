@@ -15,7 +15,7 @@ tags:
 
 考点：MySQL读写文件
 
-![image-20201226234822836](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164407.png)
+![image-20201226234822836](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164407.png)
 
 和巅峰极客的前端一样，而且发现也是布尔盲注，一阵狂喜；
 
@@ -75,15 +75,15 @@ if __name__ == '__main__':
 
 注出密码，登陆之后，你就中计了；
 
-![image-20201226235325587](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164406.png)
+![image-20201226235325587](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164406.png)
 
 扫目录可以扫到很多json，里面含有一些组件信息
 
-![image-20201226235519551](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104165914.png)
+![image-20201226235519551](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104165914.png)
 
 不过查看了一下，这个框架这个版本目前是没有符合情景的漏洞的；
 
-![image-20201226235633677](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104165741.png)
+![image-20201226235633677](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104165741.png)
 
 真正的利用点其实就在一开始的登陆界面，没有任何waf其实也挺奇怪，说明这道题可能不是常规考点
 
@@ -101,11 +101,11 @@ md，确实猜不到。
 
 读取`/etc/apache2/apache2.conf`(太长了我就不贴代码了)，其中有一个路径值得关注：
 
-![image-20201227000708960](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164649.png)
+![image-20201227000708960](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164649.png)
 
 没错，web路径就是`/var/sercet/html/`，用`0'||ascii(substr((select load_file('/var/sercet/html/index.php')),1,1))>79#`可以读取index.php的源码：
 
-![image-20201227001109957](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164653.png)
+![image-20201227001109957](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164653.png)
 
 SQLmap一梭子Getshell
 
@@ -117,13 +117,13 @@ SQLmap一梭子Getshell
 
 扫目录`www.zip`下载源码
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164657.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164657.png)
 
 发现是yzmcms
 
 `common\config\config.php`看到数据库配置
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164707.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164707.png)
 
 `/admin/index/login.html`为管理员后台，尝试默认口令yzmcms/yzmcms登录失败，尝试是否密码为admin/admin868，成功登陆
 
@@ -135,13 +135,13 @@ SQLmap一梭子Getshell
 
 本地跟了一下代码，在`application\collection\controller\collection_content.class.php`的183~224行的`public function collection_article_content()`
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164715.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164715.png)
 
 在后台的模块管理->采集管理模块处添加节点，然后网址处填写构造的恶意页面
 
 跟进`collection`类，转到`yzmphp\core\class\collection.class.php`：
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164720.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164720.png)
 
 很明显无任何过滤的`file_get_content()`，利用此进行一个SSRF可以任意文件读取
 
@@ -152,21 +152,21 @@ ssrf.html：
 ```
 这里用httpxxx是因为`yzmphp\core\class\collection.class.php`的189行对url协议前四位限制了http
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164727.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164727.png)
 
 
 配置如下：
 
-![image-20201226151910969](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164731.png)
+![image-20201226151910969](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164731.png)
 
 成功读取：
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164736.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164736.png)
 
 尝试读flag:
 ```html
 <leon><a href="httpxxx://../../../../../../flag">123</a></leon>
 ```
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164739.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164739.png)
 
 ```
 flag{46a41939-3d92-411f-8ba2-3dbefa6fdff0}
@@ -178,7 +178,7 @@ flag{46a41939-3d92-411f-8ba2-3dbefa6fdff0}
 
 简单审计一下，文件上传、文件后缀拼接`.jpg`、`index.php`很明显有个文件操作函数
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164743.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164743.png)
 
 明显的phar反序列化，看`class.php`找析构函数，发现对`config.php`进行写入，于是只需要反序列化控制`$this->title`为恶意代码即可，简单写个一句话shell，绕一下正则替换：
 
@@ -210,7 +210,7 @@ index.php?img=phar://./static/02b969e2b0f2619f59521f67aa8c035d.jpg
 ```
 触发phar反序列化后,`config.php`就写入了恶意代码，`index.php`include了`config.php`，所以直接:
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164749.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164749.png)
 
 ```
 flag{0f131b09-a441-4723-bc02-bf4516863884}
@@ -222,22 +222,22 @@ www.zip 源码
 是海洋cms
 
 在 adm1n/admin_smtp.php 发现了
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104165117.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104165117.png)
 
 直接没有waf的写入，并且是往一个php文件里面写，由于一些变量可控让我们可以代码注入
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104165126.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104165126.png)
 
 admin\admin登陆后台；
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104165134.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104165134.png)
 
 之后访问admin_smtp.php，在点击“确认”的时候抓取数据包，改包：
 
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104164813.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104164813.png)
 
 
 
 直接来一发：
-![](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210104165144.png)
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210104165144.png)
 
 ## Misc
 

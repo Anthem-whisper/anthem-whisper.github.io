@@ -2,7 +2,7 @@
 title: "D3ctf^antctf2021复现"
 date: 2021-03-10T14:18:14+08:00
 draft: true
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210311143228.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210311143228.png
 description: 
 categories: 
 - ctf_writeup
@@ -26,21 +26,21 @@ tags:
 
 考点：Java-XXE盲打+SSRF
 
-![image-20210310204312081](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210311114541.png)
+![image-20210310204312081](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210311114541.png)
 
 题目是一个文件上传的服务，抓包观察，上传会向第二个服务端POST数据，然后第二个服务端会对第三个服务端PUT请求。
 
 可以更改我们发起的POST参数让第二个服务端像我们自己的VPS发送PUT请求数据：
 
-![image-20210310204711368](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210311114549.png)
+![image-20210310204711368](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210311114549.png)
 
 修改之后我们能收到一个来自第二个服务端的PUT请求：
 
-![image-20210310200933160](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210311114554.png)
+![image-20210310200933160](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210311114554.png)
 
 我们可以仿照这个请求，对第三个服务端直接发起请求：
 
-![image-20210310205313565](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210311114600.png)
+![image-20210310205313565](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210311114600.png)
 
 返回了一个XML的报错信息；
 
@@ -182,6 +182,6 @@ if __name__ == "__main__":
 
 就可以收到flag了：
 
-![image-20210310222506300](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210311114607.png)
+![image-20210310222506300](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210311114607.png)
 
 其实这题不算难，关键点在于你能不能想到第二个服务端会解析返回的xml信息，当然去审计源码也是可以的。

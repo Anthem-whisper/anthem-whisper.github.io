@@ -1,7 +1,7 @@
 ---
 title: ByteCTF2020复现
 date: 2020-10-28
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210228105539.jpeg
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210228105539.jpeg
 description: 
 categories: 
 - ctf_writeup
@@ -18,7 +18,7 @@ tags:
 
 考点：MD5爆破、SSRF
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181318.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181318.png)
 
 功能是添加一个http://或者https://开头的URL，并且要求输入验证码，可以利用以下脚本来爆破：
 
@@ -51,15 +51,15 @@ Accept-Encoding: gzip, deflate
 
 比赛的时候我用的是302重定向好像不行（哭了），其实这里他遇到一个<a>标签就会去请求：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181325.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181325.png)
 
 我们可以发现他请求到了我们想要的URL：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181330.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181330.png)
 
 把<a>标签的href改成file协议果然可以造成任意文件读：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181342.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181342.png)
 
 这样的话我们可以逐一的读取他爬虫的源码，但是在这之前我们要先知道爬虫工作的绝对路径，可以通过读`/proc/self/environ`，得到绝对路径PWD=/code，这个知识点在本站[[SWPU2019\]Web3](http://wh1sper.com/buuoj刷题记录3/)也提到过。
 
@@ -133,7 +133,7 @@ project = bytectf
 
 根据hint，得到源码之后我们可以本地起一个环境来调试，同时，从[这篇文章](https://blog.csdn.net/zwq912318834/article/details/78854571)里面我们得知redis-scrapy的运作方式:
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181356.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181356.png)
 
 
 
@@ -153,7 +153,7 @@ project = bytectf
 ?url=https://baidu.com
 ```
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181407.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181407.png)
 
 监听到请求的UA是`PycURL`，这个东西和curl差不多，是支持gopher等协议的，我们就可以利用这里去打redis。
 

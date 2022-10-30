@@ -17,7 +17,7 @@ tags:
 
 考点：python eval()代码注入，命令执行结果外带
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171633.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171633.png)
 
 访问Source可以看到源码：
 
@@ -171,7 +171,7 @@ if __name__ == '__main__':
 
 用上一道题的payload直接秒了……啊……这……
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171646.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171646.png)
 
 可能本来上一道题的不需要绕waf，但是后来暗改了之后改成一道题了。。。
 

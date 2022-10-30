@@ -1,7 +1,7 @@
 ---
 title: BUUOJ刷题记录(3)
 date: 2020-09-23 
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120170627.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170627.png
 description: 
 categories: 
 - ctf_writeup
@@ -16,7 +16,7 @@ tags:
 
 考点：%0a绕过正则匹配，绝对路径调用系统命令
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116015235.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116015235.png)
 
 要求用json传入cmd参数RCE，但是只给了ls命令其他的都不给
 
@@ -71,7 +71,7 @@ flag在PATH的上级目录。
 
 referer：https://blog.csdn.net/Alexhcf/article/details/108400293
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116014936.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116014936.png)
 
 #### 从base64解码发现SSTI
 
@@ -81,7 +81,7 @@ referer：https://blog.csdn.net/Alexhcf/article/details/108400293
 
 而且在base64解密的页面发现了模板注入，传入`{{config}}`的base64编码会看到以下界面：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116014940.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116014940.png)
 
 那么我们可以沙箱逃逸试试，可以用jinja2中控制结构 `{% %}` ，也可以用变量取值 `{{}}`
 
@@ -187,7 +187,7 @@ print(rv)
 
 运行得到131-679-327，在debug输入然后RCE
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116015910.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116015910.png)
 
  
 
@@ -295,7 +295,7 @@ flag{a0b16377-22ae-4b81-b054-2afb7a5e6e6b
 
 \>>[Linux下/proc/[pid\]/*的作用](https://www.hi-linux.com/posts/64295.html)
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116020019.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116020019.png)
 
 输入用户名登录，页面会显示“Hello wh1sper”，尝试`{{}}`没有探测到注入。
 
@@ -459,11 +459,11 @@ zip -ry [www.zip](http://www.zip) www
 
 另一种方法是通过命令注入来外带flag，我试了试本地是可以的
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116020036.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116020036.png)
 
 VPS上面监听是可以收到的：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116020459.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116020459.png)
 
 但是在BUU复现的时候，我开了内网靶机却没有外带成功，不知道是什么原因，那就不搞他了。
 
@@ -481,7 +481,7 @@ VPS上面监听是可以收到的：
 
 
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116020246.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116020246.png)
 
 打开题目有一个上传界面，叫我们上传一个用户，并且here给了一个例子：
 
@@ -515,13 +515,13 @@ VPS上面监听是可以收到的：
 
 常规的XXE绕过其中一种方法是利用除UTF-8的编码绕过。
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116020259.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116020259.png)
 
 利用Linux的命令可以把文件转换为UTF-16的格式，此时我们上传发现没有出现WAF的信息。
 
 只需要在标签里面引用实体就行了，但是我们发现flag只显示出来了一半。
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116020402.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116020402.png)
 
 回显不出来就要外带数据，可以利用XML的报错信息，也可呀利用盲打的姿势外带。
 
@@ -543,7 +543,7 @@ VPS上面监听是可以收到的：
 
 抓包，果不其然：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116020411.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116020411.png)
 
 挨个下载web路径文件，在class.php里面发现很多的类，联想到反序列化，然而并没有直接发现unserialize的操作。
 
@@ -555,7 +555,7 @@ VPS上面监听是可以收到的：
 
 根据phar反序列化的触发函数：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210116021051.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210116021051.png)
 
 触发点在class.php124行的file_exists函数。
 

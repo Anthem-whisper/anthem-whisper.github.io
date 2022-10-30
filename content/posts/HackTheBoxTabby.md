@@ -1,7 +1,7 @@
 ---
 title: HackTheBox::Tabby
 date: 2020-07-19
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180858.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180858.png
 description: 
 categories: 
 - 渗透
@@ -33,13 +33,13 @@ root@wh1sper:~/tools/dirsearch#
 
 访问发现是个Tomcat的默认页面：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180905.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180905.png)
 
  
 
 访问80端口，在首页发现news.php，不过这个域名没办法访问，把他修改成靶机的内网ip即可访问：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180912.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180912.png)
 
  
 
@@ -166,7 +166,7 @@ root@wh1sper:~/HTB/machine/Tabby#
 
 然后后台地址是： `10.10.10.194:8080/manager/` (这个登录不上)，另一个是 `10.10.10.194:8080/host-manager/html` 输入用户名tomcat密码$3cureP4s5w0rd123!就可以进去
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180921.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180921.png)
 
  
 
@@ -178,9 +178,9 @@ root@wh1sper:~/HTB/machine/Tabby#
 
 在tomcat-users.xml中写了tomcat用户没有manager-gui角色，因此无法登录manager/html页面，但是tomcat用户还具有manager-script角色，所以可以执行命令
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180957.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180957.png)
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181009.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181009.png)
 
 
 
@@ -192,7 +192,7 @@ tomcat manageapp操作方法：[http://tomcat.apache.org/tomcat-8.5-doc/manager-
 
 我们用一个免杀jsp马来制作好war包，然后通过curl远程部署到靶机上面：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181020.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181020.png)
 
 我的免杀base64用不了，换了msf的马：
 
@@ -220,7 +220,7 @@ root@wh1sper:~/HTB/machine/Tabby#
 
 监听10086端口，访问jsp文件我们就能收到shell：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120181033.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120181033.png)
 
 同理可以上传一个jsp菜刀版用蚁剑连接使用图形化文件管理系统：
 

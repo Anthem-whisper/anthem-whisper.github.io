@@ -1,7 +1,7 @@
 ---
 title: 红明谷杯 Writeup by X1cT34m
 date: 2021-04-03
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210404094236.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210404094236.png
 description: 红明谷杯就随便打了打，没想到混了了个线上16名，看着波能不能ban人捡漏了
 categories: 
 - ctf_writeup

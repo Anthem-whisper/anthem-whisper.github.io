@@ -1,7 +1,7 @@
 ---
 title: HackTheBox::Traceback
 date: 2020-07-17
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180751.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180751.png
 description: 
 categories: 
 - 渗透
@@ -10,7 +10,7 @@ tags:
 ---
 打开是一个黑页
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180759.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180759.png)
 
 看源码有一句hint：
 
@@ -111,7 +111,7 @@ root@wh1sper:~/HTB/machine/Traceback#
 
 既然lua脚本可以读写sysadmin的目录，我们便利用他写sysadmin的公钥：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180809.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180809.png)
 
  
 
@@ -145,7 +145,7 @@ https://github.com/Tib3rius/pspy
 
  
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180819.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180819.png)
 
  
 
@@ -200,13 +200,13 @@ $
 
 是不是很熟悉呢？在刚刚登录的时候也是见到了这句话： `Welcome to Xh4H land`
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180829.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180829.png)
 
  
 
 随后我们监视到，每次登录SSH都会执行以下命令：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120180839.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180839.png)
 
 其中能找到这样一条：
 

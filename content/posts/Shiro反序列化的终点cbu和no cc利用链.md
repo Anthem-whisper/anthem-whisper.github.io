@@ -2,7 +2,7 @@
 title: "Shiro反序列化的终点cbu和no Cc利用链"
 date: 2021-10-04T23:24:42+08:00
 draft: false
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205046.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205046.png
 description: 
 comments: true
 license: false
@@ -30,7 +30,7 @@ TemplatesImpl#getOutputProperties() -> TemplatesImpl#newTransformer() -> Templat
 
 ## cbu链原理
 
-![04929d8497ebfec60f0d8d28198c6441.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205931.png)
+![04929d8497ebfec60f0d8d28198c6441.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205931.png)
 
 BeanComparator()用于比较两个Java Bean，当property不存在的时候会调用`PropertyUtils.getProperty`去获取JavaBean的属性，也就是执行getter
 
@@ -117,18 +117,18 @@ public class CommonsBeanutils1 {
 
 - 本地生成payload的包和远程依赖的包版本不一导致`serialVersionID`不一致，反序列化失败
 
-![a3432f8042ba68a1019e095a05996591.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205813.png)
+![a3432f8042ba68a1019e095a05996591.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205813.png)
 
 - Shiro自带CommonsBeanutils，不依赖cc。但是Shiro反序列化需要cc
     虽然cbu本身依赖cc，但是Shiro中自带的cbu中的类不全，反序列化会失败
 
-![d1ee0502174e6c86a4bd4e5565403ad0.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205467.png)
+![d1ee0502174e6c86a4bd4e5565403ad0.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205467.png)
 
 ## no CC的Gadge
 
 `org.apache.commons.collections.comparators.ComparableComparator`在BeanComparator类的构造方法里面被用到，要解决没有cc的时候ClassNotFound的问题就需要替换这个ComparableComparator。
 
-![0339fe432f76bdb9ffcf2154cd1d3fcb.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205374.png)
+![0339fe432f76bdb9ffcf2154cd1d3fcb.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205374.png)
 
 因为ComparableComparator实现了Comparator接口，替换候选类需要满足：
 
@@ -137,11 +137,11 @@ public class CommonsBeanutils1 {
 
 我们去看Comparator接口，看下哪些类实现了他：
 
-![93a8f812e8cdcb588553768cb69dfd32.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205172.png)
+![93a8f812e8cdcb588553768cb69dfd32.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205172.png)
 
 java.lang.String.CaseInsensitiveComparator：
 
-![542fe3f0911cea2dbae01c3adeeeec14.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042205046.png)
+![542fe3f0911cea2dbae01c3adeeeec14.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042205046.png)
 
 直接通过String.CASE\_INSENSITIVE\_ORDER就可以获得一个对象
 

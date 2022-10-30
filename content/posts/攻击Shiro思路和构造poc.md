@@ -2,7 +2,7 @@
 title: "攻击Shiro思路和构造poc"
 date: 2021-10-04T23:22:29+08:00
 draft: false
-image: https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159119.png
+image: https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042159119.png
 description: 
 comments: true
 license: false
@@ -16,17 +16,17 @@ tags:
 ---
 ## 攻击shiro思路
 
-![75cb74a9191b4a0034d1b8c860740eb6.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159119.png)
+![75cb74a9191b4a0034d1b8c860740eb6.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042159119.png)
 
 ## 伪造加密过程
 
 shiro在容器初始化的时候会实例化CookieRememberMeManager对象，并且设置加密解密方式
 
-![2a73a2116a7ebd6f3ae96cb634795011.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159712.png)
+![2a73a2116a7ebd6f3ae96cb634795011.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042159712.png)
 
 实例化时调用父类构造方法，设置加密方式为AES，并且设置key
 
-![0fc39f2201b6a8f630c715bb1afff0c6.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159685.png)
+![0fc39f2201b6a8f630c715bb1afff0c6.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042159685.png)
 
 看下调用 栈
 
@@ -41,7 +41,7 @@ run:748, Thread (java.lang)
 
 然后在之前也说过，加密的时候先序列化再用encrypt()方法加密
 
-![993fa60071dabd0240454635d6b9fada.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159298.png)
+![993fa60071dabd0240454635d6b9fada.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042159298.png)
 
 所以我们构造poc伪造加密的时候，直接这样就行了：
 
@@ -97,11 +97,11 @@ public class shirokey {
 
 key正确时：
 
-![a36dfe63f20b4427194f50055fea11b0.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042200654.png)
+![a36dfe63f20b4427194f50055fea11b0.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042200654.png)
 
 key错误时：
 
-![9300020b5bf9c4eff3d7fd5cfda917ab.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042200806.png)
+![9300020b5bf9c4eff3d7fd5cfda917ab.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042200806.png)
 
 基于此枚举key
 
@@ -208,7 +208,7 @@ public class cc3 {
 
 得到数据之后替换为rememberMe之后并没有执行命令，而是重定向到了首页，开启debug去看，得到一个报错
 
-![f91ddc1b27dbbe4bdca9e4e6165dd392.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159266.png)
+![f91ddc1b27dbbe4bdca9e4e6165dd392.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042159266.png)
 
 原因是`org.apache.shiro.io.ClassResolvingObjectInputStream`这个类，他是个ObjectInputStream的子类，并且重写了resolveClass方法，这个方法是用于反序列化中寻找Class对象的方法。
 
@@ -388,4 +388,4 @@ public class CommonsCollectionShiro {
 
 小手一抖，计算器到手
 
-![56925b5f3ee5e3645eb544b3969ff793.png](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/202110042159423.png)
+![56925b5f3ee5e3645eb544b3969ff793.png](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202110042159423.png)

@@ -53,7 +53,7 @@ new ClassName();
 
 连接上之后，可以使用文件系统，但是虚拟终端却不能执行命令，猜测是disable_functions，在phpinfo里面果然翻到了
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171337.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171337.png)
 
 关于bypass diable_functions，这里推荐[一篇文章](https://www.cnblogs.com/hookjoy/p/10167315.html)
 
@@ -66,7 +66,7 @@ new ClassName();
 
 这里用的一个[bypass PHP7.0-7.3 disable_function的PoC](https://github.com/mm0r1/exploits/blob/master/php7-gc-bypass/exploit.php)，用蚁剑上传到/tmp，index包含他就可以看到结果了
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171346.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171346.png)
 
  
 
@@ -122,12 +122,12 @@ flag{1608cce2-94d1-4014-9927-a9738ea8280e}
 
 来到网站管理后台，在 `应用中心 -> 应用商店 -> 主题` 里面可以下载主题文件到本地
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171356.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171356.png)
 
 然后在 `网站管理 -> 主题管理 -> 主题安装` 通过上传含有webshell的主题来获取一个webshell
 
 F12可以看到shell的路径：
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171403.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171403.png)
 
 访问发现页面存在，直接蚁剑连接；
 
@@ -137,11 +137,11 @@ F12可以看到shell的路径：
 
 在根目录发现假的flag，旁边flag.hint
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171411.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171411.png)
 
 发现每分钟内容都会变一次，然后找到了根目录的auto.sh
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171416.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171416.png)
 
 直接访问这个py文件：
 
@@ -178,7 +178,7 @@ f.close()
 
 隔一会儿访问/flag.hint就有flag：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171423.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171423.png)
 
  
 
@@ -251,7 +251,7 @@ if(isset($_GET['secret'])){
 
 发到intruder，设置Position和Payload，在xx.xx.xx.11发现了回显：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171432.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171432.png)
 
 继续尝试爆破端口，发现6379的redis报错（其实猜也能猜，一般就是3306和6379）
 
@@ -375,7 +375,7 @@ app.listen(80, '0.0.0.0', () => {
 
 这里借用[Guoke](https://guokeya.github.io/post/a45x0caHd/)师傅的一张图：
 
-![img](https://raw.githubusercontents.com/Anthem-whisper/imgbed/master/img/20210120171441.png)
+![img](https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120171441.png)
 
  
 
