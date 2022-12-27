@@ -1,7 +1,7 @@
 ---
 title: "JNDI、RMI、LDAP防御和绕过总结"
 date: 2022-03-13T16:13:45+08:00
-draft: true
+draft: false
 image: 
 description: 
 comments: true
