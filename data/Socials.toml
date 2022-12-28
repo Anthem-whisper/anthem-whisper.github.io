@@ -7,7 +7,7 @@
 
 [[socials]]
     id = "email"
-    url = "mailto:pwned[<at>]qq.com"
+    url = "mailto:admin[at]wh1sper.com"
     icon = "envelope"
     title = "Email"
     weight = 2
@@ -20,8 +20,8 @@
     weight = 3
 
 [[socials]]
-    id = "qq"
-    url = "#"
-    icon = "qq"
-    title = "QQ"
+    id = "twitter"
+    url = "https://twitter.com/wh1sper1023"
+    icon = "twitter"
+    title = "Twitter"
     weight = 4
