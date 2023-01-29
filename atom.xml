@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">wh1sper</title>
     <subtitle type="html">wh1sper的个人博客. web安全, 安全研究, CTF, writeup。</subtitle>
-    <updated>2023-01-29T22:40:24&#43;08:00</updated>
+    <updated>2023-01-29T23:15:28&#43;08:00</updated>
     <id>https://blog.wh1sper.com/</id>
     <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/" />
     <link rel="self" type="application/atom&#43;xml" href="https://blog.wh1sper.com/atom.xml" />
@@ -20,7 +20,7 @@
             <title type="text">Docker下PHP调试环境搭建</title>
             <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/docker%E4%B8%8Bphp%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
             <id>https://blog.wh1sper.com/posts/docker%E4%B8%8Bphp%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
-            <updated>2023-01-29T22:38:27&#43;08:00</updated>
+            <updated>2023-01-29T23:15:22&#43;08:00</updated>
             <published>2023-01-29T15:52:26&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
@@ -170,6 +170,17 @@
 &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;XDEBUG_CONFIG&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;remote_handler=dbgp client_host=host.docker.internal&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
 &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;XDEBUG_SESSION&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;PHPSTORM&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;嫌麻烦也可以直接拉image：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker pull wh1sperdiyu/php-82-apache-xdebug-32:latest
+docker pull wh1sperdiyu/php-74-apache-xdebug-30:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;docker和IDE都在一台电脑上的情况下，让xdebug直接把debug信息打到宿主机IP也就是&lt;code&gt;host.docker.internal&lt;/code&gt;就可以了&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301292235122.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
