@@ -137,6 +137,13 @@ services:
       XDEBUG_SESSION: "PHPSTORM"
 ```
 
+嫌麻烦也可以直接拉image：
+
+```bash
+docker pull wh1sperdiyu/php-82-apache-xdebug-32:latest
+docker pull wh1sperdiyu/php-74-apache-xdebug-30:latest
+```
+
 docker和IDE都在一台电脑上的情况下，让xdebug直接把debug信息打到宿主机IP也就是`host.docker.internal`就可以了
 
 ![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301292235122.png)
