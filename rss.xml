@@ -23,10 +23,210 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Sun, 29 Jan 2023 22:29:51 &#43;0800</lastBuildDate>
+        <lastBuildDate>Sun, 29 Jan 2023 22:40:24 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://blog.wh1sper.com/rss.xml" />
         
+        
+            <item>
+                <title>Docker下PHP调试环境搭建</title>
+                <link>https://blog.wh1sper.com/posts/docker%E4%B8%8Bphp%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+                <guid isPermaLink="true">https://blog.wh1sper.com/posts/docker%E4%B8%8Bphp%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+                <pubDate>Sun, 29 Jan 2023 15:52:26 &#43;0800</pubDate>
+                
+                    <author>admin[at]wh1sper.com (wh1sper)</author>
+                
+                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
+                
+                    <description>&lt;p&gt;承接上一篇&lt;a href=&#34;https://blog.wh1sper.com/posts/debian%E4%B8%8Bphp%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/&#34;&gt;Debian下PHP 调试环境搭建&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;但是在虚拟机里安装PhpStorm或者在本机上调试都是不太优雅的方案，使用Docker运行调试不用担心php版本的问题，也不用去担心如何倒腾破环了宿主机的环境。&lt;/p&gt;
+&lt;p&gt;先补充下Xdebug的原理：&lt;/p&gt;
+&lt;h2 id=&#34;xdebug的原理&#34;&gt;Xdebug的原理&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;浏览器向 Httpd 服务器发送一个带有 XDEBUG_SESSION_START 参数的请求，服务器收到这个请求之后交给后端的 PHP（已开启 xdebug 模块）进行处理&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果是默认配置&lt;code&gt;xdebug.remote_connect_back = 0&lt;/code&gt;，那么xdebug在收到调试通知时会读取配置 &lt;code&gt;xdebug.remote_host&lt;/code&gt; 和 &lt;code&gt;xdebug.remote_port&lt;/code&gt;（默认是 &lt;code&gt;localhost:9000&lt;/code&gt;），然后向这个端口发送通知。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301291609691.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如果开启&lt;code&gt;xdebug.remote_connect_back = 1&lt;/code&gt;，xdebug会将请求来源的 IP 绑定，并通知
+&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301291620726.gif&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我们可以看到，Xdebug其实是需要从服务端（运行环境）发送消息到客户端（调试IDE）的，但是往往客户端是在内网，没有办法收到服务端的消息。&lt;/p&gt;
+&lt;p&gt;所以一般会用代理隧道技术解决这个问题，比如ssh。&lt;/p&gt;
+&lt;p&gt;注意，使用&lt;a href=&#34;https://xdebug.org/docs/dbgpProxy&#34;&gt;DBGp 代理&lt;/a&gt;只能让你debug的时候可以多人运动，但是&lt;strong&gt;并不能解决内网不可达问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;使用ssh隧道：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;修改 php.ini。让&lt;code&gt;xdebug.client_host&lt;/code&gt;值为&lt;code&gt;127.0.0.1&lt;/code&gt;，这样当服务端收到一个带有参数的请求的时候，xdebug会向127.0.0.1:9003发送调试信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;客户端进行 ssh隧道端口转发&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh -N -R 远程IP:远程端口:127.0.0.1:9003 root@远程IP
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样就能使用调试远程程序了。&lt;/p&gt;
+&lt;h2 id=&#34;使用dbgp-代理httpsxdebugorgdocsdbgpproxy进行多用户调试&#34;&gt;使用&lt;a href=&#34;https://xdebug.org/docs/dbgpProxy&#34;&gt;DBGp 代理&lt;/a&gt;进行多用户调试﻿&lt;/h2&gt;
+&lt;p&gt;可以参考：&lt;a href=&#34;https://phpstorm.org/multiuser-debugging-via-xdebug-proxies.html&#34;&gt;通过 Xdebug 代理进行多用户调试&lt;/a&gt;﻿&lt;/p&gt;
+&lt;p&gt;服务端使用DBGp监听&lt;code&gt;127.0.0.1:9003&lt;/code&gt;，将xdebug发送的请求代理到客户端的9000端口&lt;/p&gt;
+&lt;p&gt;DBGp 代理可执行文件接受两个主要参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-i&lt;/code&gt;：用于侦听 IDE（客户端）连接的主机和端口&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-s&lt;/code&gt;: 侦听调试器引擎（服务器）连接的主机和端口&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./dbgpProxy -s 127.0.0.1:9003 -i 0.0.0.0:9001
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;用于监听客户端连接的地址最好填 &lt;code&gt;0.0.0.0&lt;/code&gt; ，避免网卡选错的麻烦。&lt;/p&gt;
+&lt;h2 id=&#34;宿主机无法收到xdebug请求&#34;&gt;宿主机无法收到Xdebug请求&lt;/h2&gt;
+&lt;p&gt;问题：&lt;/p&gt;
+&lt;p&gt;在Docker中监听是能够收到Xdebug的请求的，但是在宿主机上用netcat或者PhpStorm监听收不到请求&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301291551797.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;还是网络不可达的问题，可以通过隧道技术或者设置xdebug配置参数client_host/remote_host为宿主机IP地址。&lt;/p&gt;
+&lt;p&gt;解决方法：&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;host.docker.internal&lt;/code&gt;，可以直接解析到宿主机IP，参考&lt;a href=&#34;https://docs.docker.com/desktop/networking/#use-cases-and-workarounds-for-all-platforms&#34;&gt;官方文档&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301291634184.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;但是要注意xdebug2和3的配置参数是不一样的，启动的时候环境变量需要注意一下，可见&lt;a href=&#34;https://xdebug.org/docs/upgrade_guide#Step-Debugging&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;使用dockerfile和docker-compose&#34;&gt;使用Dockerfile和Docker compose&lt;/h2&gt;
+&lt;p&gt;按照PhpStorm官方的&lt;a href=&#34;https://github.com/JetBrains/phpstorm-docker-images/blob/master/php-82-apache-xdebug-32/Dockerfile&#34;&gt;repo&lt;/a&gt;魔改了一个祖国版Dockerfile，我自己电脑上build大概五分钟：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; php:8.2-apache&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# COPY --from=composer /usr/bin/composer /usr/bin/composer&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt;    php -r &lt;span class=&#34;s2&#34;&gt;&amp;#34;readfile(&amp;#39;https://getcomposer.org/installer&amp;#39;);&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; php &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mv /var/www/html/composer.phar /usr/bin/composer&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt;    sed -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;s@http://deb.debian.org@http://mirrors.aliyun.com@g&amp;#34;&lt;/span&gt; /etc/apt/sources.list &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt clean &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get update &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get -y install libzip-dev libicu-dev &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; docker-php-ext-install mysqli zip intl &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; pecl install xdebug-3.2.0 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; docker-php-ext-enable xdebug &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;xdebug.mode=debug&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /usr/local/etc/php/php.ini&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# dbgpProxy, for multiuser debugging&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# ssh, for tunnel&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# RUN   curl https://xdebug.org/files/binaries/dbgpProxy -o /usr/bin/dbgpProxy \&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#     &amp;amp;&amp;amp; chmod +x /usr/bin/dbgpProxy \&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#     &amp;amp;&amp;amp; apt-get install ssh&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;docker-compose.yml:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;3.2&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;services&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;webserver&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;php-82-apache-xdebug-32&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;container_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;php-82-apache-xdebug-32&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;ports&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;50080:80&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# - &amp;#34;9001:9001&amp;#34; # for dbgpProxy&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;volumes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;./html:/var/www/html&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;environment&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# Xdebug 2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# XDEBUG_CONFIG: &amp;#34;remote_handler=dbgp remote_host=host.docker.internal idekey=PHPSTORM&amp;#34; &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# Xdebug 3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;XDEBUG_CONFIG&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;remote_handler=dbgp client_host=host.docker.internal&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;XDEBUG_SESSION&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;PHPSTORM&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;docker和IDE都在一台电脑上的情况下，让xdebug直接把debug信息打到宿主机IP也就是&lt;code&gt;host.docker.internal&lt;/code&gt;就可以了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301292235122.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.freebuf.com/articles/web/266512.html&#34;&gt;PHPSTORM调试Docker项目&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.chawu.top/blog/2022-04/phpstorm-docker-xdebug.html&#34;&gt;PhpStorm 利用官方docker镜像启动虚拟环境及调试&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://learnku.com/articles/4090/the-first-step-to-becoming-a-senior-php-programmer-debugging-xdebug-principle&#34;&gt;成为高级 PHP 程序员的第一步——调试（xdebug 原理篇）&lt;/a&gt;&lt;/p&gt;
+</description>
+                
+                
+                
+                
+                
+                    
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/categories/note/">note</category>
+                                
+                            
+                        
+                    
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/tags/xdebug/">xdebug</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/tags/docker/">docker</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="https://blog.wh1sper.com/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</category>
+                                
+                            
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>应急响应笔记</title>
@@ -1333,89 +1533,6 @@ misc::skeleton`
                                 
                                 
                                     <category domain="https://blog.wh1sper.com/tags/ldap/">LDAP</category>
-                                
-                            
-                        
-                    
-                
-            </item>
-        
-            <item>
-                <title>Jolokia读写文件新姿势</title>
-                <link>https://blog.wh1sper.com/posts/jolokia%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E6%96%B0%E5%A7%BF%E5%8A%BF/</link>
-                <guid isPermaLink="true">https://blog.wh1sper.com/posts/jolokia%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E6%96%B0%E5%A7%BF%E5%8A%BF/</guid>
-                <pubDate>Wed, 01 Dec 2021 13:11:00 &#43;0800</pubDate>
-                
-                    <author>admin[at]wh1sper.com (wh1sper)</author>
-                
-                <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
-                
-                    <description>&lt;p&gt;之前看到一个Jolokia新的利用姿势：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://thinkloveshare.com/hacking/ssrf_to_rce_with_jolokia_and_mbeans/&#34;&gt;SSRF to RCE with Jolokia and MBeans&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;这篇文章介绍了在SSRF只能GET请求的场景下，Jolokia一些读写文件，加载.so文件的利用方法&lt;/p&gt;
-&lt;p&gt;我参考这篇文章，结合了之前APISandbox的一些打法出在了 &lt;a href=&#34;https://ctf.njupt.edu.cn/727.html&#34;&gt;NCTF 2021&lt;/a&gt; 上面&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;Java管理扩展（JavaManagementExtensions，JMX）是一种Java技术，它提供用于管理和监视应用程序、系统对象、设备（如打印机）和面向服务的网络的工具，这些资源由被称为MBean（Managed Bean）的对象表示。在JMX API中，可以动态加载和实例化类。可以使用Java动态管理工具包设计和开发管理和监视应用程序。&lt;/p&gt;
-&lt;p&gt;Jolokia是一个JMX-HTTP桥接器，它可以利用JSON通过HTTP实现JMX远程管理，具有快速、简单等特点。除了支持基本的JMX操作之外，它还提供一些独特的特性来增强JMX远程管理如：批量请求，细粒度安全策略等。&lt;/p&gt;
-&lt;p&gt;我们通过阅读&lt;a href=&#34;https://jolokia.org/reference/html/protocol.html&#34;&gt;官方文档&lt;/a&gt;可以知道，Jolokia URL模式大概是：&lt;code&gt;/jolokia/action/package:MBeanSelector/method/param1/param2&lt;/code&gt;这个样子，使用&lt;code&gt;/&lt;/code&gt;的时候需要用&lt;code&gt;!&lt;/code&gt;转义&lt;/p&gt;
-&lt;p&gt;文章中提到了几种（GET请求触发）手法，分别是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;使用&lt;code&gt;vmSystemProperties&lt;/code&gt;获取JVM信息&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;JavaFlightRecorder&lt;/code&gt;任意文件写&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;compilerDirectivesAdd&lt;/code&gt;任意文件读&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;jvmtiAgentLoad&lt;/code&gt;任意加载 .so&lt;/li&gt;
-&lt;li&gt;使用&lt;code&gt;vmLog&lt;/code&gt;写入日志文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;作者通过&lt;code&gt;vmlog&lt;/code&gt;往Tomcat ROOT路径写jsp webshell来实现从SSRF到RCE的转变。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011307334.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
-&lt;p&gt;当时正在构思NCTF校赛出什么题目，看到这几种利用手法，就想着结合之前APISandbox的一些东西，出一道actuator的综合利用，题目设计大概是这样的：&lt;/p&gt;
-&lt;p&gt;一个正常的Springboot应用，&lt;code&gt;/actuator&lt;/code&gt;配置里面暴露了一些本来不应该暴露的端点，其中就有jolokia，env等&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011307472.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
-&lt;p&gt;直接访问&lt;code&gt;/actuator/jolokia/&lt;/code&gt;会403，是因为我使用SpringSecurity限制了本地IP访问&lt;/p&gt;
-&lt;p&gt;用APIKit扫描，或者访问&lt;code&gt;/actuator/mappings&lt;/code&gt;可以看到有一个隐藏的API&lt;code&gt;/user/list&lt;/code&gt;：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308743.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
-&lt;p&gt;这个API返回XML数据，可以自然想到XXE。&lt;/p&gt;
-&lt;p&gt;为了不让XXE直接读文件，我加了waf过滤了除http协议之外的协议，预期是利用XXE来SSRF打&lt;code&gt;/actuator/jolokia/&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;这儿有俩坑点，docker端口是开在58082的，SSRF的时候请求端口需要访问&lt;code&gt;/actuator/env&lt;/code&gt;来获得，是8080&lt;/p&gt;
-&lt;p&gt;构造SSRF之后，访问&lt;code&gt;/actuator/jolokia/list&lt;/code&gt;会发现报错：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308716.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
-&lt;p&gt;这是因为&lt;code&gt;/jolokia/list&lt;/code&gt;返回的数据太长了，而且里面有一些特殊符号会报&lt;code&gt;XML document structures must start and end within the same entity.&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;于是后面给了附件pom.xml，可以本地起起来看一下有什么Mbean。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308295.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
-&lt;p&gt;然后可以判断远程环境是否存在这个Mbean：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308676.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
-&lt;p&gt;如果不存在返回的是上图，如果存在返回的是下图两种情况&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202112011308232.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
-&lt;p&gt;那么便可以直接用&lt;code&gt;com.sun.management:type=DiagnosticCommand/compilerDirectivesAdd/!/flag&lt;/code&gt;来读取flag了。&lt;/p&gt;
-</description>
-                
-                
-                
-                
-                
-                    
-                        
-                            
-                                
-                                
-                                
-                                    <category domain="https://blog.wh1sper.com/categories/note/">note</category>
-                                
-                            
-                        
-                    
-                        
-                            
-                                
-                                
-                                
-                                    <category domain="https://blog.wh1sper.com/tags/java/">Java</category>
-                                
-                            
-                                
-                                
-                                
-                                    <category domain="https://blog.wh1sper.com/tags/jolokia/">Jolokia</category>
                                 
                             
                         
