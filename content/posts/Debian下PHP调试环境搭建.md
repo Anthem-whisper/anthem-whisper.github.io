@@ -11,8 +11,6 @@ tags:
 ---
 # Debian下PHP调试环境搭建
 
-> 本文永久链接：http://wh1sper.com/debian%e4%b8%8bphp-xdebug%e8%b0%83%e8%af%95%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba/
-
 ### 前言
 
 Xdebug是PHP的扩展，用于协助调试和开发。

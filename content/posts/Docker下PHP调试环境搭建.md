@@ -1,7 +1,7 @@
 ---
 title: "Docker下PHP调试环境搭建"
 date: 2023-01-29T15:52:26+08:00
-draft: true
+draft: false
 image: 
 description: 
 comments: true
@@ -17,7 +17,7 @@ tags:
 
 
 
-承接上一篇[Debian下PHP 调试环境搭建]()
+承接上一篇[Debian下PHP 调试环境搭建](https://blog.wh1sper.com/posts/debian%E4%B8%8Bphp%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/)
 
 但是在虚拟机里安装PhpStorm或者在本机上调试都是不太优雅的方案，使用Docker运行调试不用担心php版本的问题，也不用去担心如何倒腾破环了宿主机的环境。
 
@@ -137,7 +137,9 @@ services:
       XDEBUG_SESSION: "PHPSTORM"
 ```
 
+docker和IDE都在一台电脑上的情况下，让xdebug直接把debug信息打到宿主机IP也就是`host.docker.internal`就可以了
 
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301292235122.png)
 
 ## Reference
 
