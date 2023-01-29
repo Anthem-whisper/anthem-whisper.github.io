@@ -1,5 +1,5 @@
 ---
-title: Debian下PHP Xdebug调试环境搭建
+title: Debian下PHP调试环境搭建
 date: 2021-02-19
 image: 
 description: PhpStorm配合Xdebug的调试环境搭建
@@ -7,8 +7,9 @@ categories:
 - note
 tags:
 - 代码审计
+- xdebug
 ---
-# Debian下PHP Xdebug调试环境搭建
+# Debian下PHP调试环境搭建
 
 > 本文永久链接：http://wh1sper.com/debian%e4%b8%8bphp-xdebug%e8%b0%83%e8%af%95%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba/
 
