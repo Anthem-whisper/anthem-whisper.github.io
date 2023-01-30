@@ -80,7 +80,7 @@ badge: false
                   <div>
                      <a href="https://tyskill.github.io/">tyskillのBlog</a>
                   </div>
-                  <div class="info">CTFer in X1cT34m</div>
+                  <div class="info">Weber@X1cT34m</div>
                </div>
             </div>
             <!-- leon-->
@@ -100,7 +100,7 @@ badge: false
                   <div>
                      <a href="https://bycsec.top/">byc_404</a>
                   </div>
-                  <div class="info">Code Auditing / Security Research</div>
+                  <div class="info">Security Research</div>
                </div>
             </div> 
             <!-- 影二つ-->
@@ -110,7 +110,7 @@ badge: false
                   <div>
                      <a href="https://kagehutatsu.com/">影二つ</a>
                   </div>
-                  <div class="info">Pwner@x1ct34m@SU</div>
+                  <div class="info">Pwner@X1cT34m@SU</div>
                </div>
             </div> 
             <!-- xjzsq-->
@@ -141,5 +141,15 @@ badge: false
                      <a href="http://www.yang99.top/">Yang_99</a>
                   </div>
                   <div class="info">Web安全/CTF</div>
+               </div>
+            </div>
+            <!-- N1k0la -->
+            <div class="card">
+               <img class="ava" src="https://s.p.qq.com/pub/get_face?img_type=5&uin=2500316932" />
+               <div class="card-header">
+                  <div>
+                     <a href="n1k0la-t.github.io">N1k0la</a>
+                  </div>
+                  <div class="info">Weber@X1cT34m</div>
                </div>
             </div>

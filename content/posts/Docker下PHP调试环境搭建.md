@@ -144,7 +144,21 @@ docker pull wh1sperdiyu/php-82-apache-xdebug-32:latest
 docker pull wh1sperdiyu/php-74-apache-xdebug-30:latest
 ```
 
-docker和IDE都在一台电脑上的情况下，让xdebug直接把debug信息打到宿主机IP也就是`host.docker.internal`就可以了
+## 配置PhpStorm
+
+在`设置-PHP-服务器`中添加一个服务器，信息按照实际情况填写。选择路径映射，服务器上的绝对路径填写根目录，我这个镜像是`/var/www/html/`
+
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301301841125.png)
+
+添加一个运行配置，选择刚才的服务器
+
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301301844891.png)
+
+可以验证一下，注意此时需要服务器能访问到IDE的机器才可以验证成功
+
+![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301301845909.png)
+
+点击右上角开始监听，docker和IDE都在一台电脑上的情况下，让xdebug直接把debug信息打到宿主机IP也就是`host.docker.internal`就可以了
 
 ![](https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202301292235122.png)
 
