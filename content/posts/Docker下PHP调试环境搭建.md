@@ -137,11 +137,10 @@ services:
       XDEBUG_SESSION: "PHPSTORM"
 ```
 
-嫌麻烦也可以直接拉image：
+可见[Github](https://github.com/Anthem-whisper/docker-debug-images)，嫌麻烦也可以直接从[Dockerhub](https://hub.docker.com/r/wh1sperdiyu/php-82-apache-xdebug-32)拉image：
 
 ```bash
 docker pull wh1sperdiyu/php-82-apache-xdebug-32:latest
-docker pull wh1sperdiyu/php-74-apache-xdebug-30:latest
 ```
 
 ## 配置PhpStorm
