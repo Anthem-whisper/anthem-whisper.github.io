@@ -148,7 +148,7 @@ badge: false
                <img class="ava" src="https://s.p.qq.com/pub/get_face?img_type=5&uin=2500316932" />
                <div class="card-header">
                   <div>
-                     <a href="n1k0la-t.github.io">N1k0la</a>
+                     <a href="https://n1k0la-t.github.io">N1k0la</a>
                   </div>
                   <div class="info">Weber@X1cT34m</div>
                </div>
