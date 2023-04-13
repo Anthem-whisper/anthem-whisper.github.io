@@ -153,3 +153,13 @@ badge: false
                   <div class="info">Weber@X1cT34m</div>
                </div>
             </div>
+            <!-- slightwind -->
+            <div class="card">
+               <img class="ava" src="https://blog.slightwind.cn/img/apple-touch-icon.png" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://blog.slightwind.cn">Slightwind</a>
+                  </div>
+                  <div class="info">Cryptoer@X1cT34m</div>
+               </div>
+            </div>
